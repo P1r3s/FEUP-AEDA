@@ -3,7 +3,7 @@
 
 using namespace std;
 
-//Funçoes independentes
+//FunÃ§oes independentes
 int hours(string horas)
 {
 	int i;
@@ -40,62 +40,51 @@ string addHour(string hora, int duracao)
 {
 	int x = hours(hora);
 	int m = minutes(hora);
-	if(duracao == 30)
-	{
-		m += duracao;
-		if(m == 60)
-		{
-			x++;
-			string novaHora = to_string(x);
-			return novaHora + ":00";
-		}
-		else if(m == 30)
-		{
-			string novaHora = to_string(x);
-			return novaHora + ":30";
-		}
-	}
-	else if(duracao == 60)
-	{
-		x++;
-		string novaHora = to_string(x);
-		return novaHora + ':' + to_string(m);
-	}
-	else if(duracao == 90)
-	{
-		m += 30;
-				if(m == 60)
-				{
-					x++;
-					string novaHora = to_string(x);
-					novaHora = novaHora + ":00";
-				}
-				else if(m == 30)
-				{
-					string novaHora = to_string(x);
-					novaHora = novaHora + ":30";
-				}
-	}
-}
-
-string changeHour(string hora, int duracao)
-{
 	switch(duracao)
 	{
-	case 30:
-		if(minutes(hora)+30 == 60)
-		{
-			addHour(hora, 30);
-		}
-		break;
-	case 60:
-		break;
-	case 90:
-		break;
-	case 120:
-		break;
+		case 30:
+			m += duracao;
+			if(m == 60)
+			{
+				x++;
+				string novaHora = to_string(x);
+				novaHora = novaHora + ":00";
+			}
+			else if(m == 30)
+			{
+				string novaHora = to_string(x);
+				novaHora = novaHora + ":30";
+			}
+			break;
+		case 60:
+			x++;
+			string novaHora = to_string(x);
+			novaHora = novaHora + ':' + to_string(m);
+			break;
+		case 90:
+			x++;
+			m += 30;
+			if(m == 30)
+			{
+				string novaHora = to_string(x);
+				novaHora = novaHora + ":30";
+			}
+			else if(m == 60)
+			{
+				x++;
+				string novaHora = to_string(x);
+				novaHora = novaHora + ":00";
+			}
+			break;
+		case 120:
+			x += 2;
+			string novaHora = to_string(x);
+			novaHora = novaHora + ':' + to_string(m);
+			break;
 	}
+	return novaHora;
 }
+
 ////
 
 //Classe Modos
@@ -113,7 +102,7 @@ Aula::Aula(int campo, double preco, string horaI, string horaF): Modos(campo, pr
 	this->duracao=60;
 	this->horaI = horaI;
 	this->preco = preco;
-	horaF = addHour(horaI, 0);
+	horaF = addHour(horaI, 60);
 
 }
 
@@ -128,6 +117,7 @@ Livre::Livre(int campo, double preco, int duracao, string horaI, string horaF): 
 	this->duracao = duracao;
 	this->horaI = horaI;
 	this->preco = preco;
+	horaF = addHour(horaI, duracao);
 }
 
 double Livre::PrecoSessao() const {
