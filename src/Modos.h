@@ -7,11 +7,11 @@ using namespace std;
 
 class Modos {
 	int campo;
-	//	double preco;
+	double preco;
 public:
 	Modos(int campo, double preco);
 	virtual ~Modos() {};
-	double preco;
+	virtual double PrecoSessao() const;
 };
 
 
