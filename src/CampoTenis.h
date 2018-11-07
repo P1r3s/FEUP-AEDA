@@ -14,11 +14,12 @@ public:
 	string getHoraEncerramento();
 	//vector<Pessoa> getProfessors();
 	int NumMaximoUtentes() const;
+	void addAula(Aula a);
 
 private:
 	int nCampos;
 	int lotacao;
 	string horaAbertura;
 	string horaEncerramento;
-	//vector<Pessoa> professores;            //vector com todos os professores
+	vector<Professor> professores;            //vector com todos os professores
 };

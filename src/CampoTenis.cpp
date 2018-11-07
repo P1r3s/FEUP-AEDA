@@ -35,3 +35,19 @@ int CampoTenis::NumMaximoUtentes() const
 {
 	return lotacao;
 }
+
+void CampoTenis::addAula(Aula a)
+{
+	int minimo = professores[0].getAulaVec().size(), index = 0;
+	for (size_t i = 1; i < professores.size(); i++)
+	{
+		if (professores[i].getAulaVec().size() < minimo)
+		{
+			minimo = professores[i].getAulaVec().size();
+			index = i;
+		}
+	}
+
+	professores[index].getAulaVec().push_back(a);
+
+}

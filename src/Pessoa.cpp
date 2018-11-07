@@ -32,11 +32,9 @@ Pessoa::Pessoa(string nome, int idade)
 	this->idade = idade;
 }
 
-Professor::Professor(string nome, int idade, string entrada, string saida, int nrAulas) : Pessoa(nome, idade)
+Professor::Professor(string nome, int idade) : Pessoa(nome, idade)
 {
-	horario[0] = entrada;
-	horario[1] = saida;
-	this->nrAulas = nrAulas;
+	
 }
 
 Utente::Utente(string nome, int idade, bool goldCard) : Pessoa(nome, idade)
@@ -56,6 +54,7 @@ int Pessoa::getAge()
 	return idade;
 }
 
+/*
 string Professor::getEntryHour()
 {
 	return horario[0];
@@ -65,9 +64,15 @@ string Professor::getOffHour()
 {
 	return horario[1];
 }
+*/
 
 int Professor::getNrAulas() {
-	return nrAulas;
+	return aulas.size();
+}
+
+vector<Aula> Professor::getAulaVec()
+{
+	return aulas;
 }
 
 bool Utente::getGoldCard()

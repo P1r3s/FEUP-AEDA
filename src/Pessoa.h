@@ -20,16 +20,17 @@ private:
 class Professor : public Pessoa
 {
 public:
-	Professor(string nome, int idade, string entrada, string saida, int nrAulas);
+	Professor(string nome, int idade);
 	~Professor() {}
-	string getEntryHour();
-	string getOffHour();
+	//string getEntryHour();
+	//string getOffHour();
 	int getNrAulas();
+	vector<Aula> getAulaVec();
 private:
-	string horario[2];           //horario[0] = horas a que o professor entra || horario[1] = horas a que o professor sai
-	//vector<aula> aulas;        vector com as aulas que o professor tem de dar (TO DO: class aula)
-	vector<Professor> professores;
-	int nrAulas;
+	//string horario[2];           //horario[0] = horas a que o professor entra || horario[1] = horas a que o professor sai
+	vector<Aula> aulas;        //vector com as aulas que o professor tem de dar (TO DO: class aula)
+	//vector<Professor> professores;
+	//int nrAulas;
 };
 
 class Utente : public Pessoa

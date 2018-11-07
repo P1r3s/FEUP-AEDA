@@ -8,8 +8,9 @@ using namespace std;
 class Modos {
 	int campo;
 	double preco;
+	int nSlots;
 public:
-	Modos(int campo, double preco);
+	Modos(int campo, double preco, int nSlots);
 	virtual ~Modos() {};
 	virtual double PrecoSessao() const;
 };
@@ -17,9 +18,10 @@ public:
 
 class Aula : public Modos {
 	int duracao;
-	string horaI, horaF;
+	//string horaI, horaF;
+	int indexAula;
 public:
-	Aula(int campo, double preco, int duracao, string horaI, string horaF);
+	Aula(int campo, int indexAula, double preco, int nSlots);
 	virtual ~Aula() {};
 	double PrecoSessao() const;
 
@@ -27,12 +29,24 @@ public:
 
 class Livre : public Modos {
 	int duracao;
-	string horaI, horaF;
+	//string horaI, horaF;
+	int nSlots;
 public:
-	Livre(int campo, double preco, int duracao, string horaI, string horaF);
+	Livre(int campo, double preco, int nSlots);
 	virtual ~Livre() {};
 	double PrecoSessao() const;
 
 };
+
+class InvalidSlot
+{
+public:
+	InvalidSlot(int nSlots) { this->nSlots = nSlots; }
+	int getNslots() { return nSlots; }
+
+private:
+	int nSlots;
+};
+
 
 #endif /* SRC_MODOS_H_ */
