@@ -7,7 +7,7 @@ using namespace std;
 
 class Modos {
 	int campo;
-//	double preco;
+	//	double preco;
 public:
 	Modos(int campo, double preco);
 	virtual ~Modos() {};
@@ -19,7 +19,7 @@ class Aula : public Modos {
 	int duracao;
 	string horaI, horaF;
 public:
-	Aula(int campo, double preco,int duracao, string horaI, string horaF);
+	Aula(int campo, double preco, int duracao, string horaI, string horaF);
 	virtual ~Aula() {};
 	double PrecoSessao() const;
 

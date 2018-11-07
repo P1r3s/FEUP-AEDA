@@ -1,6 +1,8 @@
-
 #include <string>
+
 #include "Modos.h"
+
+
 using namespace std;
 
 class Pessoa

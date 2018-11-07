@@ -1,9 +1,9 @@
 #pragma once
+
 #include <string>
 #include<vector>
 
 using namespace std;
-
 
 class CampoTenis
 {
@@ -22,5 +22,3 @@ private:
 	string horaEncerramento;
 	//vector<Pessoa> professores;            //vector com todos os professores
 };
-
-
