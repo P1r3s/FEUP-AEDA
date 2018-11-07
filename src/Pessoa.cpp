@@ -20,7 +20,7 @@ int minutes(string horas)
 {
 	int i;
 	i = horas.find_first_of(':');
-	string m = horas.substr(i);
+	string m = horas.substr(i + 1);
 	return stoi(m);
 }
 
