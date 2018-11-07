@@ -38,6 +38,7 @@ int minutes(string horas)
 
 string addHour(string hora, int duracao)
 {
+	string novaHora;
 	int x = hours(hora);
 	int m = minutes(hora);
 	switch(duracao)
@@ -97,7 +98,7 @@ Modos::Modos(int campo, double preco) {
 }
 
 //Classe Modo de Aula
-Aula::Aula(int campo, double preco, string horaI, string horaF): Modos(campo, preco)
+Aula::Aula(int campo, double preco,int duracao, string horaI, string horaF): Modos(campo, preco)
 {
 	this->duracao=60;
 	this->horaI = horaI;

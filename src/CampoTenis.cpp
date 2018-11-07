@@ -24,10 +24,10 @@ string CampoTenis::getHoraEncerramento()
 	return horaEncerramento;
 }
 
-vector<Pessoa> CampoTenis::getProfessors()
-{
-	return professores;
-}
+//vector<Pessoa> CampoTenis::getProfessors()
+//{
+//	return professores;
+//}
 
 int CampoTenis::NumMaximoUtentes() const
 {

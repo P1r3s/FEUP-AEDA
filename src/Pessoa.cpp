@@ -3,6 +3,7 @@
 #include <vector>
 #include "Pessoa.h"
 #include "CampoTenis.h"
+#include "Modos.h"
 
 using namespace std;
 
@@ -30,10 +31,11 @@ Pessoa::Pessoa(string nome, int idade)
 	this->idade = idade;
 }
 
-Professor::Professor(string nome, int idade, string entrada, string saida) : Pessoa(nome, idade) 
+Professor::Professor(string nome, int idade, string entrada, string saida, int nrAulas) : Pessoa(nome, idade)
 {
 	horario[0] = entrada;
 	horario[1] = saida;
+	this->nrAulas=nrAulas;
 }
 
 Utente::Utente(string nome, int idade, bool goldCard) : Pessoa(nome, idade)
@@ -63,6 +65,10 @@ string Professor::getOffHour()
 	return horario[1];
 }
 
+int Professor::getNrAulas(){
+	return nrAulas;
+}
+
 bool Utente::getGoldCard()
 {
 	return goldCard;
@@ -71,9 +77,22 @@ bool Utente::getGoldCard()
 double Utente::getPrice() const {
 
 	//falta implementar
-	if (goldCard == true)
-		return Aula.preco*0.85;
-	else
-		return Aula.preco;
+//	if (goldCard == true)
+//		return Aula->preco*0.85;
+//	else
+//		return Aula.preco;
+//	}
+	double precoTotalLivres=0;
+	for(unsigned int i=0; i< livresDoUtente.size();i++){
+		precoTotalLivres += livresDoUtente[i].PrecoSessao();
 	}
+
+	double precoTotalAulas=0;
+	if(goldCard == true){
+		precoTotalAulas = aulasDoUtente.size()*aulasDoUtente[0].PrecoSessao()*0.85;
+	}else{
+		precoTotalAulas=aulasDoUtente.size()*aulasDoUtente[0].PrecoSessao();
+	}
+
+	return precoTotalLivres+precoTotalAulas;
 }

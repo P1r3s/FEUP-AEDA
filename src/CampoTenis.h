@@ -12,7 +12,7 @@ public:
 	~CampoTenis() {}
 	string getHoraAbertura();
 	string getHoraEncerramento();
-	vector<Pessoa> getProfessors();
+	//vector<Pessoa> getProfessors();
 	int NumMaximoUtentes() const;
 
 private:
@@ -20,7 +20,7 @@ private:
 	int lotacao;
 	string horaAbertura;
 	string horaEncerramento;
-	vector<Pessoa> professores;            //vector com todos os professores
+	//vector<Pessoa> professores;            //vector com todos os professores
 };
 
 
