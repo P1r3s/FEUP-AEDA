@@ -9,7 +9,8 @@
 using namespace std;
 
 int main() {
-
+	Utente Joao("Joao", 18, true);
+	cout << Joao.getGoldCard();
 	
 	return 0;
 }

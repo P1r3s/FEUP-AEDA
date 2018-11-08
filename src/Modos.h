@@ -3,9 +3,11 @@
 
 #include <string>
 
+
 using namespace std;
 
 class Modos {
+protected:
 	int campo;
 	double preco;
 	int nSlots;

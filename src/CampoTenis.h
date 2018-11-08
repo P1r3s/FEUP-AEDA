@@ -1,7 +1,12 @@
+#ifndef CampoTenis_h_
+#define CampoTenis_h_
+
 #pragma once
 
 #include <string>
 #include<vector>
+#include "Modos.h"
+#include "Pessoa.h"
 
 using namespace std;
 
@@ -40,3 +45,4 @@ private:
 	string nome;
 };
 
+#endif

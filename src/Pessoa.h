@@ -1,6 +1,12 @@
-#include <string>
+#ifndef Pessoa_h_
+#define Pessoa_h_
 
+ // !Pessoa_h_
+
+
+#include <string>
 #include "Modos.h"
+
 
 
 using namespace std;
@@ -12,7 +18,7 @@ public:
 	~Pessoa() {}
 	string getName();
 	int getAge();
-private:
+protected:
 	string nome;
 	int idade;
 };
@@ -26,10 +32,9 @@ public:
 	//string getOffHour();
 	int getNrAulas();
 	vector<Aula> getAulaVec();
-private:
-	//string horario[2];           //horario[0] = horas a que o professor entra || horario[1] = horas a que o professor sai
+private:          
 	vector<Aula> aulas;        //vector com as aulas que o professor tem de dar (TO DO: class aula)
-	//int nrAulas;
+	
 };
 
 class Utente : public Pessoa
@@ -39,8 +44,10 @@ public:
 	~Utente() {}
 	bool getGoldCard();
 	double getPrice() const;
-private:
+protected:
 	bool goldCard;               //verifica se o utente tem cartao gold
-	vector<Aula> aulasDoUtente;
-	vector<Livre> livresDoUtente;
+	vector<Aula> aulasDoUtente;   // Vetor com as aulas do utente
+	vector<Livre> livresDoUtente; // Vetor com os livres do utente
 };
+
+#endif

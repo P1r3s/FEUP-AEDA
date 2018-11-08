@@ -3,7 +3,6 @@
 #include <vector>
 
 
-#include "Pessoa.h"
 #include "CampoTenis.h"
 
 using namespace std;
@@ -56,8 +55,8 @@ int CampoTenis::getNumUtentes()
 
 void CampoTenis::addAula(Aula a)
 {
-	int minimo = professores[0].getAulaVec().size(), index = 0;
-	for (size_t i = 1; i < professores.size(); i++)
+	unsigned int minimo = professores[0].getAulaVec().size(), index = 0;
+	for (unsigned int i = 1; i < professores.size(); i++)
 	{
 		if (professores[i].getAulaVec().size() < minimo)
 		{

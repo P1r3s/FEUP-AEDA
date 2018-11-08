@@ -3,26 +3,10 @@
 #include <vector>
 
 #include "Pessoa.h"
-#include "CampoTenis.h"
-#include "Modos.h"
+
 
 using namespace std;
 
-int hours(string horas)
-{
-	int i;
-	i = horas.find_first_of(':');
-	string h = horas.substr(0, i);
-	return stoi(h);
-}
-
-int minutes(string horas)
-{
-	int i;
-	i = horas.find_first_of(':');
-	string m = horas.substr(i + 1);
-	return stoi(m);
-}
 
 ///Construtores
 
@@ -95,7 +79,7 @@ double Utente::getPrice() const {
 	}
 
 	double precoTotalAulas = 0;
-	if (goldCard == true) {
+	if (goldCard) {
 		precoTotalAulas = aulasDoUtente.size()*aulasDoUtente[0].PrecoSessao()*0.85;
 	}
 	else {

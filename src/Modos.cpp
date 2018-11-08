@@ -108,12 +108,12 @@ double Aula::PrecoSessao() const {
 //Classe Modo Livre
 Livre::Livre(int campo, double preco, int nSlots) : Modos(campo, preco, nSlots)
 {
-	<
+	
 	//this->horaI = horaI;
 	//horaF = addHour(horaI, duracao);
 }
 
 double Livre::PrecoSessao() const {
 	//return (duracao / 30)*preco;
-	return nSlot * preco;
+	return nSlots * preco;
 }
