@@ -29,7 +29,6 @@ public:
 private:
 	//string horario[2];           //horario[0] = horas a que o professor entra || horario[1] = horas a que o professor sai
 	vector<Aula> aulas;        //vector com as aulas que o professor tem de dar (TO DO: class aula)
-	//vector<Professor> professores;
 	//int nrAulas;
 };
 

@@ -34,7 +34,6 @@ Pessoa::Pessoa(string nome, int idade)
 
 Professor::Professor(string nome, int idade) : Pessoa(nome, idade)
 {
-	
 }
 
 Utente::Utente(string nome, int idade, bool goldCard) : Pessoa(nome, idade)
