@@ -12,6 +12,22 @@
 #include <algorithm>
 #include <iomanip>
 
+void lerficheiroAulas() {
+
+}
+
+void lerficheiroProfessores() {
+
+}
+
+void lerficheiroUtentes() {
+
+}
+
+void criarFicheiros() {
+
+}
+
 int ocupacaoCampos() {
 	return 0;
 }

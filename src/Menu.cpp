@@ -19,14 +19,14 @@ void Menu() {
 
 			switch (opcao) {
 			case 1:
-				//lerficheiroAulas();
-				//lerficheiroProfessores();
-				//lerficheiroUtentes();
+				lerficheiroAulas();
+				lerficheiroProfessores();
+				lerficheiroUtentes();
 				cout << "Ficheiros carregados!" << endl;
 				Menu1();
 				break;
 			case 2:
-				//criarFicheiros();
+				criarFicheiros();
 				cout << "Ficheiros criados!" << endl;
 				Menu1();
 				break;
@@ -189,7 +189,7 @@ void menu4() {
 	cout << "Horario dos Professores: " << endl;
 	cout << endl;
 
-	horarioProfessores(); //implementar
+	horarioProfessores(); 
 
 	cout << endl << endl;
 	Menu1();
