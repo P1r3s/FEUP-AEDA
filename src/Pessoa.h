@@ -32,6 +32,7 @@ public:
 	//string getOffHour();
 	int getNrAulas();
 	vector<Aula> getAulaVec();
+	void aulasAdd(Aula a);
 private:          
 	vector<Aula> aulas;        //vector com as aulas que o professor tem de dar (TO DO: class aula)
 	
@@ -44,6 +45,8 @@ public:
 	~Utente() {}
 	bool getGoldCard();
 	double getPrice() const;
+	void aulasAdd(Aula a);
+	void livresAdd(Livre l);
 protected:
 	bool goldCard;               //verifica se o utente tem cartao gold
 	vector<Aula> aulasDoUtente;   // Vetor com as aulas do utente

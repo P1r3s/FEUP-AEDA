@@ -58,6 +58,11 @@ vector<Aula> Professor::getAulaVec()
 	return aulas;
 }
 
+void Professor::aulasAdd(Aula a)
+{
+	aulas.push_back(a);
+}
+
 bool Utente::getGoldCard()
 {
 	return goldCard;
@@ -87,4 +92,14 @@ double Utente::getPrice() const {
 	}
 
 	return precoTotalLivres + precoTotalAulas;
+}
+
+void Utente::aulasAdd(Aula a)
+{
+	aulasDoUtente.push_back(a);
+}
+
+void Utente::livresAdd(Livre l)
+{
+	livresDoUtente.push_back(l);
 }
