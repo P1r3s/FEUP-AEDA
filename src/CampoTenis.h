@@ -29,10 +29,12 @@ public:
 private:
 	int nCampos;
 	int lotacao_por_campo;
+	int numeroSlots;
 	string horaAbertura;
 	string horaEncerramento;
 	vector<Professor> professores;            // Vector com todos os professores
 	vector<Utente> utentes;                   // vector com todos os utentes.
+
 };
 
 class Exception

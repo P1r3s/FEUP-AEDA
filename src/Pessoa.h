@@ -1,10 +1,18 @@
 #ifndef Pessoa_h_
 #define Pessoa_h_
 
- // !Pessoa_h_
+// !Pessoa_h_
 
-
+#include <iostream>
+#include <fstream>
 #include <string>
+#include <vector>
+//#include <unistd.h>
+#include <sstream>
+#include <list>
+#include <algorithm>
+#include <iomanip>
+
 #include "Modos.h"
 
 
@@ -33,9 +41,9 @@ public:
 	int getNrAulas();
 	vector<Aula> getAulaVec();
 	void aulasAdd(Aula a);
-private:          
+private:
 	vector<Aula> aulas;        //vector com as aulas que o professor tem de dar (TO DO: class aula)
-	
+
 };
 
 class Utente : public Pessoa

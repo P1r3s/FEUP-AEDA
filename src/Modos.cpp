@@ -5,22 +5,8 @@
 using namespace std;
 
 //Funçoes independentes
-int hours(string horas)
-{
-	int i;
-	i = horas.find_first_of(':');
-	string h = horas.substr(0, i);
-	return stoi(h);
-}
 
-int minutes(string horas)
-{
-	int i;
-	i = horas.find_first_of(':');
-	string m = horas.substr(i + 1);
-	return stoi(m);
-}
-
+/*
 string addHour(string hora, int duracao)
 {
 	string novaHora;
@@ -69,7 +55,7 @@ string addHour(string hora, int duracao)
 		break;
 	}
 	return novaHora;
-}
+}*/
 
 ////
 

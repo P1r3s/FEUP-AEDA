@@ -7,12 +7,33 @@
 
 using namespace std;
 
+int hours(string horas)
+{
+	int i;
+	i = horas.find_first_of(':');
+	string h = horas.substr(0, i);
+	return stoi(h);
+}
+
+int minutes(string horas)
+{
+	int i;
+	i = horas.find_first_of(':');
+	string m = horas.substr(i + 1);
+	return stoi(m);
+}
+
 CampoTenis::CampoTenis(int nCampos, string horaA, string horaE, int lotacao)
 {
 	this->nCampos = nCampos;
 	horaAbertura = horaA;
 	horaEncerramento = horaE;
 	lotacao_por_campo = lotacao;
+	int horas = hours(horaE) - hours(horaA);
+	horas = horas * 60;
+	int minutos = minutes(horaE) - minutes(horaA);
+	numeroSlots = (horas + minutos) / 30;
+
 }
 
 string CampoTenis::getHoraAbertura()

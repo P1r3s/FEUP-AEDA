@@ -42,7 +42,6 @@ string Professor::getEntryHour()
 {
 	return horario[0];
 }
-
 string Professor::getOffHour()
 {
 	return horario[1];
