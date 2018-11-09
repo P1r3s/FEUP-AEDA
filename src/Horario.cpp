@@ -1,6 +1,8 @@
+#include <vector>
+
 #include "Horario.h"
 
-
+using namespace std;
 
 Horario::Horario()
 {

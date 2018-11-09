@@ -1,4 +1,12 @@
+#ifndef Horario_h_
+#define Horario_h_
+
 #pragma once
+
+#include <vector>
+
+using namespace std;
+
 class Horario
 {
 public:
@@ -10,3 +18,5 @@ private:
 	vector<vector<int>> month_vec;
 };
 
+
+#endif

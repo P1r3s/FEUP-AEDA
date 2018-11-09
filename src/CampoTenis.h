@@ -45,9 +45,9 @@ public:
 	
 
 private:
-	/*int nCampos;
+	int nCampos;
 	int lotacao_por_campo;
-	int numeroSlots;*/
+	int numeroSlots;
 	string horaAbertura;
 	string horaEncerramento;
 	
