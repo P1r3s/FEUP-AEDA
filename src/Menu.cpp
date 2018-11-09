@@ -1,12 +1,16 @@
 #include "Menu.h"
 #include "Funcoes.h"
+#include <Windows.h>
 
 using namespace std;
 
 void Menu() {
 
 	char quote = 34;
-
+	
+	HANDLE color = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(color, 06);
+	
 	cout << "   ,odOO" << quote << "bo, " << endl;
 	cout << " ,dOOOP'dOOOb," << endl;
 	cout << ",O3OP'dOO3OO33, --------------------------------------------- " << endl;
@@ -15,6 +19,9 @@ void Menu() {
 	cout << "`88383838P,d38'" << endl;
 	cout << " `Y8888P,d88P'" << endl;
 	cout << "   `" << quote << "?8,8P" << quote << "'" << endl;
+	
+	SetConsoleTextAttribute(color, 07);
+	
 	cout << endl << endl;
 	cout << " 1 - Carregar ficheiros existentes" << endl;
 	cout << " 2 - Criar novos ficheiros" << endl;
