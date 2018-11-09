@@ -4,9 +4,17 @@
 using namespace std;
 
 void Menu() {
-	cout << "--------------------------------------------- " << endl;
-	cout << "          ALUGUER DE CAMPOS DE TENIS          " << endl;
-	cout << "--------------------------------------------- " << endl;
+
+	char quote = 34;
+
+	cout << "   ,odOO" << quote << "bo, " << endl;
+	cout << " ,dOOOP'dOOOb," << endl;
+	cout << ",O3OP'dOO3OO33, --------------------------------------------- " << endl;
+	cout << "P" << quote << ",ad33O333O3Ob          ALUGUER DE CAMPOS DE TENIS          " << endl;
+	cout << "?833O338333P" << quote << ",d --------------------------------------------- " << endl;
+	cout << "`88383838P,d38'" << endl;
+	cout << " `Y8888P,d88P'" << endl;
+	cout << "   `" << quote << "?8,8P" << quote << "'" << endl;
 	cout << endl << endl;
 	cout << " 1 - Carregar ficheiros existentes" << endl;
 	cout << " 2 - Criar novos ficheiros" << endl;
