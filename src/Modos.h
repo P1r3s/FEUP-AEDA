@@ -8,11 +8,13 @@ using namespace std;
 
 class Modos {
 protected:
-	int campo;
-	double preco;
+	//int campo;
+	double preco=10;
 	int nSlots;
+	string nU;
+	int data;
 public:
-	Modos(int campo, double preco, int nSlots);
+	Modos(string nU, int nSlots,int data);
 	virtual ~Modos() {};
 	virtual double PrecoSessao() const;
 };
@@ -22,8 +24,11 @@ class Aula : public Modos {
 	int duracao;
 	//string horaI, horaF;
 	int indexAula;
+	//string nU;
+	//int data;
 public:
-	Aula(int campo, int indexAula, double preco, int nSlots);
+	//Aula(int campo, int indexAula, double preco, int nSlots);
+	Aula(string nU, int indexAula, int data, int nSlots);
 	virtual ~Aula() {};
 	double PrecoSessao() const;
 
@@ -31,10 +36,13 @@ public:
 
 class Livre : public Modos {
 	int duracao;
+	int horaI;
+	//string nU;
+	//int data;
 	//string horaI, horaF;
-	int nSlots;
+	//int nSlots;
 public:
-	Livre(int campo, double preco, int nSlots);
+	Livre(string nU, int nSlots,int horaI,int data);
 	virtual ~Livre() {};
 	double PrecoSessao() const;
 

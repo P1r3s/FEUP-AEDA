@@ -1,0 +1,4 @@
+Maria Silva,28,sim
+Pedro Costa,19,nao
+Ines Ribeiro,42,nao
+Andre Pedrosa,15,sim

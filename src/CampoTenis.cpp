@@ -1,11 +1,10 @@
-#include <iostream>
-#include <string>
-#include <vector>
-
 
 #include "CampoTenis.h"
 
 using namespace std;
+
+CampoTenis::CampoTenis()
+{}
 
 int hours(string horas)
 {
@@ -22,7 +21,7 @@ int minutes(string horas)
 	string m = horas.substr(i + 1);
 	return stoi(m);
 }
-
+/*
 CampoTenis::CampoTenis(int nCampos, string horaA, string horaE, int lotacao)
 {
 	this->nCampos = nCampos;
@@ -34,7 +33,7 @@ CampoTenis::CampoTenis(int nCampos, string horaA, string horaE, int lotacao)
 	int minutos = minutes(horaE) - minutes(horaA);
 	numeroSlots = (horas + minutos) / 30;
 
-}
+}*/
 
 string CampoTenis::getHoraAbertura()
 {
@@ -92,7 +91,8 @@ void CampoTenis::addAula(Aula a)
 
 void CampoTenis::addProf(string nome, int idade)
 {
-	Professor prof (nome, idade);
+	Professor prof(nome, idade);
+	//cout << nome << ", " << idade<<endl;
 	professores.push_back(prof);
 }
 

@@ -60,12 +60,13 @@ string addHour(string hora, int duracao)
 ////
 
 //Classe Modos
-Modos::Modos(int campo, double preco, int nSlots) {
+Modos::Modos(string nU, int nSlots,int data) {
 	// TODO Auto-generated constructor stub
-
-	this->campo = campo;
-	this->preco = preco;
+	this->data = data;
+	//this->campo = campo;
+	//this->preco = preco;
 	this->nSlots = nSlots;
+	this->nU = nU;
 }
 
 double Modos::PrecoSessao() const {
@@ -74,12 +75,13 @@ double Modos::PrecoSessao() const {
 }
 
 //Classe Modo de Aula
-Aula::Aula(int campo, int indexAula, double preco, int nSlots) : Modos(campo, preco, nSlots)
+Aula::Aula(string nU, int indexAula, int data, int nSlots) : Modos(nU, nSlots,data)
 {
-	
+	//this->nU = nU;
+	this->indexAula = indexAula;
+	//this->data = data;
 	//this->horaI = horaI;
 	//horaF = addHour(horaI, 60);
-	this->indexAula = indexAula;
 	if (nSlots != 2)
 	{
 		InvalidSlot::InvalidSlot(nSlots);
@@ -88,14 +90,14 @@ Aula::Aula(int campo, int indexAula, double preco, int nSlots) : Modos(campo, pr
 
 double Aula::PrecoSessao() const {
 
-	return preco;
+	return preco*2;
 }
 
 //Classe Modo Livre
-Livre::Livre(int campo, double preco, int nSlots) : Modos(campo, preco, nSlots)
+Livre::Livre(string nU, int nSlots,int horaI,int data) : Modos(nU,nSlots,data)
 {
 	
-	//this->horaI = horaI;
+	this->horaI = horaI;
 	//horaF = addHour(horaI, duracao);
 }
 

@@ -5,8 +5,8 @@
 #include "Pessoa.h"
 
 
-using namespace std;
 
+using namespace std;
 
 ///Construtores
 
@@ -24,7 +24,11 @@ Utente::Utente(string nome, int idade, bool goldCard) : Pessoa(nome, idade)
 {
 	this->goldCard = goldCard;
 }
-
+/*
+vector<Utente> Utente::getUtentes() {
+	return utentes;
+}
+*/
 ///
 
 string Pessoa::getName()
@@ -49,17 +53,27 @@ string Professor::getOffHour()
 */
 
 int Professor::getNrAulas() {
-	return aulas.size();
+	return aulasDoProfessor.size();
 }
 
 vector<Aula> Professor::getAulaVec()
 {
-	return aulas;
+	return aulasDoProfessor;
 }
 
+/*
+vector<Professor> Professor::getProfessores() {
+	return professores;
+}
+
+void Professor::addProfessor(Professor p) {
+	professores.push_back(p);
+	//cout << professores[0].getName() << "," << professores[0].getAge();
+}
+*/
 void Professor::aulasAdd(Aula a)
 {
-	aulas.push_back(a);
+	aulasDoProfessor.push_back(a);
 }
 
 bool Utente::getGoldCard()

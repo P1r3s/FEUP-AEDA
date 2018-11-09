@@ -3,9 +3,17 @@
 
 #pragma once
 
+#include <iostream>
+#include <fstream>
 #include <string>
-#include<vector>
-#include "Modos.h"
+#include <vector>
+//#include <unistd.h>
+#include <sstream>
+#include <list>
+#include <algorithm>
+#include <iomanip>
+
+//#include "Modos.h"
 #include "Pessoa.h"
 
 using namespace std;
@@ -13,7 +21,8 @@ using namespace std;
 class CampoTenis
 {
 public:
-	CampoTenis(int nCampos, string horaA, string horaE, int lotacao);
+	//CampoTenis(int nCampos, string horaA, string horaE, int lotacao);
+	CampoTenis();
 	~CampoTenis() {}
 	string getHoraAbertura();
 	string getHoraEncerramento();
@@ -32,9 +41,12 @@ private:
 	int numeroSlots;
 	string horaAbertura;
 	string horaEncerramento;
+	
 	vector<Professor> professores;            // Vector com todos os professores
 	vector<Utente> utentes;                   // vector com todos os utentes.
-
+	vector<Aula> aulas;
+	vector<Livre> livres;
+	
 };
 
 class Exception

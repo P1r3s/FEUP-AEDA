@@ -14,8 +14,7 @@
 #include <iomanip>
 
 #include "Modos.h"
-
-
+//#include "CampoTenis.h"
 
 using namespace std;
 
@@ -41,8 +40,10 @@ public:
 	int getNrAulas();
 	vector<Aula> getAulaVec();
 	void aulasAdd(Aula a);
-private:
-	vector<Aula> aulas;        //vector com as aulas que o professor tem de dar (TO DO: class aula)
+	vector<Professor> getProfessores();
+	void addProfessor(Professor p);
+protected:
+	vector<Aula> aulasDoProfessor;        //vector com as aulas que o professor tem de dar (TO DO: class aula)
 
 };
 
@@ -55,8 +56,10 @@ public:
 	double getPrice() const;
 	void aulasAdd(Aula a);
 	void livresAdd(Livre l);
+	vector<Utente> getUtentes();
 protected:
 	bool goldCard;               //verifica se o utente tem cartao gold
+	//vector<Utente> utentes;
 	vector<Aula> aulasDoUtente;   // Vetor com as aulas do utente
 	vector<Livre> livresDoUtente; // Vetor com os livres do utente
 };
