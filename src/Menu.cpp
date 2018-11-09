@@ -1,6 +1,53 @@
 #include "Menu.h"
+#include "Funcoes.h"
 
 using namespace std;
+
+int nrC, lotC, ha, hf;
+
+void CriarCampo() {
+	cout << "--------------------------------------------- " << endl;
+	cout << "                CAMPOS DE TENIS               " << endl;
+	cout << "--------------------------------------------- " << endl;
+	cout << endl << endl;
+	cout << " 1 - Criar Campos de Tenis" << endl;
+	cout << " 2 - Sair" << endl;
+	cout << "--------------------------------------------- " << endl;
+	int opcao = 0;
+	cout << endl;
+	cout << "Introduza uma opcao: ";
+
+	while (opcao < 1 || opcao > 2) {
+		if (cin >> opcao) {
+
+			switch (opcao) {
+			case 1:
+				//int nrC, lotC, ha, hf;
+				cout << "Insira o numero de campos de tenis: "; cin >> nrC;  //nao funciona
+				cout << endl;
+				cout << "Insira a lotacao por campos de tenis: "; cin >> lotC;  //nao funciona
+				cout << endl;
+				cout << "Insira hora de abertura: "; cin >> ha;
+				cout << endl;
+				cout << "Insira hora de fecho: "; cin >> hf;
+				cout << endl;
+
+				criaCampo(nrC, lotC);
+				Menu();
+			case 2:
+				Sair();
+				break;
+			default:
+				cout << "Opcao invalida! Introduza uma opcao: ";
+			}
+		}
+		else {
+			cin.clear();
+			cin.ignore(10000, '\n');
+			cout << "Opcao invalida! Introduza nova opcao: ";
+		}
+	}
+}
 
 void Menu() {
 	cout << "--------------------------------------------- " << endl;
@@ -10,6 +57,7 @@ void Menu() {
 	cout << " 1 - Carregar ficheiros existentes" << endl;
 	cout << " 2 - Criar novos ficheiros" << endl;
 	cout << " 3 - Sair" << endl;
+	cout << "--------------------------------------------- " << endl;
 	int opcao = 0;
 	cout << endl;
 	cout << "Introduza uma opcao: ";
@@ -22,12 +70,13 @@ void Menu() {
 				lerficheiroAulas();
 				lerficheiroProfessores();
 				lerficheiroUtentes();
-
+				cout << endl;
 				cout << "Ficheiros carregados!" << endl;
 				Menu1();
 				break;
 			case 2:
 				criarFicheiros();
+				cout << endl;
 				cout << "Ficheiros criados!" << endl;
 				Menu1();
 				break;
@@ -59,6 +108,7 @@ void Menu1() {
 	cout << " 4 - Informacao relativa aos Professores" << endl;
 	cout << " 5 - Voltar ao menu anterior" << endl;
 	cout << " 6 - Sair" << endl;
+	cout << "--------------------------------------------- " << endl;
 
 	int opcao = 0;
 	cout << endl;
@@ -99,11 +149,22 @@ void Menu1() {
 
 
 void menu1() {
-	cout << endl << endl;;
-	cout << "Ocupacao dos Campos de Tenis: " << endl;
+	cout << endl << endl;
+	cout << "Numero de Campos de Tenis: " << endl;
+	int n;
+	n=getNumC();
+	cout << n << endl;
 	cout << endl;
+	cout << "Ocupacao dos Campos de Tenis: " << endl;
 	
-	ocupacaoCampos(); //implementar
+	unsigned int tamV = getNumC();
+	for (unsigned int i = 0; i < tamV; i++) {
+		unsigned int t = i + 1;
+		int c= ocupacaoC(i);
+		cout << "Campo" << t << ": " << c << endl;
+	}
+	 
+	cout << endl;
 	
 	cout << endl << endl;
 	Menu1();
@@ -111,20 +172,28 @@ void menu1() {
 
 void menu2() {
 	cout << endl << endl;
+	cout << "--------------------------------------------- " << endl;
+	cout << "                CAMPOS DE TENIS               " << endl;
+	cout << "--------------------------------------------- " << endl;
 	cout << " 1 - Horario das aulas" << endl;
 	cout << " 2 - Aulas lecionadas por professores" << endl;
 	cout << " 3 - Voltar ao menu anterior" << endl;
 	cout << " 4 - Sair" << endl;
-
+	cout << "--------------------------------------" << endl;
 	int opcao = 0;
 	cout << endl;
 	cout << "Introduza uma opcao: ";
+	int t = 1;
 	while (opcao < 1 || opcao > 4) {
 		if (cin >> opcao) {
 
 			switch (opcao) {
 			case 1:
-				consultarHorario();
+				for (int i = ha; i < hf; i++) {
+					cout << "Aula" << t << ": " <<" Das "<< i << "h" << " as " << i + 1 << "h" << endl;
+					t = t + 1;
+				}
+				menu2();
 				break;
 			case 2:
 				professorDasAulas();
@@ -149,14 +218,19 @@ void menu2() {
 
 void menu3() {
 	cout << endl << endl;
+	cout << "--------------------------------------------- " << endl;
+	cout << "                CAMPOS DE TENIS               " << endl;
+	cout << "--------------------------------------------- " << endl;
 	cout << " 1 - Frequencia dos Utentes" << endl;
 	cout << " 2 - Conta dos Utentes" << endl;
-	cout << " 3 - Voltar ao menu anterior" << endl;
-	cout << " 4 - Sair" << endl;
-
+	cout << " 3 - Gerar relatorio de fim do mes" << endl;
+	cout << " 4 - Voltar ao menu anterior" << endl;
+	cout << " 5 - Sair" << endl;
+	cout << "--------------------------------------" << endl;
 	int opcao = 0;
 	cout << endl;
 	cout << "Introduza uma opcao: ";
+	string no;
 	while (opcao < 1 || opcao > 4) {
 		if (cin >> opcao) {
 
@@ -168,9 +242,14 @@ void menu3() {
 				contasUtentes();
 				break;
 			case 3:
-				Menu1();
+				cout << "Insira o nome do Utente: "; cin >> no;
+				criarDoc(no);
+				criarRelatorioProgresso(no);
 				break;
 			case 4:
+				Menu1();
+				break;
+			case 5:
 				Sair();
 				break;
 			default:

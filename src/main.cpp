@@ -6,8 +6,9 @@
 using namespace std;
 
 int main() {
-	
-	Menu();
+
+	CriarCampo();
+	//Menu();
 
 	system("pause");
 	return 0;

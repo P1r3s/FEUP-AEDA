@@ -10,6 +10,17 @@
 #include <algorithm>
 #include <iomanip>
 
+int nrCamp;
+int lotCamp;
+
+void criaCampo(int nrC, int lotC) {
+	nrCamp = nrC;
+	lotCamp = lotC;
+	CampoTenis c(nrC, lotC);
+}
+
+vector<int> campos(nrCamp, 0);
+
 void lerficheiroAulas() {
 	ifstream file;
 	string line;
@@ -32,7 +43,7 @@ void lerficheiroAulas() {
 			int nrS = stoi(nSlot);
 			int d = stoi(data);
 
-			CampoTenis c;
+			CampoTenis c(nrCamp,lotCamp);
 			c.addAulaVec(nomeU, nrA, d, nrS);
 		}
 		else {
@@ -44,7 +55,7 @@ void lerficheiroAulas() {
 			int d = stoi(data);
 			int h = stoi(hora);
 
-			CampoTenis c;
+			CampoTenis c(nrCamp, lotCamp);
 			c.addLivre(nomeU, nrS, h, d);
 		}
 	}
@@ -65,7 +76,7 @@ void lerficheiroProfessores() {
 
 		int idade = stoi(idadeProf);
 	
-		CampoTenis c;
+		CampoTenis c(nrCamp, lotCamp);
 		c.addProf(nomeProf, idade);
 
 	}
@@ -92,7 +103,7 @@ void lerficheiroUtentes() {
 			goldC = true;
 		}
 		
-		CampoTenis c;
+		CampoTenis c(nrCamp, lotCamp);
 		c.addUtente(nomeUten, idade, goldC);
 	}
 }
@@ -122,5 +133,22 @@ void contasUtentes() {
 }
 
 void horarioProfessores() {
+	//mostra os dias e horas de aulas de cada professor
+}
 
+
+int ocupacaoC(int i) {
+	return campos[i];
+}
+
+int getNumC() {
+	return campos.size();
+}
+
+void criarDoc(string no) {
+	//cria ficheiro .txt com as aulas/livres que frequentou (incluindo a data e horas e valor total)
+}
+
+void criarRelatorioProgresso(string no) {
+	//cria ficheiro .txt com o progresso do utente
 }

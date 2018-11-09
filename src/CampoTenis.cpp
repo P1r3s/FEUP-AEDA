@@ -3,8 +3,15 @@
 
 using namespace std;
 
-CampoTenis::CampoTenis()
-{}
+CampoTenis::CampoTenis(int nCampos, int lotacao_por_campo)
+{
+	this->nCampos = nCampos;
+	this->lotacao_por_campo = lotacao_por_campo;
+}
+
+int CampoTenis::getNumCampos() {
+	return nCampos;
+}
 
 int hours(string horas)
 {

@@ -22,7 +22,7 @@ class CampoTenis
 {
 public:
 	//CampoTenis(int nCampos, string horaA, string horaE, int lotacao);
-	CampoTenis();
+	CampoTenis(int nCampos, int lotacao_por_campo);
 	~CampoTenis() {}
 	string getHoraAbertura();
 	string getHoraEncerramento();
@@ -39,6 +39,7 @@ public:
 	void addUtente(string nome, int idade, bool goldCard);
 	void addLivre(string nU, int nSlots, int horaI, int data);
 	void removeProf(string prof);
+	int getNumCampos();
 
 private:
 	int nCampos;
