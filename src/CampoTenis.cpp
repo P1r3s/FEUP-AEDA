@@ -132,7 +132,7 @@ void CampoTenis::removeProf(string nome)
 
 	if (!removal)
 	{
-		Exception::Exception(nome);
+		throw Exception::Exception(nome);
 	}
 	else
 	{
@@ -152,3 +152,5 @@ void CampoTenis::addLivre(string nU, int nSlots, int horaI, int data) {
 	Livre l(nU,nSlots,horaI,data);
 	livres.push_back(l);
 }
+
+

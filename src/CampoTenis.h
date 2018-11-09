@@ -15,6 +15,7 @@
 
 #include "Modos.h"
 #include "Pessoa.h"
+#include "Horario.h"
 
 using namespace std;
 
@@ -33,18 +34,20 @@ public:
 	int NumMaximoUtentesPorCampo() const;
 	int getNumProfessores();
 	int getNumUtentes();
+	int getNumCampos();
 	void addAula(Aula a);
 	void addAulaVec(string nU, int indexAula, int data, int nSlots);
 	void addProf(string nome, int idade);
 	void addUtente(string nome, int idade, bool goldCard);
 	void addLivre(string nU, int nSlots, int horaI, int data);
 	void removeProf(string prof);
-	int getNumCampos();
+	
+	
 
 private:
-	int nCampos;
+	/*int nCampos;
 	int lotacao_por_campo;
-	int numeroSlots;
+	int numeroSlots;*/
 	string horaAbertura;
 	string horaEncerramento;
 	
@@ -52,6 +55,10 @@ private:
 	vector<Utente> utentes;                   // vector com todos os utentes.
 	vector<Aula> aulas;
 	vector<Livre> livres;
+
+	//vector<int> slot_vec;
+	//vector<vector<int>> month_vec;
+	vector<Horario> campoHorario;
 	
 };
 
