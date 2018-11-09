@@ -32,9 +32,8 @@ void lerficheiroAulas() {
 			int nrS = stoi(nSlot);
 			int d = stoi(data);
 
-			Aula a(nomeU, nrA, d, nrS);
-		/*ADICIONAR AULA CRIADA AO VETOR AULAS*/
-		//getAula.push_back(p);
+			CampoTenis c;
+			c.addAulaVec(nomeU, nrA, d, nrS);
 		}
 		else {
 			getline(aula, hora, ',');
@@ -45,10 +44,8 @@ void lerficheiroAulas() {
 			int d = stoi(data);
 			int h = stoi(hora);
 
-			Livre l(nomeU, nrS, h, d);
-
-		/*ADICIONAR LIVRE CRIADO AO VETOR LIVRES*/
-		//getAula.push_back(p);
+			CampoTenis c;
+			c.addLivre(nomeU, nrS, h, d);
 		}
 	}
 }
@@ -67,8 +64,7 @@ void lerficheiroProfessores() {
 		getline(prof, idadeProf);
 
 		int idade = stoi(idadeProf);
-		//Professor p(nomeProf,idade);
-		/*ADICIONAR O PROF CRIADO AO VETOR PROFESSORES*/
+	
 		CampoTenis c;
 		c.addProf(nomeProf, idade);
 
@@ -95,10 +91,9 @@ void lerficheiroUtentes() {
 		if (card == "Sim" || card == "sim" || card == "SIM") {
 			goldC = true;
 		}
-		Utente u(nomeUten, idade, goldC);
-
-		/*ADICIONAR O UTENTE CRIADO AO VETOR UTENTES*/
-		//getUtentes.push_back(u);
+		
+		CampoTenis c;
+		c.addUtente(nomeUten, idade, goldC);
 	}
 }
 

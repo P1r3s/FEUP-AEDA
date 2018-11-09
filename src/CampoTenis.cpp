@@ -55,6 +55,11 @@ vector<Utente> CampoTenis::getUtentes()
 	return utentes;
 }
 
+void CampoTenis::addUtente(string nome, int idade, bool goldCard) {
+	Utente u(nome, idade, goldCard);
+	utentes.push_back(u);
+}
+
 int CampoTenis::NumMaximoUtentesPorCampo() const
 {
 	return lotacao_por_campo;
@@ -70,7 +75,14 @@ int CampoTenis::getNumUtentes()
 	return utentes.size();
 }
 
+vector<Aula> CampoTenis::getAulas() {
+	return aulas;
+}
 
+void CampoTenis::addAulaVec(string nU, int indexAula, int data, int nSlots) {
+	Aula a(nU,indexAula,data,nSlots);
+	aulas.push_back(a);
+}
 
 
 void CampoTenis::addAula(Aula a)
@@ -123,4 +135,13 @@ void CampoTenis::removeProf(string nome)
 		}
 	}
 
+}
+
+vector<Livre> CampoTenis::getLivres() {
+	return livres;
+}
+
+void CampoTenis::addLivre(string nU, int nSlots, int horaI, int data) {
+	Livre l(nU,nSlots,horaI,data);
+	livres.push_back(l);
 }

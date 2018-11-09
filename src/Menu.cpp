@@ -19,9 +19,9 @@ void Menu() {
 
 			switch (opcao) {
 			case 1:
-				//lerficheiroAulas();
+				lerficheiroAulas();
 				lerficheiroProfessores();
-				//lerficheiroUtentes();
+				lerficheiroUtentes();
 
 				cout << "Ficheiros carregados!" << endl;
 				Menu1();

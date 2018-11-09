@@ -13,7 +13,7 @@
 #include <algorithm>
 #include <iomanip>
 
-//#include "Modos.h"
+#include "Modos.h"
 #include "Pessoa.h"
 
 using namespace std;
@@ -28,11 +28,16 @@ public:
 	string getHoraEncerramento();
 	vector<Professor> getProfessors();
 	vector<Utente> getUtentes();
+	vector<Aula> getAulas();
+	vector<Livre> getLivres();
 	int NumMaximoUtentesPorCampo() const;
 	int getNumProfessores();
 	int getNumUtentes();
 	void addAula(Aula a);
+	void addAulaVec(string nU, int indexAula, int data, int nSlots);
 	void addProf(string nome, int idade);
+	void addUtente(string nome, int idade, bool goldCard);
+	void addLivre(string nU, int nSlots, int horaI, int data);
 	void removeProf(string prof);
 
 private:
