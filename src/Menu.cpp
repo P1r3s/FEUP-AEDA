@@ -3,55 +3,9 @@
 
 using namespace std;
 
-int nrC, lotC, ha, hf;
-
-void CriarCampo() {
-	cout << "--------------------------------------------- " << endl;
-	cout << "                CAMPOS DE TENIS               " << endl;
-	cout << "--------------------------------------------- " << endl;
-	cout << endl << endl;
-	cout << " 1 - Criar Campos de Tenis" << endl;
-	cout << " 2 - Sair" << endl;
-	cout << "--------------------------------------------- " << endl;
-	int opcao = 0;
-	cout << endl;
-	cout << "Introduza uma opcao: ";
-
-	while (opcao < 1 || opcao > 2) {
-		if (cin >> opcao) {
-
-			switch (opcao) {
-			case 1:
-				//int nrC, lotC, ha, hf;
-				cout << "Insira o numero de campos de tenis: "; cin >> nrC;  //nao funciona
-				cout << endl;
-				cout << "Insira a lotacao por campos de tenis: "; cin >> lotC;  //nao funciona
-				cout << endl;
-				cout << "Insira hora de abertura: "; cin >> ha;
-				cout << endl;
-				cout << "Insira hora de fecho: "; cin >> hf;
-				cout << endl;
-
-				criaCampo(nrC, lotC);
-				Menu();
-			case 2:
-				Sair();
-				break;
-			default:
-				cout << "Opcao invalida! Introduza uma opcao: ";
-			}
-		}
-		else {
-			cin.clear();
-			cin.ignore(10000, '\n');
-			cout << "Opcao invalida! Introduza nova opcao: ";
-		}
-	}
-}
-
 void Menu() {
 	cout << "--------------------------------------------- " << endl;
-	cout << "                CAMPOS DE TENIS               " << endl;
+	cout << "          ALUGUER DE CAMPOS DE TENIS          " << endl;
 	cout << "--------------------------------------------- " << endl;
 	cout << endl << endl;
 	cout << " 1 - Carregar ficheiros existentes" << endl;
@@ -99,7 +53,7 @@ void Menu() {
 void Menu1() {
 	cout << endl << endl;
 	cout << "--------------------------------------------- " << endl;
-	cout << "                CAMPOS DE TENIS               " << endl;
+	cout << "          ALUGUER DE CAMPOS DE TENIS          " << endl;
 	cout << "--------------------------------------------- " << endl;
 	cout << endl << endl;
 	cout << " 1 - Informacao relativa aos Campos de Tenis" << endl;
@@ -151,19 +105,22 @@ void Menu1() {
 void menu1() {
 	cout << endl << endl;
 	cout << "Numero de Campos de Tenis: " << endl;
-	int n;
-	n=getNumC();
+	CampoTenis c(10,2);
+	int n = c.getNumCampos();
 	cout << n << endl;
 	cout << endl;
 	cout << "Ocupacao dos Campos de Tenis: " << endl;
 	
-	unsigned int tamV = getNumC();
-	for (unsigned int i = 0; i < tamV; i++) {
+
+	//FAZER DISPLAY DO VETOR 
+
+	/*
+	for (unsigned int i = 0; i < n; i++) {
 		unsigned int t = i + 1;
 		int c= ocupacaoC(i);
 		cout << "Campo" << t << ": " << c << endl;
 	}
-	 
+	 */
 	cout << endl;
 	
 	cout << endl << endl;
@@ -173,13 +130,13 @@ void menu1() {
 void menu2() {
 	cout << endl << endl;
 	cout << "--------------------------------------------- " << endl;
-	cout << "                CAMPOS DE TENIS               " << endl;
+	cout << "          ALUGUER DE CAMPOS DE TENIS          " << endl;
 	cout << "--------------------------------------------- " << endl;
 	cout << " 1 - Horario das aulas" << endl;
 	cout << " 2 - Aulas lecionadas por professores" << endl;
 	cout << " 3 - Voltar ao menu anterior" << endl;
 	cout << " 4 - Sair" << endl;
-	cout << "--------------------------------------" << endl;
+	cout << "--------------------------------------------- " << endl;
 	int opcao = 0;
 	cout << endl;
 	cout << "Introduza uma opcao: ";
@@ -189,7 +146,7 @@ void menu2() {
 
 			switch (opcao) {
 			case 1:
-				for (int i = ha; i < hf; i++) {
+				for (int i = 9; i < 20; i++) {
 					cout << "Aula" << t << ": " <<" Das "<< i << "h" << " as " << i + 1 << "h" << endl;
 					t = t + 1;
 				}
@@ -219,14 +176,14 @@ void menu2() {
 void menu3() {
 	cout << endl << endl;
 	cout << "--------------------------------------------- " << endl;
-	cout << "                CAMPOS DE TENIS               " << endl;
+	cout << "          ALUGUER DE CAMPOS DE TENIS          " << endl;
 	cout << "--------------------------------------------- " << endl;
 	cout << " 1 - Frequencia dos Utentes" << endl;
 	cout << " 2 - Conta dos Utentes" << endl;
 	cout << " 3 - Gerar relatorio de fim do mes" << endl;
 	cout << " 4 - Voltar ao menu anterior" << endl;
 	cout << " 5 - Sair" << endl;
-	cout << "--------------------------------------" << endl;
+	cout << "--------------------------------------------- " << endl;
 	int opcao = 0;
 	cout << endl;
 	cout << "Introduza uma opcao: ";

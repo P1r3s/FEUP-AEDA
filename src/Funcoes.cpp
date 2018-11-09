@@ -141,9 +141,9 @@ int ocupacaoC(int i) {
 	return campos[i];
 }
 
-int getNumC() {
-	return campos.size();
-}
+/*int getNumC() {
+	return getNumC();
+}*/
 
 void criarDoc(string no) {
 	//cria ficheiro .txt com as aulas/livres que frequentou (incluindo a data e horas e valor total)

@@ -12,6 +12,6 @@ void lerficheiroUtentes();
 void criarFicheiros();
 int ocupacaoC(int i);
 void criaCampo(int nrC,int lotC);
-int getNumC();
+//int getNumC();
 void criarDoc(string no);
 void criarRelatorioProgresso(string no);

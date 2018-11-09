@@ -12,7 +12,7 @@
 #include <iostream>
 #include <fstream>
 
-void CriarCampo();
+//void CriarCampo();
 void Menu();
 void Menu1();
 void Sair();
