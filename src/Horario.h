@@ -13,6 +13,8 @@ public:
 	Horario();
 	virtual ~Horario() {}
 	void makeCalendar();
+	vector<vector<int>> getMonthVec();
+	vector<int> getSlotVec();
 private:
 	vector<int> slot_vec;
 	vector<vector<int>> month_vec;

@@ -31,6 +31,7 @@ public:
 	vector<Utente> getUtentes();
 	vector<Aula> getAulas();
 	vector<Livre> getLivres();
+	vector<Horario> getHorario();
 	int NumMaximoUtentesPorCampo() const;
 	int getNumProfessores();
 	int getNumUtentes();
@@ -41,7 +42,8 @@ public:
 	void addUtente(string nome, int idade, bool goldCard);
 	void addLivre(string nU, int nSlots, int horaI, int data);
 	void removeProf(string prof);
-	
+	void displayHorario();
+	void addCampo();
 	
 
 private:

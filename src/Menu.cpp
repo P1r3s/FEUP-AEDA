@@ -1,4 +1,4 @@
-﻿#include "Menu.h"
+#include "Menu.h"
 #include "Funcoes.h"
 #include <Windows.h>
 
@@ -9,18 +9,18 @@ void Menu() {
 	char quote = 34;
 	
 	HANDLE color = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(color, 016);
+	SetConsoleTextAttribute(color, 06);
 	
-	cout << "   ,odOO" << quote << "bo," << setw(58) << "   ,odOO" << quote << "bo," << endl;
-	cout << " ,dOOOP'dOOOb," << setw(62) << " ,dOOOP'dOOOb," << endl;
-	cout << ",O3OP'dOO3OO33, --------------------------------------------- ,O3OP'dOO3OO33," << endl;
-	cout << "P" << quote << ",ad33O333O3Ob          ALUGUER DE CAMPOS DE TENIS           P" << quote << ",ad33O333O3Ob" << endl;
-	cout << "?833O338333P" << quote << ",d --------------------------------------------- ?833O338333P" << quote << ",d" << endl;
-	cout << "`88383838P,d38'" << setw(62) << "`88383838P,d38'" << endl;
-	cout << " `Y8888P,d88P'" << setw(62) << " `Y8888P,d88P'" << endl;
-	cout << "   `" << quote << "?8,8P" << quote << "'" << setw(54) << "   `" << quote << "?8,8P" << quote << "'" << endl;
+	cout << "   ,odOO" << quote << "bo, " << endl;
+	cout << " ,dOOOP'dOOOb," << endl;
+	cout << ",O3OP'dOO3OO33, --------------------------------------------- " << endl;
+	cout << "P" << quote << ",ad33O333O3Ob          ALUGUER DE CAMPOS DE TENIS          " << endl;
+	cout << "?833O338333P" << quote << ",d --------------------------------------------- " << endl;
+	cout << "`88383838P,d38'" << endl;
+	cout << " `Y8888P,d88P'" << endl;
+	cout << "   `" << quote << "?8,8P" << quote << "'" << endl;
 	
-	SetConsoleTextAttribute(color, 017);
+	SetConsoleTextAttribute(color, 07);
 	
 	cout << endl << endl;
 	cout << " 1 - Carregar ficheiros existentes" << endl;

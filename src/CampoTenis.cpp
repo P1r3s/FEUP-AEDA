@@ -62,6 +62,11 @@ vector<Utente> CampoTenis::getUtentes()
 	return utentes;
 }
 
+vector<Horario> CampoTenis::getHorario()
+{
+	return campoHorario;
+}
+
 void CampoTenis::addUtente(string nome, int idade, bool goldCard) {
 	Utente u(nome, idade, goldCard);
 	utentes.push_back(u);
@@ -153,4 +158,59 @@ void CampoTenis::addLivre(string nU, int nSlots, int horaI, int data) {
 	livres.push_back(l);
 }
 
+void CampoTenis::addCampo()
+{
+	vector<Horario> v;
+	v = getHorario();
+	for (int i = 0; i < getNumCampos(); i++)
+	{
+		v.push_back();
+	}
+}
 
+void CampoTenis::displayHorario()
+{
+	
+
+	for (unsigned int i = 0; i < campoHorario.size(); i++)
+	{
+		unsigned int month_size = campoHorario[i].getMonthVec().size();
+		unsigned int slot_size = campoHorario[i].getSlotVec().size();
+
+		cout << "Campo " << i << " :\n\n";
+		for (unsigned int j = 0; j < slot_size; j++)
+		{
+			int resto = j % 5;
+			switch (resto)
+			{
+			case 0:
+				cout << setw(9) << "MONDAY";
+				break;
+			case 1:
+				cout << setw(9) << "TUESDAY";
+				break;
+			case 2:
+				cout << setw(9) << "WEDNSDAY";
+				break;
+			case 3:
+				cout << setw(9) << "THUSDAY";
+				break;
+			case 4:
+				cout << setw(9) << "FRIDAY";
+				break;
+			default:
+				break;
+			}
+		}
+
+		for (unsigned int k= 0; k < month_size; k++)
+		{
+			for (unsigned int j = 0; j < slot_size; j++)
+			{
+				cout << setw(9) << campoHorario[i].getMonthVec()[k][j];
+			}
+			cout << endl;
+		}
+		cout << endl << endl;
+	}
+}
