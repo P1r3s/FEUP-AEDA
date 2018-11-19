@@ -3,14 +3,25 @@
 
 using namespace std;
 
-CampoTenis::CampoTenis(int nCampos, int lotacao_por_campo)
+CampoTenis::CampoTenis()
 {
-	this->nCampos = nCampos;
-	this->lotacao_por_campo = lotacao_por_campo;
+	this->nCampos = 5;
+	this->lotCampo = 4;
+	this->horaAbertura = "9:00";
+	this->horaEncerramento = "19h00";
+	int horas = hours(horaEncerramento) - hours(horaAbertura);
+	horas = horas * 60;
+	int minutos = minutes(horaEncerramento) - minutes(horaAbertura);
+	nSlots = (horas + minutos) / 30;
 }
 
 int CampoTenis::getNumCampos() {
 	return nCampos;
+}
+
+int CampoTenis::getNumSlots() const {
+
+	return nSlots;
 }
 
 int hours(string horas)
@@ -28,19 +39,6 @@ int minutes(string horas)
 	string m = horas.substr(i + 1);
 	return stoi(m);
 }
-/*
-CampoTenis::CampoTenis(int nCampos, string horaA, string horaE, int lotacao)
-{
-	this->nCampos = nCampos;
-	horaAbertura = horaA;
-	horaEncerramento = horaE;
-	lotacao_por_campo = lotacao;
-	int horas = hours(horaE) - hours(horaA);
-	horas = horas * 60;
-	int minutos = minutes(horaE) - minutes(horaA);
-	numeroSlots = (horas + minutos) / 30;
-
-}*/
 
 string CampoTenis::getHoraAbertura()
 {
@@ -74,7 +72,7 @@ void CampoTenis::addUtente(string nome, int idade, bool goldCard) {
 
 int CampoTenis::NumMaximoUtentesPorCampo() const
 {
-	return lotacao_por_campo;
+	return lotCampo;
 }
 
 int CampoTenis::getNumProfessores()
@@ -91,8 +89,8 @@ vector<Aula> CampoTenis::getAulas() {
 	return aulas;
 }
 
-void CampoTenis::addAulaVec(string nU, int indexAula, int data, int nSlots) {
-	Aula a(nU,indexAula,data,nSlots);
+void CampoTenis::addAulaVec(int dia, string horaInicio) {
+	Aula a(dia, horaInicio);
 	aulas.push_back(a);
 }
 
@@ -110,7 +108,7 @@ void CampoTenis::addAula(Aula a)
 	}
 
 	professores[index].getAulaVec().push_back(a);
-	
+
 }
 
 void CampoTenis::addProf(string nome, int idade)
@@ -153,12 +151,12 @@ vector<Livre> CampoTenis::getLivres() {
 	return livres;
 }
 
-void CampoTenis::addLivre(string nU, int nSlots, int horaI, int data) {
-	Livre l(nU,nSlots,horaI,data);
+void CampoTenis::addLivre(int dia, string horaInicio, int nrSlots) {
+	Livre l(dia, horaInicio, nrSlots);
 	livres.push_back(l);
 }
 
-void CampoTenis::addCampo()
+/*void CampoTenis::addCampo()
 {
 	vector<Horario> v;
 	v = getHorario();
@@ -166,11 +164,11 @@ void CampoTenis::addCampo()
 	{
 		v.push_back();
 	}
-}
+}*/
 
 void CampoTenis::displayHorario()
 {
-	
+
 
 	for (unsigned int i = 0; i < campoHorario.size(); i++)
 	{
@@ -203,7 +201,7 @@ void CampoTenis::displayHorario()
 			}
 		}
 
-		for (unsigned int k= 0; k < month_size; k++)
+		for (unsigned int k = 0; k < month_size; k++)
 		{
 			for (unsigned int j = 0; j < slot_size; j++)
 			{

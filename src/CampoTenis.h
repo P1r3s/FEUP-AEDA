@@ -22,8 +22,7 @@ using namespace std;
 class CampoTenis
 {
 public:
-	//CampoTenis(int nCampos, string horaA, string horaE, int lotacao);
-	CampoTenis(int nCampos, int lotacao_por_campo);
+	CampoTenis();
 	~CampoTenis() {}
 	string getHoraAbertura();
 	string getHoraEncerramento();
@@ -32,36 +31,35 @@ public:
 	vector<Aula> getAulas();
 	vector<Livre> getLivres();
 	vector<Horario> getHorario();
+	int getNumSlots() const;
 	int NumMaximoUtentesPorCampo() const;
 	int getNumProfessores();
 	int getNumUtentes();
 	int getNumCampos();
 	void addAula(Aula a);
-	void addAulaVec(string nU, int indexAula, int data, int nSlots);
+	void addAulaVec(int dia, string horaInicio);
 	void addProf(string nome, int idade);
 	void addUtente(string nome, int idade, bool goldCard);
-	void addLivre(string nU, int nSlots, int horaI, int data);
+	void addLivre(int dia, string horaInicio, int nrSlots);
 	void removeProf(string prof);
 	void displayHorario();
-	void addCampo();
-	
+	//void addCampo();
+
 
 private:
-	int nCampos=10;
-	int lotacao_por_campo=2;
-	int numeroSlots;
+	int nCampos;
+	int lotCampo;
+	int nSlots;
 	string horaAbertura;
 	string horaEncerramento;
-	
+
 	vector<Professor> professores;            // Vector com todos os professores
 	vector<Utente> utentes;                   // vector com todos os utentes.
 	vector<Aula> aulas;
 	vector<Livre> livres;
 
-	//vector<int> slot_vec;
-	//vector<vector<int>> month_vec;
 	vector<Horario> campoHorario;
-	
+
 };
 
 class Exception

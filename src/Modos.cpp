@@ -57,51 +57,33 @@ string addHour(string hora, int duracao)
 	return novaHora;
 }*/
 
-////
 
-//Classe Modos
-Modos::Modos(string nU, int nSlots,int data) {
-	// TODO Auto-generated constructor stub
-	this->data = data;
-	//this->campo = campo;
-	//this->preco = preco;
-	this->nSlots = nSlots;
-	this->nU = nU;
+///Classe Modos
+Modos::Modos(int dia, string horaInicio) {
+
+	this->dia = dia;
+	this->horaInicio = horaInicio;
 }
 
-double Modos::PrecoSessao() const {
-
-	return preco;
-}
-
-//Classe Modo de Aula
-Aula::Aula(string nU, int indexAula, int data, int nSlots) : Modos(nU, nSlots,data)
+///Classe Modo de Aula
+Aula::Aula(int dia, string horaInicio) : Modos(dia, horaInicio)
 {
-	//this->nU = nU;
-	this->indexAula = indexAula;
-	//this->data = data;
-	//this->horaI = horaI;
-	//horaF = addHour(horaI, 60);
-	if (nSlots != 2)
-	{
-		InvalidSlot::InvalidSlot(nSlots);
-	}
+	this->preco = 30;
 }
 
 double Aula::PrecoSessao() const {
 
-	return preco*2;
+	return preco;
 }
 
 //Classe Modo Livre
-Livre::Livre(string nU, int nSlots,int horaI,int data) : Modos(nU,nSlots,data)
+Livre::Livre(int dia, string horaInicio, int nrSlots) : Modos(dia, horaInicio)
 {
-	
-	this->horaI = horaI;
-	//horaF = addHour(horaI, duracao);
+	this->nrSlots = nrSlots;
+	preco = 20;
 }
 
 double Livre::PrecoSessao() const {
-	//return (duracao / 30)*preco;
-	return nSlots * preco;
+
+	return nrSlots * preco;
 }

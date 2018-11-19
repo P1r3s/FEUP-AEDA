@@ -7,45 +7,33 @@
 using namespace std;
 
 class Modos {
-protected:
-	//int campo;
-	double preco=10;
-	int nSlots;
-	string nU;
-	int data;
 public:
-	Modos(string nU, int nSlots,int data);
+	Modos(int dia, string horaInicio);
 	virtual ~Modos() {};
 	virtual double PrecoSessao() const;
+protected:
+	int dia;
+	string horaInicio;
 };
 
 
 class Aula : public Modos {
-	int duracao;
-	//string horaI, horaF;
-	int indexAula;
-	//string nU;
-	//int data;
 public:
-	//Aula(int campo, int indexAula, double preco, int nSlots);
-	Aula(string nU, int indexAula, int data, int nSlots);
+	Aula(int dia, string horaInicio);
 	virtual ~Aula() {};
 	double PrecoSessao() const;
-
+private:
+	double preco;
 };
 
 class Livre : public Modos {
-	int duracao;
-	int horaI;
-	//string nU;
-	//int data;
-	//string horaI, horaF;
-	//int nSlots;
 public:
-	Livre(string nU, int nSlots,int horaI,int data);
+	Livre(int dia, string horaInicio, int nrSlots);
 	virtual ~Livre() {};
 	double PrecoSessao() const;
-
+private:
+	int nrSlots;
+	double preco;
 };
 
 class InvalidSlot

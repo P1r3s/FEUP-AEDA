@@ -29,12 +29,12 @@ void lerficheiroAulas() {
 	while (getline(file, line)) {
 		stringstream aula(line);
 
-		string nomeU, modo, hora, nrAula,nSlot, data;
+		string nomeU, modo, hora, nrAula, nSlot, data;
 
 		getline(aula, nomeU, ',');
-		getline(aula, modo,',');
+		getline(aula, modo, ',');
 
-		if (modo == "Aula"||modo=="aula"||modo=="AULA") {
+		if (modo == "Aula" || modo == "aula" || modo == "AULA") {
 			getline(aula, nrAula, ',');
 			getline(aula, nSlot, ',');
 			getline(aula, data);
@@ -43,7 +43,7 @@ void lerficheiroAulas() {
 			int nrS = stoi(nSlot);
 			int d = stoi(data);
 
-			CampoTenis c(nrCamp,lotCamp);
+			CampoTenis c(nrCamp, lotCamp);
 			c.addAulaVec(nomeU, nrA, d, nrS);
 		}
 		else {
@@ -65,7 +65,7 @@ void lerficheiroProfessores() {
 	ifstream file;
 	string line;
 	file.open("Professores.txt");
-	
+
 	while (getline(file, line)) {
 		stringstream prof(line);
 
@@ -75,7 +75,7 @@ void lerficheiroProfessores() {
 		getline(prof, idadeProf);
 
 		int idade = stoi(idadeProf);
-	
+
 		CampoTenis c(nrCamp, lotCamp);
 		c.addProf(nomeProf, idade);
 
@@ -91,10 +91,10 @@ void lerficheiroUtentes() {
 		stringstream uten(line);
 
 		string nomeUten, idadeUten, card;
-		
+
 
 		getline(uten, nomeUten, ',');
-		getline(uten, idadeUten,',');
+		getline(uten, idadeUten, ',');
 		getline(uten, card);
 
 		int idade = stoi(idadeUten);
@@ -102,7 +102,7 @@ void lerficheiroUtentes() {
 		if (card == "Sim" || card == "sim" || card == "SIM") {
 			goldC = true;
 		}
-		
+
 		CampoTenis c(nrCamp, lotCamp);
 		c.addUtente(nomeUten, idade, goldC);
 	}

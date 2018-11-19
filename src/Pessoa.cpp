@@ -24,12 +24,9 @@ Utente::Utente(string nome, int idade, bool goldCard) : Pessoa(nome, idade)
 {
 	this->goldCard = goldCard;
 }
-/*
-vector<Utente> Utente::getUtentes() {
-	return utentes;
-}
-*/
-///
+
+
+///Funçoes Pessoa
 
 string Pessoa::getName()
 {
@@ -41,16 +38,7 @@ int Pessoa::getAge()
 	return idade;
 }
 
-/*
-string Professor::getEntryHour()
-{
-	return horario[0];
-}
-string Professor::getOffHour()
-{
-	return horario[1];
-}
-*/
+///Funçoes Professor
 
 int Professor::getNrAulas() {
 	return aulasDoProfessor.size();
@@ -61,20 +49,12 @@ vector<Aula> Professor::getAulaVec()
 	return aulasDoProfessor;
 }
 
-/*
-vector<Professor> Professor::getProfessores() {
-	return professores;
-}
-
-void Professor::addProfessor(Professor p) {
-	professores.push_back(p);
-	//cout << professores[0].getName() << "," << professores[0].getAge();
-}
-*/
 void Professor::aulasAdd(Aula a)
 {
 	aulasDoProfessor.push_back(a);
 }
+
+///Funçoes Utentes
 
 bool Utente::getGoldCard()
 {
@@ -82,14 +62,6 @@ bool Utente::getGoldCard()
 }
 
 double Utente::getPrice() const {
-
-	//falta implementar
-//	if (goldCard == true)
-//		return Aula->preco*0.85;
-//	else
-//		return Aula.preco;
-//	}
-
 
 	double precoTotalLivres = 0;
 	for (unsigned int i = 0; i < livresDoUtente.size(); i++) {
