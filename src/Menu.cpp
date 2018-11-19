@@ -36,7 +36,7 @@ void Menu() {
 
 			switch (opcao) {
 			case 1:
-				lerficheiroAulas();
+				lerficheiroModos();
 				lerficheiroProfessores();
 				lerficheiroUtentes();
 				cout << endl;
@@ -120,7 +120,8 @@ void Menu1() {
 void menu1() {
 	cout << endl << endl;
 	cout << "Numero de Campos de Tenis: " << endl;
-	CampoTenis c(5, 4);
+	CampoTenis c;
+	
 	int n = c.getNumCampos();
 	cout << n << endl;
 	cout << endl;

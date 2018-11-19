@@ -3,6 +3,23 @@
 
 using namespace std;
 
+int hours(string horas)
+{
+	int i;
+	i = horas.find_first_of(':');
+	string h = horas.substr(0, i);
+	return stoi(h);
+}
+
+int minutes(string horas)
+{
+	int i;
+	i = horas.find_first_of(':');
+	string m = horas.substr(i + 1);
+	return stoi(m);
+}
+
+
 CampoTenis::CampoTenis()
 {
 	this->nCampos = 5;
@@ -22,22 +39,6 @@ int CampoTenis::getNumCampos() {
 int CampoTenis::getNumSlots() const {
 
 	return nSlots;
-}
-
-int hours(string horas)
-{
-	int i;
-	i = horas.find_first_of(':');
-	string h = horas.substr(0, i);
-	return stoi(h);
-}
-
-int minutes(string horas)
-{
-	int i;
-	i = horas.find_first_of(':');
-	string m = horas.substr(i + 1);
-	return stoi(m);
 }
 
 string CampoTenis::getHoraAbertura()

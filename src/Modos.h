@@ -10,7 +10,7 @@ class Modos {
 public:
 	Modos(int dia, string horaInicio);
 	virtual ~Modos() {};
-	virtual double PrecoSessao() const;
+	//virtual double PrecoSessao() const;
 protected:
 	int dia;
 	string horaInicio;

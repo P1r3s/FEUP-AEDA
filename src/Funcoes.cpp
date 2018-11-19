@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <iomanip>
 
+/*
 int nrCamp;
 int lotCamp;
 
@@ -18,45 +19,42 @@ void criaCampo(int nrC, int lotC) {
 	lotCamp = lotC;
 	CampoTenis c(nrC, lotC);
 }
+*/
 
-vector<int> campos(nrCamp, 0);
+//vector<int> campos(nrCamp, 0);
 
-void lerficheiroAulas() {
+void lerficheiroModos() {
 	ifstream file;
 	string line;
-	file.open("Aulas.txt");
+	file.open("Modos.txt");
 
 	while (getline(file, line)) {
-		stringstream aula(line);
+		stringstream modos(line);
 
-		string nomeU, modo, hora, nrAula, nSlot, data;
+		string nomeU, modo, horai, nSlot, data;
 
-		getline(aula, nomeU, ',');
-		getline(aula, modo, ',');
+		getline(modos, nomeU, ',');
+		getline(modos, modo, ',');
 
 		if (modo == "Aula" || modo == "aula" || modo == "AULA") {
-			getline(aula, nrAula, ',');
-			getline(aula, nSlot, ',');
-			getline(aula, data);
+			getline(modos, horai, ',');
+			getline(modos, data);
 
-			int nrA = stoi(nrAula);
-			int nrS = stoi(nSlot);
 			int d = stoi(data);
 
-			CampoTenis c(nrCamp, lotCamp);
-			c.addAulaVec(nomeU, nrA, d, nrS);
+			CampoTenis c;
+			c.addAulaVec(d,horai);
 		}
 		else {
-			getline(aula, hora, ',');
-			getline(aula, nSlot, ',');
-			getline(aula, data);
+			getline(modos, horai, ',');
+			getline(modos, nSlot, ',');
+			getline(modos, data);
 
 			int nrS = stoi(nSlot);
 			int d = stoi(data);
-			int h = stoi(hora);
 
-			CampoTenis c(nrCamp, lotCamp);
-			c.addLivre(nomeU, nrS, h, d);
+			CampoTenis c;
+			c.addLivre(d, horai, nrS);
 		}
 	}
 }
@@ -76,7 +74,7 @@ void lerficheiroProfessores() {
 
 		int idade = stoi(idadeProf);
 
-		CampoTenis c(nrCamp, lotCamp);
+		CampoTenis c;
 		c.addProf(nomeProf, idade);
 
 	}
@@ -103,7 +101,7 @@ void lerficheiroUtentes() {
 			goldC = true;
 		}
 
-		CampoTenis c(nrCamp, lotCamp);
+		CampoTenis c;
 		c.addUtente(nomeUten, idade, goldC);
 	}
 }
@@ -136,10 +134,10 @@ void horarioProfessores() {
 	//mostra os dias e horas de aulas de cada professor
 }
 
-
+/*
 int ocupacaoC(int i) {
 	return campos[i];
-}
+}*/
 
 /*int getNumC() {
 	return getNumC();
