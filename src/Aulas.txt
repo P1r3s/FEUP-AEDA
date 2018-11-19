@@ -1,4 +1,0 @@
-Maria Silva,Livre,9h,3,5
-Pedro Costa,Aula,10,2,3
-Ines Ribeiro,Aula,3,2,1
-Andre Pedrosa,Livre,9h,1,23
