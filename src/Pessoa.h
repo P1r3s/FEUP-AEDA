@@ -50,7 +50,10 @@ public:
 	Utente(string nome, int idade, bool goldCard);
 	~Utente() {}
 	bool getGoldCard();
-	double getPrice() const;
+	double getPrecoLivres();
+	double getPrecoAulas();
+	double getPrecoCartao();
+	double getPrecoTotal();
 	void aulasAdd(Aula a);
 	void livresAdd(Livre l);
 

@@ -61,24 +61,6 @@ bool Utente::getGoldCard()
 	return goldCard;
 }
 
-double Utente::getPrice() const {
-
-	double precoTotalLivres = 0;
-	for (unsigned int i = 0; i < livresDoUtente.size(); i++) {
-		precoTotalLivres += livresDoUtente[i].PrecoSessao();
-	}
-
-	double precoTotalAulas = 0;
-	if (goldCard) {
-		precoTotalAulas = aulasDoUtente.size()*aulasDoUtente[0].PrecoSessao()*0.85;
-	}
-	else {
-		precoTotalAulas = aulasDoUtente.size()*aulasDoUtente[0].PrecoSessao();
-	}
-
-	return precoTotalLivres + precoTotalAulas;
-}
-
 void Utente::aulasAdd(Aula a)
 {
 	aulasDoUtente.push_back(a);
@@ -87,4 +69,36 @@ void Utente::aulasAdd(Aula a)
 void Utente::livresAdd(Livre l)
 {
 	livresDoUtente.push_back(l);
+}
+
+double Utente::getPrecoLivres() {
+	double precoTotalLivres = 0;
+	for (unsigned int i = 0; i < livresDoUtente.size(); i++) {
+		precoTotalLivres += livresDoUtente[i].PrecoSessao();
+	}
+	return precoTotalLivres;
+}
+
+double Utente::getPrecoAulas() {
+	double precoTotalAulas = 0;
+	for (unsigned int i = 0; i < aulasDoUtente.size(); i++) {
+		precoTotalAulas += aulasDoUtente[i].PrecoSessao();
+	}
+	if (goldCard == true)
+	{
+		precoTotalAulas = precoTotalAulas * 0.85;
+	}
+	return precoTotalAulas;
+}
+
+double Utente::getPrecoCartao() {
+	if (goldCard == true)
+	{
+		return 10;
+	}
+	return 0;
+}
+
+double Utente::getPrecoTotal() {
+	return getPrecoAulas() + getPrecoLivres() + getPrecoCartao();
 }
