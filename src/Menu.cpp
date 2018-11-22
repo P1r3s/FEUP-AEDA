@@ -39,14 +39,14 @@ void Menu() {
 
 			switch (opcao) {
 			case 1:
-				lerficheiroModos(c);
 				lerficheiroProfessores(c);
 				lerficheiroUtentes(c);
+				lerficheiroModos(c);
 				cout << endl;
 				cout << "Ficheiros carregados!" << endl;
 
-				for (unsigned int i = 0; i < c->getProfessors().size(); i++)
-					cout << c->getProfessors()[i].getName() << endl;
+				//for (unsigned int i = 0; i < c->getLivres().size(); i++)
+					//cout << c->getLivres()[i].getDia() << endl;
 
 				Menu1();
 				break;
@@ -148,14 +148,14 @@ void Menu2() {
 			switch (opcao) {
 			case 1:
 				//adicionar utente
-				cout << "Insira o nome do novo Utente: "; cin >> no;
+				cout << "Insira o nome do novo Utente: "; getline(cin, no, '\n');
 				cout << "Insira a idade do Utente: "; cin >> idade;
 				cout << "O Utente tem goldCard? (se sim meta 1,senao meta 0) "; cin >> gold;
 				adicionarUtente(no, idade, gold);
 				break;
 			case 2:
 				//adiciona professor
-				cout << "Insira o nome do novo Professor: "; cin >> no;
+				cout << "Insira o nome do novo Professor: "; getline(cin, no, '\n');
 				cout << "Insira a sigla do Utente: "; cin >> sigla;
 				cout << "Insira a idade do Utente: "; cin >> idade;
 				adicionarProfessor(no,sigla, idade);
@@ -278,12 +278,12 @@ void menu3() {
 
 			switch (opcao) {
 			case 1:
-				cout << "Insira o nome do Utente: "; cin >> no;
+				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
 				cout << no<< " frequentou os campos de tenis "<< freqUtentes(no)<<" vezes.";
 				freqUtentes(no);
 				break;
 			case 2:
-				cout << "Insira o nome do Utente: "; cin >> no;
+				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
 				cout << endl;
 				cout << "Conta do Utente" << endl << endl;
 				cout << "Nome: "; cout << no << endl;
@@ -295,7 +295,9 @@ void menu3() {
 					cout << "Nao tem cartao gold" << endl;
 				break;
 			case 3:
-				cout << "Insira o nome do Utente: "; cin >> no;
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
 				criarDoc(no);
 				break;
 			case 4:

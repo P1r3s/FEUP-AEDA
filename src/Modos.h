@@ -11,8 +11,8 @@ public:
 	Modos(int dia, string horaInicio);
 	virtual ~Modos() {};
 	//virtual double PrecoSessao() const;
-	int getDia();
-	string getHoraI();
+	virtual int getDia();
+	virtual string getHoraI();
 protected:
 	int dia;
 	string horaInicio;
@@ -24,6 +24,8 @@ public:
 	Aula(int dia, string sigla, string horaInicio);
 	virtual ~Aula() {};
 	double PrecoSessao() const;
+	int getDia();
+	string getHoraI();
 private:
 	string sigla;
 	double preco;
@@ -34,6 +36,8 @@ public:
 	Livre(int dia, string horaInicio, int nrSlots);
 	virtual ~Livre() {};
 	double PrecoSessao() const;
+	int getDia();
+	string getHoraI();
 private:
 	int nrSlots;
 	double preco;

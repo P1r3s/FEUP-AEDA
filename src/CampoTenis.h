@@ -26,6 +26,7 @@ public:
 	~CampoTenis() {}
 	string getHoraAbertura();
 	string getHoraEncerramento();
+	string returnSigla();
 	vector<Professor> getProfessors();
 	vector<Utente> getUtentes();
 	vector<Aula> getAulas();
@@ -42,6 +43,8 @@ public:
 	void addLivre(int dia, string horaInicio, int nrSlots);
 	void removeProf(string prof);
 	void displayHorario();
+	void addAulaUtente(string nome, int dia, string horai);
+	void addLivreUtente(string nome, int dia, string horai, int nrSlots);
 	//void addCampo();
 
 

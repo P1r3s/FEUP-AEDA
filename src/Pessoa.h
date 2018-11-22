@@ -14,7 +14,7 @@
 #include <iomanip>
 
 #include "Modos.h"
-//#include "CampoTenis.h"
+
 
 using namespace std;
 
@@ -54,18 +54,25 @@ protected:
 	bool goldCard;               //verifica se o utente tem cartao gold
 	vector<Aula> aulasDoUtente;   // Vetor com as aulas do utente
 	vector<Livre> livresDoUtente; // Vetor com os livres do utente
+	
 public:
 	Utente(string nome, int idade, bool goldCard);
 	~Utente() {}
 	bool getGoldCard();
+	string getName() { return nome; }
+	int getAge() { return idade; }
 	double getPrecoLivres();
 	double getPrecoAulas();
 	double getPrecoCartao();
 	double getPrecoTotal();
-	void aulasAdd(Aula a);
-	void livresAdd(Livre l);
+//	void aulasAdd(Aula a);
+	//void livresAdd(Livre l);
 	vector<Aula> getAulasUtente();
 	vector<Livre> getLivresUtente();
+	void pushAula(Aula a);
+	void pushLivre(Livre l);
+	//void switchVec(vector<Aula> &auxA);
+	//Aula getAulaUnica(int i);
 };
 
 #endif

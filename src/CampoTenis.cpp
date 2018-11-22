@@ -90,9 +90,8 @@ vector<Aula> CampoTenis::getAulas() {
 	return aulas;
 }
 
-void CampoTenis::addAula(int dia, string horaInicio)
-{
-	int minimo = 999;
+string CampoTenis::returnSigla() {
+	unsigned int minimo = 999;
 	int index = 0;
 	for (unsigned int i = 0; i < getProfessors().size(); i++)
 	{
@@ -104,15 +103,59 @@ void CampoTenis::addAula(int dia, string horaInicio)
 	}
 
 	string sigla = getProfessors()[index].getSigla();
+	return sigla;
+}
+
+void CampoTenis::addAula(int dia, string horaInicio)
+{
+	string sigla = returnSigla();
 
 	Aula a(dia, sigla, horaInicio);
 	aulas.push_back(a);
+
+}
+
+void CampoTenis::addAulaUtente(string nome, int dia, string horai) {
+	 
+	string sigla = returnSigla();
+	Aula a(dia, sigla, horai);
+
+	for (unsigned int i = 0; i < getUtentes().size(); i++)
+	{
+		if (nome == getUtentes()[i].getName())
+		{
+			//utentes[i].getAulasUtente().push_back(a);
+			utentes[i].pushAula(a);
+		}
+	}
+
+}
+
+void CampoTenis::addLivre(int dia, string horaInicio, int nrSlots)
+{
+	Livre l(dia, horaInicio,nrSlots);
+	livres.push_back(l);
+
+}
+
+void CampoTenis::addLivreUtente(string nome, int dia, string horai, int nrSlots) {
+
+	Livre l(dia,horai,nrSlots);
+
+	for (unsigned int i = 0; i < getUtentes().size(); i++)
+	{
+		if (nome == getUtentes()[i].getName())
+		{
+			utentes[i].pushLivre(l);
+		}
+	}
+
 }
 
 void CampoTenis::addProf(string nome, string sigla, int idade)
 {
 	Professor prof(nome, sigla, idade);
-	getProfessors().push_back(prof);
+	professores.push_back(prof);
 }
 
 void CampoTenis::removeProf(string nome)
@@ -153,10 +196,7 @@ vector<Livre> CampoTenis::getLivres() {
 	return livres;
 }
 
-void CampoTenis::addLivre(int dia, string horaInicio, int nrSlots) {
-	Livre l(dia, horaInicio, nrSlots);
-	livres.push_back(l);
-}
+
 
 /*void CampoTenis::addCampo()
 {

@@ -44,7 +44,9 @@ void lerficheiroModos(CampoTenis *c) {
 
 			int d = stoi(data);
 
-			c->addAula(d,horai);
+			c->addAula(d, horai);
+			c->addAulaUtente(nomeU, d, horai);
+			
 		}
 		else {
 			getline(modos, horai, ',');
@@ -55,6 +57,7 @@ void lerficheiroModos(CampoTenis *c) {
 			int d = stoi(data);
 
 			c->addLivre(d, horai, nrS);
+			c->addLivreUtente(nomeU, d, horai,nrS);
 		}
 	}
 }
@@ -75,7 +78,7 @@ void lerficheiroProfessores(CampoTenis *c) {
 
 		int idade = stoi(idadeProf);
 
-		c->addProf(nomeProf,siglaProf, idade);
+		c->addProf(nomeProf, siglaProf, idade);
 
 	}
 }
@@ -102,6 +105,7 @@ void lerficheiroUtentes(CampoTenis *c) {
 		}
 
 		c->addUtente(nomeUten, idade, goldC);
+
 	}
 }
 
@@ -110,8 +114,8 @@ void adicionarUtente(string no, int idade, int gold) {
 	if (gold == 1)
 		g = true;
 
-	c->addUtente(no,idade,g);
-	
+	c->addUtente(no, idade, g);
+
 }
 
 void adicionarProfessor(string nome, string sigla, int idade) {
@@ -161,11 +165,11 @@ vector<int> contasUtentes(string no) {
 	vector <Utente> auxV = c->getUtentes();
 	bool goldC;
 	int age;
-	int gC=0; 
-	unsigned int i=0;
+	int gC = 0;
+	unsigned int i = 0;
 	vector<int> v;
 
-	while(i < auxV.size()) {
+	while (i < auxV.size()) {
 		if (auxV[i].getName() == no) {
 			goldC = auxV[i].getGoldCard();
 			age = auxV[i].getAge();
@@ -195,32 +199,34 @@ int ocupacaoC(int i) {
 	return getNumC();
 }*/
 
-void criarRelatorioProgresso(string no, vector<Aula> v) {
+void criarRelatorioprogresso(string no, vector<Aula> v) {
 	//cria ficheiro .txt com o progresso do utente
 
-	ofstream Progresso;
-	Progresso.open(no + "_Progresso.txt");
+	ofstream progresso;
+	progresso.open(no + "_progresso.txt");
 
 	if (v.size() < 3) {
 		string p = "Ainda tem de praticar mais\n";
-		Progresso << p;
-	}else if (v.size() < 6) {
+		progresso << p;
+	}
+	else if (v.size() < 6) {
 		string p = "Tem melhorado bastante\n";
-		Progresso << p;
-	}else {
+		progresso << p;
+	}
+	else {
 		string p = "Já esta mais que apto\n";
-		Progresso << p;
+		progresso << p;
 	}
 
-	Progresso.close();
+	progresso.close();
 
 }
 
 void criarDoc(string no) {
 	//cria ficheiro .txt com as aulas/livres que frequentou (incluindo a data e horas e valor total)
 
-	ofstream DocFimMes;
-	DocFimMes.open(no + "_DocFimMes.txt");
+	ofstream docFimMes;
+	docFimMes.open(no + "_docFimMes.txt");
 
 	vector<Utente> auxU = c->getUtentes();
 	vector<Aula> auxA;
@@ -229,24 +235,27 @@ void criarDoc(string no) {
 
 	while (i < auxU.size()) {
 		if (auxU[i].getName() == no) {
-			auxA = auxU[i].getAulasUtente();
 			auxL = auxU[i].getLivresUtente();
+			auxA = auxU[i].getAulasUtente();
 			break;
 		}
 		i++;
 	}
+	
+	docFimMes << "AULAS\n";
 
 	for (unsigned int i = 0; i < auxA.size(); i++) {
-		DocFimMes << auxA.at(i).getDia();
-		DocFimMes << auxA.at(i).getHoraI();
+		docFimMes << "Dia: " << auxA.at(i).getDia() << ", Hora: " << auxA.at(i).getHoraI() << '\n';
 	}
+	
+	docFimMes << "\nLIVRES\n";
 
 	for (unsigned int i = 0; i < auxL.size(); i++) {
-		DocFimMes << auxL.at(i).getDia();
-		DocFimMes << auxL.at(i).getHoraI();
+		docFimMes << "Dia: " << auxL.at(i).getDia() << ", Hora: " << auxL.at(i).getHoraI() << '\n';
 	}
 
-	DocFimMes.close();
-	criarRelatorioProgresso(no, auxA);
+	cout << auxL.size();
+	docFimMes.close();
+	criarRelatorioprogresso(no, auxA);
 }
 
