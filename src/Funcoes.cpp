@@ -23,6 +23,8 @@ void criaCampo(int nrC, int lotC) {
 
 //vector<int> campos(nrCamp, 0);
 
+extern CampoTenis *c;
+
 void lerficheiroModos(CampoTenis *c) {
 	ifstream file;
 	string line;
@@ -107,14 +109,13 @@ void adicionarUtente(string no, int idade, int gold) {
 	if (gold == 1)
 		g = true;
 
-	CampoTenis c;
-	c.addUtente(no,idade,g);
+	c->addUtente(no,idade,g);
 	
 }
 
 void adicionarProfessor(string no, int idade) {
-	CampoTenis c;
-	c.addProf(no, idade);
+
+	c->addProf(no, idade);
 }
 
 void criarFicheiros() {
@@ -134,8 +135,7 @@ void professorDasAulas() {
 }
 
 int freqUtentes(string no) {
-	CampoTenis c;
-	vector<Utente> auxU = c.getUtentes();
+	vector<Utente> auxU = c->getUtentes();
 	vector<Aula> auxA;
 	vector<Livre> auxL;
 	unsigned int i = 0;
@@ -157,8 +157,7 @@ int freqUtentes(string no) {
 }
 
 vector<int> contasUtentes(string no) {
-	CampoTenis c;
-	vector <Utente> auxV=c.getUtentes;
+	vector <Utente> auxV = c->getUtentes();
 	bool goldC;
 	int age;
 	int gC=0; 
@@ -222,8 +221,7 @@ void criarDoc(string no) {
 	ofstream DocFimMes;
 	DocFimMes.open(no + "_DocFimMes.txt");
 
-	CampoTenis c;
-	vector<Utente> auxU = c.getUtentes();
+	vector<Utente> auxU = c->getUtentes();
 	vector<Aula> auxA;
 	vector<Livre> auxL;
 	unsigned int i = 0;

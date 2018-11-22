@@ -170,7 +170,6 @@ void CampoTenis::addLivre(int dia, string horaInicio, int nrSlots) {
 void CampoTenis::displayHorario()
 {
 
-
 	for (unsigned int i = 0; i < campoHorario.size(); i++)
 	{
 		unsigned int month_size = campoHorario[i].getMonthVec().size();
