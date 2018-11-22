@@ -41,7 +41,7 @@ int Pessoa::getAge()
 
 ///Funçoes Professor
 
-int Professor::getNrAulas() {
+int Professor::getNrAulas(string nomeProf) {
 	return aulasDoProfessor.size();
 }
 
@@ -137,3 +137,4 @@ void Utente::pushLivre(Livre l) {
 void Professor::pushAula(Aula a) {
 	aulasDoProfessor.push_back(a);
 }
+

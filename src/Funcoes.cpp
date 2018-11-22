@@ -133,10 +133,30 @@ int ocupacaoCampos() {
 
 void consultarHorario() {
 
+
 }
 
-void professorDasAulas() {
 
+void professorDasAulas(string nomeProf) {
+	vector<Professor> auxP = c->getProfessors();
+	unsigned int i = 0;
+	int index;
+
+	while (i < auxP.size()) {
+		if (auxP[i].getName() == nomeProf) {
+			index = i;
+			break;
+		}
+		i++;
+	}
+
+	vector<Aula> vAulasProf = auxP[index].getAulaVec();
+
+	for (unsigned int j = 0; j < vAulasProf.size(); j++) {
+		cout << "Tem aula dia " << vAulasProf[j].getDia() << " as " << vAulasProf[j].getHoraI() <<"h."<< endl;
+	}
+
+	cout << "Numero de aulas no mes: "<< vAulasProf.size()<<endl;
 }
 
 int freqUtentes(string no) {
@@ -144,18 +164,17 @@ int freqUtentes(string no) {
 	vector<Aula> auxA;
 	vector<Livre> auxL;
 	unsigned int i = 0;
-	int f;
 
 	while (i < auxU.size()) {
 		if (auxU[i].getName() == no) {
-			auxA = auxU[i].getAulasUtente();
 			auxL = auxU[i].getLivresUtente();
+			auxA = auxU[i].getAulasUtente();
 			break;
 		}
 		i++;
 	}
 
-	f = auxA.size() + auxA.size();
+	int f = auxA.size() + auxL.size();
 
 	return  f;
 

@@ -148,6 +148,8 @@ void Menu2() {
 			switch (opcao) {
 			case 1:
 				//adicionar utente
+				cin.clear();
+				cin.ignore(10000, '\n');
 				cout << "Insira o nome do novo Utente: "; getline(cin, no, '\n');
 				cout << "Insira a idade do Utente: "; cin >> idade;
 				cout << "O Utente tem goldCard? (se sim meta 1,senao meta 0) "; cin >> gold;
@@ -155,6 +157,8 @@ void Menu2() {
 				break;
 			case 2:
 				//adiciona professor
+				cin.clear();
+				cin.ignore(10000, '\n');
 				cout << "Insira o nome do novo Professor: "; getline(cin, no, '\n');
 				cout << "Insira a sigla do Utente: "; cin >> sigla;
 				cout << "Insira a idade do Utente: "; cin >> idade;
@@ -213,6 +217,7 @@ void menu1() {
 }
 
 void menu2() {
+	string no;
 	cout << endl << endl;
 	cout << "--------------------------------------------- " << endl;
 	cout << "          ALUGUER DE CAMPOS DE TENIS          " << endl;
@@ -231,14 +236,14 @@ void menu2() {
 
 			switch (opcao) {
 			case 1:
-				for (int i = 9; i < 20; i++) {
+				for (int i = 9; i < 19; i++) {
 					cout << "Aula" << t << ": " << " Das " << i << "h" << " as " << i + 1 << "h" << endl;
 					t = t + 1;
 				}
 				menu2();
 				break;
 			case 2:
-				professorDasAulas();
+				
 				break;
 			case 3:
 				Menu1();
@@ -278,11 +283,15 @@ void menu3() {
 
 			switch (opcao) {
 			case 1:
+				cin.clear();
+				cin.ignore(10000, '\n');
 				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
-				cout << no<< " frequentou os campos de tenis "<< freqUtentes(no)<<" vezes.";
+				cout << no<< " frequentou os campos de tenis "<< freqUtentes(no)<<" vezes durante este mes.\n";
 				freqUtentes(no);
 				break;
 			case 2:
+				cin.clear();
+				cin.ignore(10000, '\n');
 				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
 				cout << endl;
 				cout << "Conta do Utente" << endl << endl;
@@ -319,11 +328,15 @@ void menu3() {
 }
 
 void menu4() {
+	string no;
 	cout << endl << endl;;
 	cout << "Horario dos Professores: " << endl;
 	cout << endl;
-
-	horarioProfessores();
+	cin.clear();
+	cin.ignore(10000, '\n');
+	cout << "Insira o nome do professor: "; getline(cin, no, '\n');
+	professorDasAulas(no);
+	//horarioProfessores();
 
 	cout << endl << endl;
 	Menu1();

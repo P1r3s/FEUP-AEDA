@@ -25,7 +25,7 @@ public:
 	~Pessoa() {}
 	virtual string getName();
 	virtual int getAge();
-	virtual void pushAula(Aula a);
+	//virtual void pushAula(Aula a);
 protected:
 	string nome;
 	int idade;
@@ -36,13 +36,14 @@ class Professor : public Pessoa
 public:
 	Professor(string nome,  string sigla,int idade);
 	~Professor() {}
-	int getNrAulas();
+	int getNrAulas(string nome);
 	vector<Aula> getAulaVec();
 	void aulasAdd(Aula a);
 	string getName() { return nome; }
 	int getAge() { return idade; }
 	string getSigla() { return sigla; }
 	void pushAula(Aula a);
+	
 protected:
 	string sigla;
 	vector<Aula> aulasDoProfessor;        //vector com as aulas que o professor tem de dar (TO DO: class aula)

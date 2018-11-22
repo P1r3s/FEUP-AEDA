@@ -7,7 +7,7 @@ void lerficheiroModos(CampoTenis *c);
 void lerficheiroProfessores(CampoTenis *c);
 void lerficheiroUtentes(CampoTenis *c);
 void criarFicheiros();
-void professorDasAulas();
+void professorDasAulas(string nomeProf);
 int freqUtentes(string no);
 vector<int> contasUtentes(string no);
 void adicionarUtente(string no,int idade,int gold);
