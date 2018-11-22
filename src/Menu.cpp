@@ -1,8 +1,11 @@
 #include "Menu.h"
 #include "Funcoes.h"
+#include "CampoTenis.h"
 #include <Windows.h>
 
 using namespace std;
+
+CampoTenis *c = new CampoTenis();
 
 void Menu() {
 
@@ -36,11 +39,15 @@ void Menu() {
 
 			switch (opcao) {
 			case 1:
-				lerficheiroModos();
-				lerficheiroProfessores();
-				lerficheiroUtentes();
+				lerficheiroModos(c);
+				lerficheiroProfessores(c);
+				lerficheiroUtentes(c);
 				cout << endl;
 				cout << "Ficheiros carregados!" << endl;
+
+				for (unsigned int i = 0; i < c->getProfessors().size(); i++)
+					cout << c->getProfessors()[i].getName() << endl;
+
 				Menu1();
 				break;
 			case 2:
@@ -120,16 +127,14 @@ void Menu1() {
 void menu1() {
 	cout << endl << endl;
 	cout << "Numero de Campos de Tenis: " << endl;
-	CampoTenis c;
 	
-	int n = c.getNumCampos();
+	int n = c->getNumCampos();
 	cout << n << endl;
 	cout << endl;
 	cout << "Ocupacao dos Campos de Tenis: " << endl;
 
 
 	//FAZER DISPLAY DO VETOR 
-
 	/*
 	for (unsigned int i = 0; i < n; i++) {
 		unsigned int t = i + 1;
@@ -137,6 +142,9 @@ void menu1() {
 		cout << "Campo" << t << ": " << c << endl;
 	}
 	 */
+
+	c->displayHorario();
+
 	cout << endl;
 
 	cout << endl << endl;

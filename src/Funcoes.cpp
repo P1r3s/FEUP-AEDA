@@ -23,7 +23,7 @@ void criaCampo(int nrC, int lotC) {
 
 //vector<int> campos(nrCamp, 0);
 
-void lerficheiroModos() {
+void lerficheiroModos(CampoTenis *c) {
 	ifstream file;
 	string line;
 	file.open("Modos.txt");
@@ -42,8 +42,7 @@ void lerficheiroModos() {
 
 			int d = stoi(data);
 
-			CampoTenis c;
-			c.addAulaVec(d,horai);
+			c->addAulaVec(d,horai);
 		}
 		else {
 			getline(modos, horai, ',');
@@ -53,13 +52,12 @@ void lerficheiroModos() {
 			int nrS = stoi(nSlot);
 			int d = stoi(data);
 
-			CampoTenis c;
-			c.addLivre(d, horai, nrS);
+			c->addLivre(d, horai, nrS);
 		}
 	}
 }
 
-void lerficheiroProfessores() {
+void lerficheiroProfessores(CampoTenis *c) {
 	ifstream file;
 	string line;
 	file.open("Professores.txt");
@@ -74,13 +72,12 @@ void lerficheiroProfessores() {
 
 		int idade = stoi(idadeProf);
 
-		CampoTenis c;
-		c.addProf(nomeProf, idade);
+		c->addProf(nomeProf, idade);
 
 	}
 }
 
-void lerficheiroUtentes() {
+void lerficheiroUtentes(CampoTenis *c) {
 	ifstream file;
 	string line;
 	file.open("Utentes.txt");
@@ -101,8 +98,7 @@ void lerficheiroUtentes() {
 			goldC = true;
 		}
 
-		CampoTenis c;
-		c.addUtente(nomeUten, idade, goldC);
+		c->addUtente(nomeUten, idade, goldC);
 	}
 }
 
