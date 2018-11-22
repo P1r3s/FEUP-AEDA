@@ -65,6 +65,14 @@ Modos::Modos(int dia, string horaInicio) {
 	this->horaInicio = horaInicio;
 }
 
+int Modos::getDia() {
+	return dia;
+}
+
+string Modos::getHoraI() {
+	return horaInicio;
+}
+
 ///Classe Modo de Aula
 Aula::Aula(int dia, string horaInicio) : Modos(dia, horaInicio)
 {

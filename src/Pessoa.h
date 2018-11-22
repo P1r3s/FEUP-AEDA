@@ -46,6 +46,10 @@ protected:
 
 class Utente : public Pessoa
 {
+protected:
+	bool goldCard;               //verifica se o utente tem cartao gold
+	vector<Aula> aulasDoUtente;   // Vetor com as aulas do utente
+	vector<Livre> livresDoUtente; // Vetor com os livres do utente
 public:
 	Utente(string nome, int idade, bool goldCard);
 	~Utente() {}
@@ -56,11 +60,8 @@ public:
 	double getPrecoTotal();
 	void aulasAdd(Aula a);
 	void livresAdd(Livre l);
-
-protected:
-	bool goldCard;               //verifica se o utente tem cartao gold
-	vector<Aula> aulasDoUtente;   // Vetor com as aulas do utente
-	vector<Livre> livresDoUtente; // Vetor com os livres do utente
+	vector<Aula> getAulasUtente();
+	vector<Livre> getLivresUtente();
 };
 
 #endif

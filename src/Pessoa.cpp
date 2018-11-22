@@ -55,6 +55,13 @@ void Professor::aulasAdd(Aula a)
 }
 
 ///Funçoes Utentes
+vector<Aula> Utente::getAulasUtente() {
+	return aulasDoUtente;
+}
+
+vector<Livre> Utente::getLivresUtente() {
+	return livresDoUtente;
+}
 
 bool Utente::getGoldCard()
 {

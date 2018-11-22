@@ -24,7 +24,7 @@ CampoTenis::CampoTenis()
 {
 	this->nCampos = 5;
 	this->lotCampo = 4;
-	this->horaAbertura = "9:00";
+	this->horaAbertura = "9h00";
 	this->horaEncerramento = "19h00";
 	int horas = hours(horaEncerramento) - hours(horaAbertura);
 	horas = horas * 60;
