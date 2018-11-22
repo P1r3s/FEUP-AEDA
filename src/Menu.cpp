@@ -243,7 +243,10 @@ void menu2() {
 				menu2();
 				break;
 			case 2:
-				
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira o nome do professor: "; getline(cin, no, '\n');
+				professorDasAulas(no);
 				break;
 			case 3:
 				Menu1();
@@ -308,6 +311,7 @@ void menu3() {
 				cin.ignore(10000, '\n');
 				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
 				criarDoc(no);
+				menu3();
 				break;
 			case 4:
 				Menu1();
@@ -332,10 +336,7 @@ void menu4() {
 	cout << endl << endl;;
 	cout << "Horario dos Professores: " << endl;
 	cout << endl;
-	cin.clear();
-	cin.ignore(10000, '\n');
-	cout << "Insira o nome do professor: "; getline(cin, no, '\n');
-	professorDasAulas(no);
+	
 	//horarioProfessores();
 
 	cout << endl << endl;

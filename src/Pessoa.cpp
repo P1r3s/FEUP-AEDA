@@ -102,7 +102,7 @@ double Utente::getPrecoAulas() {
 }
 
 double Utente::getPrecoCartao() {
-	if (goldCard == true)
+	if (goldCard)
 	{
 		return 10;
 	}
@@ -110,7 +110,10 @@ double Utente::getPrecoCartao() {
 }
 
 double Utente::getPrecoTotal() {
-	return getPrecoAulas() + getPrecoLivres() + getPrecoCartao();
+	if (goldCard) {
+		return getPrecoAulas() + getPrecoLivres() + getPrecoCartao();
+	}
+	return getPrecoAulas() + getPrecoLivres();
 }
 
 void Utente::pushAula(Aula a) {

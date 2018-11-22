@@ -116,11 +116,31 @@ void adicionarUtente(string no, int idade, int gold) {
 
 	c->addUtente(no, idade, g);
 
+	ofstream ute;
+	ute.open("Utentes.txt");
+	string card="nao";
+	if (g) {
+		card = "sim";
+	}
+
+	ute << no<<','<< idade<<','<<card;
+
+	
+	ute.close();
+
+
 }
 
 void adicionarProfessor(string nome, string sigla, int idade) {
 
 	c->addProf(nome, sigla, idade);
+
+	ofstream prof;
+	prof.open("Professores.txt");
+
+	prof << nome << ',' << sigla<< ',' << idade;
+
+	prof.close();
 }
 
 void criarFicheiros() {
@@ -251,11 +271,13 @@ void criarDoc(string no) {
 	vector<Aula> auxA;
 	vector<Livre> auxL;
 	unsigned int i = 0;
+	int index;
 
 	while (i < auxU.size()) {
 		if (auxU[i].getName() == no) {
 			auxL = auxU[i].getLivresUtente();
 			auxA = auxU[i].getAulasUtente();
+			index = i;
 			break;
 		}
 		i++;
@@ -270,10 +292,22 @@ void criarDoc(string no) {
 	docFimMes << "\nLIVRES\n";
 
 	for (unsigned int i = 0; i < auxL.size(); i++) {
-		docFimMes << "Dia: " << auxL.at(i).getDia() << ", Hora: " << auxL.at(i).getHoraI() << '\n';
+		docFimMes << "Dia: " << auxL.at(i).getDia() << ", Hora: " << auxL.at(i).getHoraI() << endl<<endl;
 	}
 
-	cout << auxL.size();
+	docFimMes << endl<< endl;
+	docFimMes << "CONTAS DO MES" << endl;
+	if (auxU[index].getGoldCard()) {
+		docFimMes << "\nMensalidade do Cartao Dourado: " << auxU[index].getPrecoCartao() << endl;
+	}
+	
+	docFimMes << "\nTotal a pagar pelas aulas: " << auxU[index].getPrecoAulas() << endl;
+	docFimMes << "\nTotal a pagar pelos livres: " << auxU[index].getPrecoLivres() << endl<<endl;
+	docFimMes << "\nTotal a pagar: " << auxU[index].getPrecoTotal() << endl;
+
+
+
+	//cout << auxL.size();
 	docFimMes.close();
 	criarRelatorioprogresso(no, auxA);
 }
