@@ -113,6 +113,19 @@ void CampoTenis::addAula(int dia, string horaInicio)
 	Aula a(dia, sigla, horaInicio);
 	aulas.push_back(a);
 
+	unsigned int minimo = 999;
+	int index = 0;
+	for (unsigned int i = 0; i < getProfessors().size(); i++)
+	{
+		if (getProfessors()[i].getAulaVec().size() < minimo)
+		{
+			minimo = getProfessors()[i].getAulaVec().size();
+			index = i;
+		}
+	}
+
+	professores[index].pushAula(a);
+
 }
 
 void CampoTenis::addAulaUtente(string nome, int dia, string horai) {

@@ -19,13 +19,13 @@ vector<int> Horario::getSlotVec()
 }
 
 void Horario::makeCalendar() {
-	int nOfSlots = 18;
+	int nOfSlots = 20;
 	for (int i = 0; i < nOfSlots; i++)
 	{
 		slot_vec.push_back(0);
 	}
 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 31; i++)
 	{
 		month_vec.push_back(slot_vec);
 	}

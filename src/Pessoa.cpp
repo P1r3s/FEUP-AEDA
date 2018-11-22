@@ -133,3 +133,7 @@ Aula Utente::getAulaUnica(int i) {
 void Utente::pushLivre(Livre l) {
 	livresDoUtente.push_back(l);
 }
+
+void Professor::pushAula(Aula a) {
+	aulasDoProfessor.push_back(a);
+}
