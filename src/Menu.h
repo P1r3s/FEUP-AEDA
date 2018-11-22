@@ -15,6 +15,7 @@
 //void CriarCampo();
 void Menu();
 void Menu1();
+void Menu2();
 void Sair();
 void menu1();
 void menu2();

@@ -102,6 +102,21 @@ void lerficheiroUtentes(CampoTenis *c) {
 	}
 }
 
+void adicionarUtente(string no, int idade, int gold) {
+	bool g = false;
+	if (gold == 1)
+		g = true;
+
+	CampoTenis c;
+	c.addUtente(no,idade,g);
+	
+}
+
+void adicionarProfessor(string no, int idade) {
+	CampoTenis c;
+	c.addProf(no, idade);
+}
+
 void criarFicheiros() {
 
 }
@@ -118,12 +133,53 @@ void professorDasAulas() {
 
 }
 
-void freqUtentes() {
+int freqUtentes(string no) {
+	CampoTenis c;
+	vector<Utente> auxU = c.getUtentes();
+	vector<Aula> auxA;
+	vector<Livre> auxL;
+	unsigned int i = 0;
+	int f;
+
+	while (i < auxU.size()) {
+		if (auxU[i].getName() == no) {
+			auxA = auxU[i].getAulasUtente();
+			auxL = auxU[i].getLivresUtente();
+			break;
+		}
+		i++;
+	}
+
+	f = auxA.size() + auxA.size();
+
+	return  f;
 
 }
 
-void contasUtentes() {
+vector<int> contasUtentes(string no) {
+	CampoTenis c;
+	vector <Utente> auxV=c.getUtentes;
+	bool goldC;
+	int age;
+	int gC=0; 
+	unsigned int i=0;
+	vector<int> v;
 
+	while(i < auxV.size()) {
+		if (auxV[i].getName() == no) {
+			goldC = auxV[i].getGoldCard();
+			age = auxV[i].getAge();
+			break;
+		}
+		i++;
+	}
+
+	if (goldC)
+		gC = 1;
+
+	v.push_back(age);
+	v.push_back(gC);
+	return v;
 }
 
 void horarioProfessores() {
@@ -165,12 +221,9 @@ void criarDoc(string no) {
 
 	ofstream DocFimMes;
 	DocFimMes.open(no + "_DocFimMes.txt");
-	//string my_string = "Oi qual o seu nome?\n";
-	//file << my_string;
 
 	CampoTenis c;
 	vector<Utente> auxU = c.getUtentes();
-	//int indexU;
 	vector<Aula> auxA;
 	vector<Livre> auxL;
 	unsigned int i = 0;
@@ -187,6 +240,11 @@ void criarDoc(string no) {
 	for (unsigned int i = 0; i < auxA.size(); i++) {
 		DocFimMes << auxA.at(i).getDia();
 		DocFimMes << auxA.at(i).getHoraI();
+	}
+
+	for (unsigned int i = 0; i < auxL.size(); i++) {
+		DocFimMes << auxL.at(i).getDia();
+		DocFimMes << auxL.at(i).getHoraI();
 	}
 
 	DocFimMes.close();

@@ -123,6 +123,66 @@ void Menu1() {
 	}
 }
 
+void Menu2() {
+	cout << endl << endl;
+	cout << "--------------------------------------------- " << endl;
+	cout << "          ALUGUER DE CAMPOS DE TENIS          " << endl;
+	cout << "--------------------------------------------- " << endl;
+	cout << endl << endl;
+	cout << " 1 - Adicionar Utente" << endl;
+	cout << " 2 - Remover Utente" << endl;
+	cout << " 3 - Adicionar Professor" << endl;
+	cout << " 4 - Remover Professor" << endl;
+	cout << " 5 - Voltar ao menu anterior" << endl;
+	cout << " 6 - Sair" << endl;
+	cout << "--------------------------------------------- " << endl;
+
+	int opcao = 0;
+	cout << endl;
+	cout << "Introduza uma opcao: ";
+	string no;
+	int idade, gold;
+	while (opcao < 1 || opcao > 6) {
+		if (cin >> opcao) {
+
+			switch (opcao) {
+			case 1:
+				//adicionar utente
+				cout << "Insira o nome do novo Utente: "; cin >> no;
+				cout << "Insira a idade do Utente: "; cin >> idade;
+				cout << "O Utente tem goldCard? (se sim meta 1,senao meta 0) "; cin >> gold;
+				adicionarUtente(no, idade, gold);
+				break;
+			case 2:
+				//adiciona professor
+				cout << "Insira o nome do novo Professor: "; cin >> no;
+				cout << "Insira a idade do Utente: "; cin >> idade;
+				adicionarProfessor(no, idade);
+				break;
+			case 3:
+				//remover utente                 FALTA IMPLEMENTAR
+				break;
+			case 4:
+				//remover professor              FALTA IMPLEMENTAR
+				break;
+			case 5:
+				Menu();
+				break;
+			case 6:
+				Sair();
+				break;
+			default:
+				cout << "Opcao invalida! Introduza uma opcao: ";
+			}
+		}
+		else {
+			cin.clear();
+			cin.ignore(10000, '\n');
+			cout << "Opcao invalida! Introduza opcao: ";
+		}
+	}
+}
+
 
 void menu1() {
 	cout << endl << endl;
@@ -217,10 +277,21 @@ void menu3() {
 
 			switch (opcao) {
 			case 1:
-				freqUtentes();
+				cout << "Insira o nome do Utente: "; cin >> no;
+				cout << no<< " frequentou os campos de tenis "<< freqUtentes(no)<<" vezes.";
+				freqUtentes(no);
 				break;
 			case 2:
-				contasUtentes();
+				cout << "Insira o nome do Utente: "; cin >> no;
+				cout << endl;
+				cout << "Conta do Utente" << endl << endl;
+				cout << "Nome: "; cout << no << endl;
+				cout << "Age: "; cout << contasUtentes(no).at(0) << endl;
+				cout << "Gold Card: "; 
+				if (contasUtentes(no).at(0) == 1)
+					cout << "Tem cartao gold" << endl;
+				else 
+					cout << "Nao tem cartao gold" << endl;
 				break;
 			case 3:
 				cout << "Insira o nome do Utente: "; cin >> no;
