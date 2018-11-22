@@ -143,10 +143,57 @@ int ocupacaoC(int i) {
 	return getNumC();
 }*/
 
-void criarDoc(string no) {
-	//cria ficheiro .txt com as aulas/livres que frequentou (incluindo a data e horas e valor total)
+void criarRelatorioProgresso(string no, vector<Aula> v) {
+	//cria ficheiro .txt com o progresso do utente
+
+	ofstream Progresso;
+	Progresso.open(no + "_Progresso.txt");
+
+	if (v.size() < 3) {
+		string p = "Ainda tem de praticar mais\n";
+		Progresso << p;
+	}else if (v.size() < 6) {
+		string p = "Tem melhorado bastante\n";
+		Progresso << p;
+	}else {
+		string p = "Já esta mais que apto\n";
+		Progresso << p;
+	}
+
+	Progresso.close();
+
 }
 
-void criarRelatorioProgresso(string no) {
-	//cria ficheiro .txt com o progresso do utente
+void criarDoc(string no) {
+	//cria ficheiro .txt com as aulas/livres que frequentou (incluindo a data e horas e valor total)
+
+	ofstream DocFimMes;
+	DocFimMes.open(no + "_DocFimMes.txt");
+	//string my_string = "Oi qual o seu nome?\n";
+	//file << my_string;
+
+	CampoTenis c;
+	vector<Utente> auxU = c.getUtentes();
+	//int indexU;
+	vector<Aula> auxA;
+	vector<Livre> auxL;
+	unsigned int i = 0;
+
+	while (i < auxU.size()) {
+		if (auxU[i].getName() == no) {
+			auxA = auxU[i].getAulasUtente();
+			auxL = auxU[i].getLivresUtente();
+			break;
+		}
+		i++;
+	}
+
+	for (unsigned int i = 0; i < auxA.size(); i++) {
+		DocFimMes << auxA.at(i).getDia();
+		DocFimMes << auxA.at(i).getHoraI();
+	}
+
+	DocFimMes.close();
+	criarRelatorioProgresso(no, auxA);
 }
+

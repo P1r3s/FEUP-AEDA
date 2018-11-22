@@ -23,10 +23,10 @@ void Menu() {
 	SetConsoleTextAttribute(color, 017);
 
 	cout << endl << endl;
-	cout << " 1 - Carregar ficheiros existentes" << endl;
-	cout << " 2 - Criar novos ficheiros" << endl;
-	cout << " 3 - Sair" << endl;
-	cout << "--------------------------------------------- " << endl;
+	cout << "1 - Carregar ficheiros existentes" << endl;
+	cout << "2 - Criar novos ficheiros" << endl;
+	cout << "3 - Sair" << endl;
+	
 	int opcao = 0;
 	cout << endl;
 	cout << "Introduza uma opcao: ";
@@ -217,7 +217,6 @@ void menu3() {
 			case 3:
 				cout << "Insira o nome do Utente: "; cin >> no;
 				criarDoc(no);
-				criarRelatorioProgresso(no);
 				break;
 			case 4:
 				Menu1();
@@ -257,6 +256,7 @@ void Sair() {
 	while (opcao != "s" && opcao != "S" && opcao != "n" && opcao != "N") {
 		getline(cin, opcao);
 		if (opcao == "s" || opcao == "S") {
+			//escrever para os ficheiros
 			//guardarficheiroAulas();
 			//guardarficheiroProfessores();
 			//guardarficheiroUtentes();

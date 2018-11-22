@@ -14,4 +14,4 @@ void horarioProfessores();
 //int ocupacaoC(int i);
 //int getNumC();
 void criarDoc(string no);
-void criarRelatorioProgresso(string no);
+void criarRelatorioProgresso(string no, vector<Aula> v);

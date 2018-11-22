@@ -11,6 +11,8 @@ public:
 	Modos(int dia, string horaInicio);
 	virtual ~Modos() {};
 	//virtual double PrecoSessao() const;
+	int getDia();
+	string getHoraI();
 protected:
 	int dia;
 	string horaInicio;
