@@ -140,7 +140,7 @@ void Menu2() {
 	int opcao = 0;
 	cout << endl;
 	cout << "Introduza uma opcao: ";
-	string no;
+	string no, sigla;
 	int idade, gold;
 	while (opcao < 1 || opcao > 6) {
 		if (cin >> opcao) {
@@ -156,8 +156,9 @@ void Menu2() {
 			case 2:
 				//adiciona professor
 				cout << "Insira o nome do novo Professor: "; cin >> no;
+				cout << "Insira a sigla do Utente: "; cin >> sigla;
 				cout << "Insira a idade do Utente: "; cin >> idade;
-				adicionarProfessor(no, idade);
+				adicionarProfessor(no,sigla, idade);
 				break;
 			case 3:
 				//remover utente                 FALTA IMPLEMENTAR

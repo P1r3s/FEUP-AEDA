@@ -44,7 +44,7 @@ void lerficheiroModos(CampoTenis *c) {
 
 			int d = stoi(data);
 
-			c->addAulaVec(d,horai);
+			c->addAula(d,horai);
 		}
 		else {
 			getline(modos, horai, ',');
@@ -67,14 +67,15 @@ void lerficheiroProfessores(CampoTenis *c) {
 	while (getline(file, line)) {
 		stringstream prof(line);
 
-		string nomeProf, idadeProf;
+		string nomeProf, siglaProf, idadeProf;
 
 		getline(prof, nomeProf, ',');
+		getline(prof, siglaProf, ',');
 		getline(prof, idadeProf);
 
 		int idade = stoi(idadeProf);
 
-		c->addProf(nomeProf, idade);
+		c->addProf(nomeProf,siglaProf, idade);
 
 	}
 }
@@ -113,9 +114,9 @@ void adicionarUtente(string no, int idade, int gold) {
 	
 }
 
-void adicionarProfessor(string no, int idade) {
+void adicionarProfessor(string nome, string sigla, int idade) {
 
-	c->addProf(no, idade);
+	c->addProf(nome, sigla, idade);
 }
 
 void criarFicheiros() {

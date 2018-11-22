@@ -16,8 +16,9 @@ Pessoa::Pessoa(string nome, int idade)
 	this->idade = idade;
 }
 
-Professor::Professor(string nome, int idade) : Pessoa(nome, idade)
+Professor::Professor(string nome, string sigla, int idade) : Pessoa(nome, idade)
 {
+	this->sigla = sigla;
 }
 
 Utente::Utente(string nome, int idade, bool goldCard) : Pessoa(nome, idade)

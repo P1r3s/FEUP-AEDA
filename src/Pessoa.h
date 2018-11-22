@@ -23,8 +23,8 @@ class Pessoa
 public:
 	Pessoa(string nome, int idade);
 	~Pessoa() {}
-	string getName();
-	int getAge();
+	virtual string getName();
+	virtual int getAge();
 protected:
 	string nome;
 	int idade;
@@ -33,13 +33,17 @@ protected:
 class Professor : public Pessoa
 {
 public:
-	Professor(string nome, int idade);
+	Professor(string nome,  string sigla,int idade);
 	~Professor() {}
 	int getNrAulas();
 	vector<Aula> getAulaVec();
 	void aulasAdd(Aula a);
+	string getName() { return nome; }
+	int getAge() { return idade; }
+	string getSigla() { return sigla; }
 
 protected:
+	string sigla;
 	vector<Aula> aulasDoProfessor;        //vector com as aulas que o professor tem de dar (TO DO: class aula)
 
 };

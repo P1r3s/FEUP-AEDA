@@ -90,33 +90,29 @@ vector<Aula> CampoTenis::getAulas() {
 	return aulas;
 }
 
-void CampoTenis::addAulaVec(int dia, string horaInicio) {
-	Aula a(dia, horaInicio);
-	aulas.push_back(a);
-}
-
-
-void CampoTenis::addAula(Aula a)
+void CampoTenis::addAula(int dia, string horaInicio)
 {
-	unsigned int minimo = professores[0].getAulaVec().size(), index = 0;
-	for (unsigned int i = 1; i < professores.size(); i++)
+	int minimo = 999;
+	int index = 0;
+	for (unsigned int i = 0; i < getProfessors().size(); i++)
 	{
-		if (professores[i].getAulaVec().size() < minimo)
+		if (getProfessors()[i].getAulaVec().size() < minimo)
 		{
-			minimo = professores[i].getAulaVec().size();
+			minimo = getProfessors()[i].getAulaVec().size();
 			index = i;
 		}
 	}
 
-	professores[index].getAulaVec().push_back(a);
+	string sigla = getProfessors()[index].getSigla();
 
+	Aula a(dia, sigla, horaInicio);
+	aulas.push_back(a);
 }
 
-void CampoTenis::addProf(string nome, int idade)
+void CampoTenis::addProf(string nome, string sigla, int idade)
 {
-	Professor prof(nome, idade);
-	//cout << nome << ", " << idade<<endl;
-	professores.push_back(prof);
+	Professor prof(nome, sigla, idade);
+	getProfessors().push_back(prof);
 }
 
 void CampoTenis::removeProf(string nome)
@@ -134,6 +130,9 @@ void CampoTenis::removeProf(string nome)
 		}
 	}
 
+	int day;
+	string hour;
+	 
 	if (!removal)
 	{
 		throw Exception::Exception(nome);
@@ -142,7 +141,9 @@ void CampoTenis::removeProf(string nome)
 	{
 		for (size_t i = 0; i < aulas.size(); i++)
 		{
-			addAula(aulas[i]);
+			day = aulas[i].getDia();
+			hour = aulas[i].getHoraI();
+			addAula(day, hour);
 		}
 	}
 

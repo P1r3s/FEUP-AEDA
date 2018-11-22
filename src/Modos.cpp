@@ -74,8 +74,9 @@ string Modos::getHoraI() {
 }
 
 ///Classe Modo de Aula
-Aula::Aula(int dia, string horaInicio) : Modos(dia, horaInicio)
+Aula::Aula(int dia, string sigla, string horaInicio) : Modos(dia, horaInicio)
 {
+	this->sigla = sigla;
 	this->preco = 30;
 }
 

@@ -21,10 +21,11 @@ protected:
 
 class Aula : public Modos {
 public:
-	Aula(int dia, string horaInicio);
+	Aula(int dia, string sigla, string horaInicio);
 	virtual ~Aula() {};
 	double PrecoSessao() const;
 private:
+	string sigla;
 	double preco;
 };
 

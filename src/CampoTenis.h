@@ -36,9 +36,8 @@ public:
 	int getNumProfessores();
 	int getNumUtentes();
 	int getNumCampos();
-	void addAula(Aula a);
-	void addAulaVec(int dia, string horaInicio);
-	void addProf(string nome, int idade);
+	void addAula(int dia, string horaInicio);
+	void addProf(string nome, string sigla, int idade);
 	void addUtente(string nome, int idade, bool goldCard);
 	void addLivre(int dia, string horaInicio, int nrSlots);
 	void removeProf(string prof);
