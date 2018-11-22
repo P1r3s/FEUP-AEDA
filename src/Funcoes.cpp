@@ -117,13 +117,13 @@ void adicionarUtente(string no, int idade, int gold) {
 	c->addUtente(no, idade, g);
 
 	ofstream ute;
-	ute.open("Utentes.txt");
+	ute.open("Utentes.txt", std::fstream::out | std::fstream::app);
 	string card="nao";
 	if (g) {
 		card = "sim";
 	}
 
-	ute << no<<','<< idade<<','<<card;
+	ute <<endl << no<<','<< idade<<','<<card;
 
 	
 	ute.close();
@@ -136,9 +136,9 @@ void adicionarProfessor(string nome, string sigla, int idade) {
 	c->addProf(nome, sigla, idade);
 
 	ofstream prof;
-	prof.open("Professores.txt");
+	prof.open("Professores.txt", std::fstream::out | std::fstream::app);
 
-	prof << nome << ',' << sigla<< ',' << idade;
+	prof << endl << nome << ',' << sigla<< ',' << idade;
 
 	prof.close();
 }
@@ -238,7 +238,7 @@ int ocupacaoC(int i) {
 	return getNumC();
 }*/
 
-void criarRelatorioprogresso(string no, vector<Aula> v) {
+void criarRelatorioProgresso(string no, vector<Aula> v) {
 	//cria ficheiro .txt com o progresso do utente
 
 	ofstream progresso;

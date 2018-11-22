@@ -54,7 +54,7 @@ void Menu() {
 				criarFicheiros();
 				cout << endl;
 				cout << "Ficheiros criados!" << endl;
-				Menu1();
+				Menu2();
 				break;
 			case 3:
 				Sair();

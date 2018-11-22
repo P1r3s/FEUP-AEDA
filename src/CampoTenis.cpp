@@ -171,6 +171,30 @@ void CampoTenis::addProf(string nome, string sigla, int idade)
 	professores.push_back(prof);
 }
 
+void CampoTenis::removeUtente(string nome)
+{
+	vector<Aula> aulas;
+	bool removal = false;
+
+	for (size_t i = 0; i < utentes.size(); i++)
+	{
+		if (utentes[i].getName() == nome)
+		{
+
+			//aulas = utentes[i].getAulaVec();
+			utentes.erase(utentes.begin() + i);
+			removal = true;
+			break;
+		}
+	}
+
+	if (!removal)
+		throw Exception::Exception(nome);
+
+	ofstream file;
+	file.open("Utentes.txt");
+}
+
 void CampoTenis::removeProf(string nome)
 {
 	vector<Aula> aulas;
@@ -180,29 +204,29 @@ void CampoTenis::removeProf(string nome)
 	{
 		if (professores[i].getName() == nome)
 		{
+			
 			aulas = professores[i].getAulaVec();
 			professores.erase(professores.begin() + i);
 			removal = true;
+			break;
 		}
 	}
 
-	int day;
-	string hour;
-	 
 	if (!removal)
-	{
 		throw Exception::Exception(nome);
-	}
-	else
-	{
-		for (size_t i = 0; i < aulas.size(); i++)
-		{
-			day = aulas[i].getDia();
-			hour = aulas[i].getHoraI();
-			addAula(day, hour);
-		}
-	}
 
+	//int day;
+	//string hour;
+	//for (size_t i = 0; i < aulas.size(); i++)
+	//{
+	//	day = aulas[i].getDia();
+	//	hour = aulas[i].getHoraI();
+	//	addAula(day, hour);
+	//}
+
+
+	ofstream file;
+	file.open("Professores.txt");
 }
 
 vector<Livre> CampoTenis::getLivres() {

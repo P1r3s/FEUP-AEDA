@@ -41,6 +41,7 @@ public:
 	void addProf(string nome, string sigla, int idade);
 	void addUtente(string nome, int idade, bool goldCard);
 	void addLivre(int dia, string horaInicio, int nrSlots);
+	void removeUtente(string ute);
 	void removeProf(string prof);
 	void displayHorario();
 	void addAulaUtente(string nome, int dia, string horai);
