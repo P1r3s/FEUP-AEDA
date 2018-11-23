@@ -68,18 +68,6 @@ bool Utente::getGoldCard()
 {
 	return goldCard;
 }
-/*
-void Utente::aulasAdd(Aula a)
-{
-	aulasDoUtente.push_back(a);
-}
-
-void Utente::livresAdd(Livre l)
-{
-	livresDoUtente.push_back(l);
-}
-*/
-
 
 double Utente::getPrecoLivres() {
 	double precoTotalLivres = 0;
@@ -119,19 +107,6 @@ double Utente::getPrecoTotal() {
 void Utente::pushAula(Aula a) {
 	aulasDoUtente.push_back(a);
 }
-
-/*
-void Utente::switchVec(vector<Aula> &auxA) {
-	for (unsigned int i = 0; i < aulasDoUtente.size(); i++)
-	{
-		auxA.push_back(aulasDoUtente[i]);
-	}
-}
-
-Aula Utente::getAulaUnica(int i) {
-	return aulasDoUtente[i];
-}
-*/
 
 void Utente::pushLivre(Livre l) {
 	livresDoUtente.push_back(l);

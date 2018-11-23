@@ -7,7 +7,6 @@
 #include <fstream>
 #include <string>
 #include <vector>
-//#include <unistd.h>
 #include <sstream>
 #include <list>
 #include <algorithm>
@@ -25,10 +24,10 @@ public:
 	~Pessoa() {}
 	virtual string getName();
 	virtual int getAge();
-	//virtual void pushAula(Aula a);
+
 protected:
-	string nome;
-	int idade;
+	string nome;						 // Nome da pessoa
+	int idade;							 // Idade da pessoa
 };
 
 class Professor : public Pessoa
@@ -45,17 +44,17 @@ public:
 	void pushAula(Aula a);
 	
 protected:
-	string sigla;
-	vector<Aula> aulasDoProfessor;        //vector com as aulas que o professor tem de dar (TO DO: class aula)
+	string sigla;						  // Iniciais do professor
+	vector<Aula> aulasDoProfessor;        // Vector com as aulas que o professor tem de dar
 
 };
 
 class Utente : public Pessoa
 {
 protected:
-	bool goldCard;               //verifica se o utente tem cartao gold
-	vector<Aula> aulasDoUtente;   // Vetor com as aulas do utente
-	vector<Livre> livresDoUtente; // Vetor com os livres do utente
+	bool goldCard;						  // Verifica se o utente tem cartao gold
+	vector<Aula> aulasDoUtente;			  // Vetor com as aulas do utente
+	vector<Livre> livresDoUtente;		  // Vetor com os livres do utente
 	
 public:
 	Utente(string nome, int idade, bool goldCard);
@@ -67,14 +66,10 @@ public:
 	double getPrecoAulas();
 	double getPrecoCartao();
 	double getPrecoTotal();
-//	void aulasAdd(Aula a);
-	//void livresAdd(Livre l);
 	vector<Aula> getAulasUtente();
 	vector<Livre> getLivresUtente();
 	void pushAula(Aula a);
 	void pushLivre(Livre l);
-	//void switchVec(vector<Aula> &auxA);
-	//Aula getAulaUnica(int i);
 };
 
 #endif

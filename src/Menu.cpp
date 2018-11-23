@@ -9,6 +9,8 @@ CampoTenis *c = new CampoTenis();
 
 void Menu() {
 
+	c->Calendar();
+
 	char quote = 34;
 
 	HANDLE color = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -45,8 +47,7 @@ void Menu() {
 				cout << endl;
 				cout << "Ficheiros carregados!" << endl;
 
-				//for (unsigned int i = 0; i < c->getLivres().size(); i++)
-					//cout << c->getLivres()[i].getDia() << endl;
+				
 
 				Menu1();
 				break;
@@ -197,16 +198,6 @@ void menu1() {
 	cout << n << endl;
 	cout << endl;
 	cout << "Ocupacao dos Campos de Tenis: " << endl;
-
-
-	//FAZER DISPLAY DO VETOR 
-	/*
-	for (unsigned int i = 0; i < n; i++) {
-		unsigned int t = i + 1;
-		int c= ocupacaoC(i);
-		cout << "Campo" << t << ": " << c << endl;
-	}
-	 */
 
 	c->displayHorario();
 

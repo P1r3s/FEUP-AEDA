@@ -10,12 +10,11 @@ class Modos {
 public:
 	Modos(int dia, string horaInicio);
 	virtual ~Modos() {};
-	//virtual double PrecoSessao() const;
 	virtual int getDia();
 	virtual string getHoraI();
 protected:
-	int dia;
-	string horaInicio;
+	int dia;							// Dia da marcacao
+	string horaInicio;					// Hora da marcacao
 };
 
 
@@ -27,8 +26,8 @@ public:
 	int getDia();
 	string getHoraI();
 private:
-	string sigla;
-	double preco;
+	string sigla;						// Iniciais do professor responsavel por dar a aula
+	double preco;						// Preco por aula
 };
 
 class Livre : public Modos {
@@ -39,11 +38,11 @@ public:
 	int getDia();
 	string getHoraI();
 private:
-	int nrSlots;
-	double preco;
+	int nrSlots;						// Numero de slots que o modo vai ocupar
+	double preco;						// Preco por cada meia hora de modo livre
 };
 
-class InvalidSlot
+class InvalidSlot	//Exceção
 {
 public:
 	InvalidSlot(int nSlots) { this->nSlots = nSlots; }

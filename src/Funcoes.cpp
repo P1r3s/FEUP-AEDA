@@ -3,25 +3,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
-//#include <unistd.h>
+#include <vector> 
 #include <sstream>
 #include <list>
 #include <algorithm>
 #include <iomanip>
 
-/*
-int nrCamp;
-int lotCamp;
 
-void criaCampo(int nrC, int lotC) {
-	nrCamp = nrC;
-	lotCamp = lotC;
-	CampoTenis c(nrC, lotC);
-}
-*/
-
-//vector<int> campos(nrCamp, 0);
 
 extern CampoTenis *c;
 
@@ -44,9 +32,8 @@ void lerficheiroModos(CampoTenis *c) {
 
 			int d = stoi(data);
 
-			c->addAula(d, horai);
-			c->addAulaUtente(nomeU, d, horai);
-			
+			if (c->addAula(d, horai) == true)
+				c->addAulaUtente(nomeU, d, horai);
 		}
 		else {
 			getline(modos, horai, ',');
@@ -56,8 +43,8 @@ void lerficheiroModos(CampoTenis *c) {
 			int nrS = stoi(nSlot);
 			int d = stoi(data);
 
-			c->addLivre(d, horai, nrS);
-			c->addLivreUtente(nomeU, d, horai,nrS);
+			if (c->addLivre(d, horai, nrS) == true)
+				c->addLivreUtente(nomeU, d, horai, nrS);
 		}
 	}
 }
@@ -229,14 +216,7 @@ void horarioProfessores() {
 	//mostra os dias e horas de aulas de cada professor
 }
 
-/*
-int ocupacaoC(int i) {
-	return campos[i];
-}*/
 
-/*int getNumC() {
-	return getNumC();
-}*/
 
 void criarRelatorioProgresso(string no, vector<Aula> v) {
 	//cria ficheiro .txt com o progresso do utente
@@ -307,8 +287,7 @@ void criarDoc(string no) {
 
 
 
-	//cout << auxL.size();
 	docFimMes.close();
-	criarRelatorioprogresso(no, auxA);
+	criarRelatorioProgresso(no, auxA);
 }
 

@@ -30,6 +30,15 @@ CampoTenis::CampoTenis()
 	horas = horas * 60;
 	int minutos = minutes(horaEncerramento) - minutes(horaAbertura);
 	nSlots = (horas + minutos) / 30;
+
+	
+}
+
+void CampoTenis::Calendar()
+{
+	Horario h;
+	h.makeCalendar();
+	campoHorario.push_back(h);
 }
 
 int CampoTenis::getNumCampos() {
@@ -106,8 +115,14 @@ string CampoTenis::returnSigla() {
 	return sigla;
 }
 
-void CampoTenis::addAula(int dia, string horaInicio)
+bool CampoTenis::addAula(int dia, string horaInicio)
 {
+	
+	if (insertHorario(dia, horaInicio, 2) == false)
+	{
+		return false;
+	}
+
 	string sigla = returnSigla();
 
 	Aula a(dia, sigla, horaInicio);
@@ -126,6 +141,7 @@ void CampoTenis::addAula(int dia, string horaInicio)
 
 	professores[index].pushAula(a);
 
+	return true;
 }
 
 void CampoTenis::addAulaUtente(string nome, int dia, string horai) {
@@ -137,18 +153,23 @@ void CampoTenis::addAulaUtente(string nome, int dia, string horai) {
 	{
 		if (nome == getUtentes()[i].getName())
 		{
-			//utentes[i].getAulasUtente().push_back(a);
 			utentes[i].pushAula(a);
 		}
 	}
 
 }
 
-void CampoTenis::addLivre(int dia, string horaInicio, int nrSlots)
+bool CampoTenis::addLivre(int dia, string horaInicio, int nrSlots)
 {
-	Livre l(dia, horaInicio,nrSlots);
+	if (insertHorario(dia, horaInicio, nrSlots) == false)
+	{
+		return false;
+	}
+
+	Livre l(dia, horaInicio, nrSlots);
 	livres.push_back(l);
 
+	return true;
 }
 
 void CampoTenis::addLivreUtente(string nome, int dia, string horai, int nrSlots) {
@@ -180,8 +201,6 @@ void CampoTenis::removeUtente(string nome)
 	{
 		if (utentes[i].getName() == nome)
 		{
-
-			//aulas = utentes[i].getAulaVec();
 			utentes.erase(utentes.begin() + i);
 			removal = true;
 			break;
@@ -215,15 +234,6 @@ void CampoTenis::removeProf(string nome)
 	if (!removal)
 		throw Exception::Exception(nome);
 
-	//int day;
-	//string hour;
-	//for (size_t i = 0; i < aulas.size(); i++)
-	//{
-	//	day = aulas[i].getDia();
-	//	hour = aulas[i].getHoraI();
-	//	addAula(day, hour);
-	//}
-
 
 	ofstream file;
 	file.open("Professores.txt");
@@ -235,58 +245,57 @@ vector<Livre> CampoTenis::getLivres() {
 
 
 
-/*void CampoTenis::addCampo()
-{
-	vector<Horario> v;
-	v = getHorario();
-	for (int i = 0; i < getNumCampos(); i++)
-	{
-		v.push_back();
-	}
-}*/
-
 void CampoTenis::displayHorario()
 {
+	vector<string> horas = { "09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:30","19:00" };
 
-	for (unsigned int i = 0; i < campoHorario.size(); i++)
-	{
-		unsigned int month_size = campoHorario[i].getMonthVec().size();
-		unsigned int slot_size = campoHorario[i].getSlotVec().size();
+		unsigned int month_size = campoHorario[0].getMonthVec().size();
+		unsigned int slot_size = campoHorario[0].getDayVec().size();
+		cout << endl;
+		cout << "Horas Dia -->\n";
+		cout << "  |\n";
+		cout << "  V\n";
 
-		cout << "Campo " << i << " :\n\n";
-		for (unsigned int j = 0; j < slot_size; j++)
+		cout << "            ";
+		for (size_t i = 1; i < 32; i++)
 		{
-			int resto = j % 5;
-			switch (resto)
-			{
-			case 0:
-				cout << setw(9) << "MONDAY";
-				break;
-			case 1:
-				cout << setw(9) << "TUESDAY";
-				break;
-			case 2:
-				cout << setw(9) << "WEDNSDAY";
-				break;
-			case 3:
-				cout << setw(9) << "THUSDAY";
-				break;
-			case 4:
-				cout << setw(9) << "FRIDAY";
-				break;
-			default:
-				break;
-			}
+			cout << setw(4) << i;
 		}
-
-		for (unsigned int k = 0; k < month_size; k++)
+		cout << endl;
+		for (unsigned int k = 1; k < month_size; k++)
 		{
+			cout << horas[k - 1] << "-" << horas[k] << " ";
 			for (unsigned int j = 0; j < slot_size; j++)
 			{
-				cout << setw(9) << campoHorario[i].getMonthVec()[k][j];
+				cout << setw(4) << campoHorario[0].getMonthVec()[k - 1][j];
 			}
 			cout << endl;
 		}
 		cout << endl << endl;
+	
+}
+
+bool CampoTenis::insertHorario(int dia, string horaI, int nrSlots)
+{
+	int indexSlot, tempHoraA, tempHoraI;
+	tempHoraI = (hours(horaI) * 60) + minutes(horaI);
+	tempHoraA = (hours(horaAbertura) * 60) + minutes(horaAbertura);
+	indexSlot = (tempHoraI - tempHoraA) / 30;
+
+
+	for (int i = 0; i < nrSlots; i++)
+	{
+		if ((campoHorario[0].getOcupation(dia, indexSlot) < 20) && (i = (nrSlots - 1)))
+		{
+			campoHorario[0].addOcupation(dia, indexSlot);
+			return true;
+		}
+		if (campoHorario[0].getOcupation(dia, indexSlot) < 20)
+		{
+			campoHorario[0].addOcupation(dia, indexSlot);
+		}
+		
 	}
+
+	return false;
 }
