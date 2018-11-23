@@ -45,7 +45,7 @@ void Menu() {
 				lerficheiroUtentes(c);
 				lerficheiroModos(c);
 				cout << endl;
-				cout << "Ficheiros carregados!" << endl;
+				
 
 				
 
@@ -82,9 +82,8 @@ void Menu1() {
 	cout << " 1 - Informacao relativa aos Campos de Tenis" << endl;
 	cout << " 2 - Informacao relativa as Aulas" << endl;
 	cout << " 3 - Informacao relativa aos Utentes" << endl;
-	cout << " 4 - Informacao relativa aos Professores" << endl;
-	cout << " 5 - Voltar ao menu anterior" << endl;
-	cout << " 6 - Sair" << endl;
+	cout << " 4 - Voltar ao menu anterior" << endl;
+	cout << " 5 - Sair" << endl;
 	cout << "--------------------------------------------- " << endl;
 
 	int opcao = 0;
@@ -104,12 +103,9 @@ void Menu1() {
 				menu3();
 				break;
 			case 4:
-				menu4();
-				break;
-			case 5:
 				Menu();
 				break;
-			case 6:
+			case 5:
 				Sair();
 				break;
 			default:
@@ -131,8 +127,8 @@ void Menu2() {
 	cout << "--------------------------------------------- " << endl;
 	cout << endl << endl;
 	cout << " 1 - Adicionar Utente" << endl;
-	cout << " 2 - Remover Utente" << endl;
-	cout << " 3 - Adicionar Professor" << endl;
+	cout << " 2 - Adicionar Professor" << endl;
+	cout << " 3 - Remover Utente" << endl;
 	cout << " 4 - Remover Professor" << endl;
 	cout << " 5 - Voltar ao menu anterior" << endl;
 	cout << " 6 - Sair" << endl;
@@ -161,15 +157,23 @@ void Menu2() {
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "Insira o nome do novo Professor: "; getline(cin, no, '\n');
-				cout << "Insira a sigla do Utente: "; cin >> sigla;
-				cout << "Insira a idade do Utente: "; cin >> idade;
+				cout << "Insira a sigla do Professor: "; cin >> sigla;
+				cout << "Insira a idade do Professor: "; cin >> idade;
 				adicionarProfessor(no,sigla, idade);
 				break;
 			case 3:
-				//remover utente                 FALTA IMPLEMENTAR
+				//remover utente
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira o nome do novo Utente: "; getline(cin, no, '\n');
+				c->removeUtente(no);
 				break;
 			case 4:
-				//remover professor              FALTA IMPLEMENTAR
+				//remover professor            
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira o nome do novo Professor: "; getline(cin, no, '\n');
+				c->removeProf(no);
 				break;
 			case 5:
 				Menu();
@@ -320,18 +324,6 @@ void menu3() {
 			cout << "Opcao invalida! Introduza opcao: ";
 		}
 	}
-}
-
-void menu4() {
-	string no;
-	cout << endl << endl;;
-	cout << "Horario dos Professores: " << endl;
-	cout << endl;
-	
-	//horarioProfessores();
-
-	cout << endl << endl;
-	Menu1();
 }
 
 void Sair() {
