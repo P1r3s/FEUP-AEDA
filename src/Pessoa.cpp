@@ -4,11 +4,9 @@
 
 #include "Pessoa.h"
 
-
-
 using namespace std;
 
-///Construtores
+//Construtores
 
 Pessoa::Pessoa(string nome, int idade)
 {
@@ -27,7 +25,7 @@ Utente::Utente(string nome, int idade, bool goldCard) : Pessoa(nome, idade)
 }
 
 
-///Funçoes Pessoa
+//Funçoes Pessoa
 
 string Pessoa::getName()
 {
@@ -39,7 +37,7 @@ int Pessoa::getAge()
 	return idade;
 }
 
-///Funçoes Professor
+//Funçoes Professor
 
 int Professor::getNrAulas(string nomeProf) {
 	return aulasDoProfessor.size();
@@ -50,12 +48,11 @@ vector<Aula> Professor::getAulaVec()
 	return aulasDoProfessor;
 }
 
-void Professor::aulasAdd(Aula a)
-{
+void Professor::pushAula(Aula a) {
 	aulasDoProfessor.push_back(a);
 }
 
-///Funçoes Utentes
+//Funçoes Utentes
 vector<Aula> Utente::getAulasUtente() {
 	return aulasDoUtente;
 }
@@ -111,8 +108,3 @@ void Utente::pushAula(Aula a) {
 void Utente::pushLivre(Livre l) {
 	livresDoUtente.push_back(l);
 }
-
-void Professor::pushAula(Aula a) {
-	aulasDoProfessor.push_back(a);
-}
-

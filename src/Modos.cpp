@@ -4,9 +4,7 @@
 
 using namespace std;
 
-
-
-///Classe Modos
+//Classe Modos
 Modos::Modos(int dia, string horaInicio) {
 
 	this->dia = dia;
@@ -16,6 +14,7 @@ Modos::Modos(int dia, string horaInicio) {
 int Modos::getDia() {
 	return dia;
 }
+
 
 string Modos::getHoraI() {
 	return horaInicio;
@@ -29,6 +28,10 @@ string Aula::getHoraI() {
 	return horaInicio;
 }
 
+string Aula::getSigla() {
+	return sigla;
+}
+
 int Livre::getDia() {
 	return dia;
 }
@@ -37,9 +40,11 @@ string Livre::getHoraI() {
 	return horaInicio;
 }
 
+int Livre::getNrSlots() {
+	return nrSlots;
+}
 
-
-///Classe Modo de Aula
+//Classe Modo de Aula
 Aula::Aula(int dia, string sigla, string horaInicio) : Modos(dia, horaInicio)
 {
 	this->sigla = sigla;
@@ -51,7 +56,7 @@ double Aula::PrecoSessao() const {
 	return preco;
 }
 
-///Classe Modo Livre
+//Classe Modo Livre
 Livre::Livre(int dia, string horaInicio, int nrSlots) : Modos(dia, horaInicio)
 {
 	this->nrSlots = nrSlots;

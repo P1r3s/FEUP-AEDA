@@ -7,7 +7,8 @@ using namespace std;
 
 int main() {
 
-	Menu();
+	titulo();
+	carregarFicheiros();
 
 	system("pause");
 	return 0;

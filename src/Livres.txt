@@ -1,0 +1,8 @@
+Maria Silva,Livre,9,5,6
+Mariana Costa,Livre,9,3,3
+Andre Pedrosa,Livre,15,2,23
+Filipe Pinto,Livre,11,1,14
+Catarina Lemos,Livre,10,1,30
+Marina Teixeira,Livre,19,4,3
+Luis Miguel,Livre,15,3,34
+Maria Silva,Livre,9,4,6

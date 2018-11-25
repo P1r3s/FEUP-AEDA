@@ -2,35 +2,25 @@
 #include "Funcoes.h"
 #include "CampoTenis.h"
 #include <Windows.h>
+#include <stdlib.h>
 
 using namespace std;
 
 CampoTenis *c = new CampoTenis();
 
-void Menu() {
+void menuPrincipal() {
 
-	c->Calendar();
-
-	char quote = 34;
-
-	HANDLE color = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(color, 016);
-
-	cout << "   ,odOO" << quote << "bo," << setw(58) << "   ,odOO" << quote << "bo," << endl;
-	cout << " ,dOOOP'dOOOb," << setw(62) << " ,dOOOP'dOOOb," << endl;
-	cout << ",O3OP'dOO3OO33, --------------------------------------------- ,O3OP'dOO3OO33," << endl;
-	cout << "P" << quote << ",ad33O333O3Ob          ALUGUER DE CAMPOS DE TENIS           P" << quote << ",ad33O333O3Ob" << endl;
-	cout << "?833O338333P" << quote << ",d --------------------------------------------- ?833O338333P" << quote << ",d" << endl;
-	cout << "`88383838P,d38'" << setw(62) << "`88383838P,d38'" << endl;
-	cout << " `Y8888P,d88P'" << setw(62) << " `Y8888P,d88P'" << endl;
-	cout << "   `" << quote << "?8,8P" << quote << "'" << setw(54) << "   `" << quote << "?8,8P" << quote << "'" << endl;
-
-	SetConsoleTextAttribute(color, 017);
+	system("pause");
+	system("cls");
 
 	cout << endl << endl;
-	cout << "1 - Carregar ficheiros existentes" << endl;
-	cout << "2 - Criar novos ficheiros" << endl;
+	cout << "--------------------------------------------- " << endl;
+	cout << "          ALUGUER DE CAMPOS DE TENIS          " << endl;
+	cout << "--------------------------------------------- " << endl;
+	cout << "1 - Consultar Informacao" << endl;
+	cout << "2 - Alterar dados" << endl;
 	cout << "3 - Sair" << endl;
+	cout << "--------------------------------------------- " << endl;
 	
 	int opcao = 0;
 	cout << endl;
@@ -41,24 +31,13 @@ void Menu() {
 
 			switch (opcao) {
 			case 1:
-				lerficheiroProfessores(c);
-				lerficheiroUtentes(c);
-				lerficheiroModos(c);
-				cout << endl;
-				
-
-				
-
-				Menu1();
+				menuInformacoes();
 				break;
 			case 2:
-				criarFicheiros();
-				cout << endl;
-				cout << "Ficheiros criados!" << endl;
-				Menu2();
+				menuAlteracoes();
 				break;
 			case 3:
-				Sair();
+				sair();
 				break;
 			default:
 				cout << "Opcao invalida! Introduza uma opcao: ";
@@ -73,12 +52,14 @@ void Menu() {
 	}
 }
 
-void Menu1() {
+void menuInformacoes() {
+	system("pause");
+	system("cls");
+
 	cout << endl << endl;
 	cout << "--------------------------------------------- " << endl;
 	cout << "          ALUGUER DE CAMPOS DE TENIS          " << endl;
 	cout << "--------------------------------------------- " << endl;
-	cout << endl << endl;
 	cout << " 1 - Informacao relativa aos Campos de Tenis" << endl;
 	cout << " 2 - Informacao relativa as Aulas" << endl;
 	cout << " 3 - Informacao relativa aos Utentes" << endl;
@@ -94,19 +75,19 @@ void Menu1() {
 
 			switch (opcao) {
 			case 1:
-				menu1();
+				menuInfoCampos();
 				break;
 			case 2:
-				menu2();
+				menuInfoAulas();
 				break;
 			case 3:
-				menu3();
+				menuInfoUtentes();
 				break;
 			case 4:
-				Menu();
+				menuPrincipal();
 				break;
 			case 5:
-				Sair();
+				sair();
 				break;
 			default:
 				cout << "Opcao invalida! Introduza uma opcao: ";
@@ -120,12 +101,14 @@ void Menu1() {
 	}
 }
 
-void Menu2() {
+void menuAlteracoes() {
+	system("pause");
+	system("cls");
+
 	cout << endl << endl;
 	cout << "--------------------------------------------- " << endl;
 	cout << "          ALUGUER DE CAMPOS DE TENIS          " << endl;
 	cout << "--------------------------------------------- " << endl;
-	cout << endl << endl;
 	cout << " 1 - Adicionar Utente" << endl;
 	cout << " 2 - Adicionar Professor" << endl;
 	cout << " 3 - Remover Utente" << endl;
@@ -141,7 +124,6 @@ void Menu2() {
 	int idade, gold;
 	while (opcao < 1 || opcao > 6) {
 		if (cin >> opcao) {
-
 			switch (opcao) {
 			case 1:
 				//adicionar utente
@@ -149,8 +131,15 @@ void Menu2() {
 				cin.ignore(10000, '\n');
 				cout << "Insira o nome do novo Utente: "; getline(cin, no, '\n');
 				cout << "Insira a idade do Utente: "; cin >> idade;
-				cout << "O Utente tem goldCard? (se sim meta 1,senao meta 0) "; cin >> gold;
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "O Utente tem goldCard? (se sim meta 1,se nao meta 0) "; cin >> gold;
 				adicionarUtente(no, idade, gold);
+				cout << endl;
+				cout << "Utente adicionado com sucesso!" << endl << endl;
+				cin.clear();
+				cin.ignore(10000, '\n');
+				menuAlteracoes();
 				break;
 			case 2:
 				//adiciona professor
@@ -159,27 +148,67 @@ void Menu2() {
 				cout << "Insira o nome do novo Professor: "; getline(cin, no, '\n');
 				cout << "Insira a sigla do Professor: "; cin >> sigla;
 				cout << "Insira a idade do Professor: "; cin >> idade;
-				adicionarProfessor(no,sigla, idade);
+				adicionarProfessor(no, sigla, idade);
+				cout << endl;
+				cout << "Professor adicionado com sucesso!" << endl;
+				cin.clear();
+				cin.ignore(10000, '\n');
+				menuAlteracoes();
 				break;
 			case 3:
 				//remover utente
 				cin.clear();
 				cin.ignore(10000, '\n');
-				cout << "Insira o nome do novo Utente: "; getline(cin, no, '\n');
-				c->removeUtente(no);
+				cout << "Insira o nome do Utente a remover: "; getline(cin, no, '\n');
+				if (c->verificaExUten(no)) {
+					if (c->removeUtente(no)) {
+						cout << "Utente removido com sucesso!" << endl;
+					}
+					else
+						cout << "Nao foi possivel remover o Utente!" << endl;
+
+					cin.clear();
+					cin.ignore(10000, '\n');
+					menuAlteracoes();
+				}
+				else {
+					cout << endl;
+					cout << "Nome de utente invalido!" << endl;
+					menuInfoAulas();
+				}
+
 				break;
 			case 4:
-				//remover professor            
+				//remover professor
 				cin.clear();
 				cin.ignore(10000, '\n');
-				cout << "Insira o nome do novo Professor: "; getline(cin, no, '\n');
-				c->removeProf(no);
+				cout << "Insira o nome do Professor a remover: "; getline(cin, no, '\n');
+				if (c->verificaExProf(no)) {
+					if (c->removeProf(no)) {
+						cout << endl;
+						cout << "Professor removido com sucesso!" << endl;
+					}
+					else {
+						cout << endl;
+						cout << "Nao foi possivel remover o Professor!" << endl;
+					}
+
+					cin.clear();
+					cin.ignore(10000, '\n');
+					menuAlteracoes();
+
+				}
+				else {
+					cout << endl;
+					cout << "Nome de professor invalido!" << endl;
+					menuAlteracoes();
+				}
 				break;
 			case 5:
-				Menu();
+				menuPrincipal();
 				break;
 			case 6:
-				Sair();
+				sair();
 				break;
 			default:
 				cout << "Opcao invalida! Introduza uma opcao: ";
@@ -194,24 +223,30 @@ void Menu2() {
 }
 
 
-void menu1() {
+void menuInfoCampos() {
+	system("pause");
+	system("cls");
+
 	cout << endl << endl;
 	cout << "Numero de Campos de Tenis: " << endl;
 	
 	int n = c->getNumCampos();
 	cout << n << endl;
 	cout << endl;
-	cout << "Ocupacao dos Campos de Tenis: " << endl;
 
-	c->displayHorario();
-
+	cout << "Disponibilidade dos Campos de Tenis: " << endl;
+	c->displayDispCampos();
 	cout << endl;
+	cout << "Informacao: As marcacoes de livres so poderao ser feitas nos dias/horas onde a disponibilidade for diferente de zero." << endl;
 
 	cout << endl << endl;
-	Menu1();
+	menuInformacoes();
 }
 
-void menu2() {
+void menuInfoAulas() {
+	system("pause");
+	system("cls");
+
 	string no;
 	cout << endl << endl;
 	cout << "--------------------------------------------- " << endl;
@@ -231,23 +266,36 @@ void menu2() {
 
 			switch (opcao) {
 			case 1:
+				cout << endl;
+				cout << "HORARIO DAS AULAS: " << endl << endl;
 				for (int i = 9; i < 19; i++) {
 					cout << "Aula" << t << ": " << " Das " << i << "h" << " as " << i + 1 << "h" << endl;
 					t = t + 1;
 				}
-				menu2();
+				cout << endl;
+				menuInfoAulas();
 				break;
 			case 2:
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "Insira o nome do professor: "; getline(cin, no, '\n');
-				professorDasAulas(no);
+				cout << endl;
+				if (c->verificaExProf(no)) {
+					cout << "Aulas do professor: " << endl << endl;
+					professorDasAulas(no);
+					menuInfoAulas();
+				}
+				else {
+					cout << endl;
+					cout << "Nome de professor invalido!" << endl;
+					menuInfoAulas();
+				}
 				break;
 			case 3:
-				Menu1();
+				menuInformacoes();
 				break;
 			case 4:
-				Sair();
+				sair();
 				break;
 			default:
 				cout << "Opcao invalida! Introduza uma opcao: ";
@@ -261,7 +309,10 @@ void menu2() {
 	}
 }
 
-void menu3() {
+void menuInfoUtentes() {
+	system("pause");
+	system("cls");
+
 	cout << endl << endl;
 	cout << "--------------------------------------------- " << endl;
 	cout << "          ALUGUER DE CAMPOS DE TENIS          " << endl;
@@ -284,35 +335,66 @@ void menu3() {
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
-				cout << no<< " frequentou os campos de tenis "<< freqUtentes(no)<<" vezes durante este mes.\n";
-				freqUtentes(no);
+				cout << endl;
+
+				if (c->verificaExUten(no)) {
+					cout << no << " frequentou os campos de tenis " << freqUtentes(no) << " vezes durante este mes.\n" << endl;
+					freqUtentes(no);
+					menuInfoUtentes();
+				}
+				else {
+					cout << endl;
+					cout << "Nome de utente invalido!" << endl;
+					menuInfoUtentes();
+				}
+				
 				break;
 			case 2:
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
 				cout << endl;
-				cout << "Conta do Utente" << endl << endl;
-				cout << "Nome: "; cout << no << endl;
-				cout << "Age: "; cout << contasUtentes(no).at(0) << endl;
-				cout << "Gold Card: "; 
-				if (contasUtentes(no).at(0) == 1)
-					cout << "Tem cartao gold" << endl;
-				else 
-					cout << "Nao tem cartao gold" << endl;
+
+				if (c->verificaExUten(no)) {
+					cout << "Conta do Utente" << endl << endl;
+					cout << "Nome: "; cout << no << endl;
+					cout << "Age: "; cout << contasUtentes(no).at(0) << endl;
+					cout << "Gold Card: ";
+					if (contasUtentes(no).at(1) == 1)
+						cout << "Tem cartao gold" << endl << endl;
+					else
+						cout << "Nao tem cartao gold" << endl << endl;
+
+					menuInfoUtentes();
+				}
+				else {
+					cout << endl;
+					cout << "Nome de utente invalido!" << endl<<endl;
+					menuInfoUtentes();
+				}
 				break;
 			case 3:
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
-				criarDoc(no);
-				menu3();
+
+				if (c->verificaExUten(no)) {
+					criarDoc(no);
+					cout << endl;
+					cout << "Relatorio de fim do mes criado com sucesso!" << endl << endl;
+					menuInfoUtentes();
+				}
+				else {
+					cout << endl;
+					cout << "Nome de utente invalido!" << endl << endl;
+					menuInfoUtentes();
+				}
 				break;
 			case 4:
-				Menu1();
+				menuInformacoes();
 				break;
 			case 5:
-				Sair();
+				sair();
 				break;
 			default:
 				cout << "Opcao invalida! Introduza uma opcao: ";
@@ -326,29 +408,61 @@ void menu3() {
 	}
 }
 
-void Sair() {
+void sair() {
 	string opcao;
 	cout << endl;
-	cout << "Deseja guardar as alteracoes feitas? (S/N): ";
+	cout << "Tem a certeza que quer sair da aplicacao? (S/N): ";
 	cin.clear();
 	cin.ignore(10000, '\n');
 	while (opcao != "s" && opcao != "S" && opcao != "n" && opcao != "N") {
 		getline(cin, opcao);
 		if (opcao == "s" || opcao == "S") {
-			//escrever para os ficheiros
-			//guardarficheiroAulas();
-			//guardarficheiroProfessores();
-			//guardarficheiroUtentes();
-			cout << "\nAlteracoes guardadas!\n";
 			exit(0);
 			break;
 		}
 		if (opcao == "n" || opcao == "N") {
-			exit(0);
+			menuPrincipal();
 			break;
 		}
 		else {
 			cout << "Opcao invalida! Introduza uma opcao: ";
 		}
 	}
+}
+
+void titulo() {
+	char quote = 34;
+
+	HANDLE color = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(color, 016);
+
+	cout << "   ,odOO" << quote << "bo," << setw(58) << "   ,odOO" << quote << "bo," << endl;
+	cout << " ,dOOOP'dOOOb," << setw(62) << " ,dOOOP'dOOOb," << endl;
+	cout << ",O3OP'dOO3OO33, --------------------------------------------- ,O3OP'dOO3OO33," << endl;
+	cout << "P" << quote << ",ad33O333O3Ob          ALUGUER DE CAMPOS DE TENIS           P" << quote << ",ad33O333O3Ob" << endl;
+	cout << "?833O338333P" << quote << ",d --------------------------------------------- ?833O338333P" << quote << ",d" << endl;
+	cout << "`88383838P,d38'" << setw(62) << "`88383838P,d38'" << endl;
+	cout << " `Y8888P,d88P'" << setw(62) << " `Y8888P,d88P'" << endl;
+	cout << "   `" << quote << "?8,8P" << quote << "'" << setw(54) << "   `" << quote << "?8,8P" << quote << "'" << endl;
+
+	SetConsoleTextAttribute(color, 017);
+
+	cout << endl << endl << endl;
+
+	cout << "A carregar ficheiros existentes......" << endl << endl;
+}
+
+void carregarFicheiros() {
+	system("pause");
+	system("cls");
+
+	lerficheiroProfessores(c);
+	lerficheiroUtentes(c);
+	lerficheiroAulas(c);
+	c->atualizaVetorDisp();
+	lerficheiroLivres(c);
+	cout << endl;
+
+	cout << "Ficheiros carregados!" << endl << endl;
+	menuPrincipal();
 }
