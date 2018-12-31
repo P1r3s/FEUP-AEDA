@@ -55,8 +55,10 @@ vector<int> contasUtentes(string no);
 *@param nome do utente
 *@param idade do utente 
 *@param utente ter cartao gold
+*@param morada do utente
+*@param nif do utente
 */
-void adicionarUtente(string no,int idade,int gold);
+void adicionarUtente(string no, int idade, int gold, string morada, int nif);
 
 /**
 *  @brief Adiciona novo professor
@@ -64,8 +66,10 @@ void adicionarUtente(string no,int idade,int gold);
 *@param nome do professor
 *@param sigla do professor
 *@param idade do professor
+*@param morada do professor
+*@param nif do professor
 */
-void adicionarProfessor(string nome, string sigla, int idade);
+void adicionarProfessor(string nome, string sigla, int idade, string morada, int nif);
 
 /**
 *  @brief Cria ficheiro .txt com as aulas/livres que frequentou (incluindo data/horas e valor a pagar)

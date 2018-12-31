@@ -120,8 +120,8 @@ void menuAlteracoes() {
 	int opcao = 0;
 	cout << endl;
 	cout << "Introduza uma opcao: ";
-	string no, sigla;
-	int idade, gold;
+	string no, sigla, morada;
+	int idade, gold, nif;
 	while (opcao < 1 || opcao > 6) {
 		if (cin >> opcao) {
 			switch (opcao) {
@@ -130,11 +130,19 @@ void menuAlteracoes() {
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "Insira o nome do novo Utente: "; getline(cin, no, '\n');
+				cin.clear();
+				cin.ignore(10000, '\n');
 				cout << "Insira a idade do Utente: "; cin >> idade;
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "O Utente tem goldCard? (se sim meta 1,se nao meta 0) "; cin >> gold;
-				adicionarUtente(no, idade, gold);
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira a morada do Utente: "; getline(cin, morada, '\n');
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira o NIF do Utente: "; cin >> nif;
+				adicionarUtente(no, idade, gold, morada, nif);
 				cout << endl;
 				cout << "Utente adicionado com sucesso!" << endl << endl;
 				cin.clear();
@@ -146,9 +154,19 @@ void menuAlteracoes() {
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "Insira o nome do novo Professor: "; getline(cin, no, '\n');
+				cin.clear();
+				cin.ignore(10000, '\n');
 				cout << "Insira a sigla do Professor: "; cin >> sigla;
+				cin.clear();
+				cin.ignore(10000, '\n');
 				cout << "Insira a idade do Professor: "; cin >> idade;
-				adicionarProfessor(no, sigla, idade);
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira a morada do Utente: "; getline(cin, morada, '\n');
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira o NIF do Utente: "; cin >> nif;
+				adicionarProfessor(no, sigla, idade, morada, nif);
 				cout << endl;
 				cout << "Professor adicionado com sucesso!" << endl;
 				cin.clear();
