@@ -199,18 +199,23 @@ void lerficheiroProfessores(CampoTenis *c) {
 	while (getline(file, line)) {
 		stringstream prof(line);
 
-		string nomeProf, siglaProf, idadeProf, moradaProf, nifProf;
+		string nomeProf, siglaProf, idadeProf, moradaProf, nifProf, estado;
+		bool empregado=false;
 
 		getline(prof, nomeProf, ',');			//guarda nome
 		getline(prof, siglaProf, ',');			//guarda sigla
 		getline(prof, idadeProf, ',');			//guarda idade em string
 		getline(prof, moradaProf, ',');			//guarda morada
-		getline(prof, nifProf);					//guarda nif em string
+		getline(prof, nifProf,',');					//guarda nif em string
+		getline(prof, estado);					//guarda estado do professor
+		if (estado == "true") {
+			empregado = true;
+		}
 
 		int idade = stoi(idadeProf);		//converte idade para inteiro
 		int nif = stoi(nifProf);			//converte nif para inteiro
 
-		c->addProf(nomeProf, siglaProf, idade, moradaProf, nif);		//adiciona professor
+		c->addProf(nomeProf, siglaProf, idade, moradaProf, nif, empregado);		//adiciona professor
 
 	}
 }
@@ -269,16 +274,20 @@ void adicionarUtente(string nome, int idade, int gold, string morada, int nif) {
 	ute.close();
 }
 
-void adicionarProfessor(string nome, string sigla, int idade, string morada, int nif) {
+void adicionarProfessor(string nome, string sigla, int idade, string morada, int nif, bool empregado) {
 	//adicionar novo professor
 
-	c->addProf(nome, sigla, idade, morada, nif);
+
+	c->addProf(nome, sigla, idade, morada, nif, empregado);
 
 	ofstream prof;
 	prof.open("Professores.txt", std::fstream::out | std::fstream::app);
-
+	
+	string emp = "false";
+	if (empregado)
+		emp = "true";
 	//escreve utente para o ficheiro Professores.txt ja existente
-	prof << endl << nome << ',' << sigla<< ',' << idade << ',' << morada << ',' << nif;
+	prof << endl << nome << ',' << sigla<< ',' << idade << ',' << morada << ',' << nif <<','<<emp;
 
 	prof.close();
 }
@@ -286,7 +295,7 @@ void adicionarProfessor(string nome, string sigla, int idade, string morada, int
 void professorDasAulas(string nomeProf) {
 	//aulas de um determinado professor
 
-	vector<Professor> auxP = c->getProfessors();
+	vector<Professor> auxP = c->getProfessorsTemp();
 	unsigned int i = 0;
 	int index;
 
@@ -411,7 +420,7 @@ void criarDoc(string no) {
 	vector<Aula> auxA;
 	vector<Livre> auxL;
 	unsigned int i = 0;
-	int index;
+	unsigned int index;
 	
 	BSTItrIn<Utente> it(auxU);
 	Utente u = it.retrieve();

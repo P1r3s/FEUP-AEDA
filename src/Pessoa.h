@@ -64,7 +64,7 @@ public:
 	*@param sigla do professor
 	*@param idade do professor
 	*/
-	Professor(string nome, string sigla, int idade, string morada, int nif);
+	Professor(string nome, string sigla, int idade, string morada, int nif, bool empregado);
 	~Professor() {}
 
 	/**
@@ -72,7 +72,7 @@ public:
 	*
 	*@param nome do professor
 	*/
-	int getNrAulas(string nome);
+	int getNrAulas();
 
 	/**
 	*  @brief retorna o vetor de aulas do professor
@@ -100,12 +100,16 @@ public:
 	*@param aula
 	*/
 	void pushAula(Aula a);
-	
+
+	/**
+	*  @brief retorna o estado do professor
+	*/
+	bool getEstado() { return empregado; }
 	
 protected:
 	string sigla;						  // Iniciais do professor
 	vector<Aula> aulasDoProfessor;        // Vector com as aulas que o professor tem de dar
-
+	bool empregado;
 };
 
 /**

@@ -69,7 +69,7 @@ void adicionarUtente(string no, int idade, int gold, string morada, int nif);
 *@param morada do professor
 *@param nif do professor
 */
-void adicionarProfessor(string nome, string sigla, int idade, string morada, int nif);
+void adicionarProfessor(string nome, string sigla, int idade, string morada, int nif, bool empregado);
 
 /**
 *  @brief Cria ficheiro .txt com as aulas/livres que frequentou (incluindo data/horas e valor a pagar)

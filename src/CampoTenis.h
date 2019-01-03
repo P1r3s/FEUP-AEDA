@@ -5,12 +5,40 @@
 
 #include <fstream>
 #include <iomanip>
+#include <unordered_set>
+
 
 #include "Modos.h"
 #include "Pessoa.h"
 #include "BST.h"
 
 using namespace std;
+
+
+struct proff
+{
+	int operator() (const Professor & ap) const
+	{
+		Professor a = ap;
+		return a.getNrAulas();
+	}
+
+	bool operator() (const Professor & ap1, const Professor & ap2) const
+	{
+		Professor c = ap1;
+		Professor b = ap2;
+		if (c.getNif() == b.getNif())
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+
+};
+
+
+
 
 /**
  *  Representa o Campo de Tenis
@@ -42,7 +70,7 @@ public:
 	/**
 	*  @brief Retorna o vetor de professores
 	*/
-	vector<Professor> getProfessors();
+	unordered_set<Professor> getProfessors();
 
 	/**
 	*  @brief Retorna a BST de utentes
@@ -113,7 +141,7 @@ public:
 	*@param sigla do professor
 	*@param idade do professor
 	*/
-	void addProf(string nome, string sigla, int idade, string morada, int nif);
+	void addProf(string nome, string sigla, int idade, string morada, int nif, bool empregado);
 
 	/**
 	*  @brief Cria e adiciona o utente ao vetor de utentes
@@ -189,19 +217,26 @@ public:
 	int minutes(string horas);
 
 	/**
-	*@brief Verifica se o professor existe no vetor professores
+	*  @brief Verifica se o professor existe no vetor professores
 	*
 	*@param nome do professor
 	*/
 	bool verificaExProf(string nome);
 
 	/**
-	*@brief Verifica se o utente existe no vetor utentes
+	*  @brief Verifica se o utente existe no vetor utentes
 	*
 	*@param nome do utente
 	*/
 	bool verificaExUten(string nome);
 
+	/**
+	*  @brief retorna vetor de professores temporario
+	*/
+	vector<Professor> getProfessorsTemp();
+
+
+	void atualizaProfs();
 
 private:
 	int nCampos;							 // numero de campos disponiveis pela empressa
@@ -210,7 +245,8 @@ private:
 	string horaAbertura;					 // horas a que os campos abrem
 	string horaEncerramento;				 // horas a que os campos fecham
 
-	vector<Professor> professores;            // Vector com todos os professores
+	vector<Professor> professoresTemp;            // Vector com todos os professores
+	unordered_set<Professor> professores;
 	vector<Aula> aulas;						  // Vector com todas as aulas marcadas
 	vector<Livre> livres;					  // Vector com todos os livres marcados
 

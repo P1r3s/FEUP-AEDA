@@ -56,7 +56,13 @@ string CampoTenis::getHoraEncerramento()
 	return horaEncerramento;
 }
 
-vector<Professor> CampoTenis::getProfessors()
+vector<Professor> CampoTenis::getProfessorsTemp()
+{
+	return professoresTemp;
+}
+
+
+unordered_set<Professor> CampoTenis::getProfessors()
 {
 	return professores;
 }
@@ -99,19 +105,23 @@ vector<Aula> CampoTenis::getAulas() {
 }
 
 string CampoTenis::returnSigla() {				//retorna a sigla do professor com menos aulas
-	unsigned int minimo = 999;
-	int index = 0;
-	for (unsigned int i = 0; i < getProfessors().size(); i++)
+	int minimo = 999;
+	unsigned int index = 0;
+
+
+	for (unsigned int i = 0; i < professoresTemp.size(); i++)
 	{
-		if (getProfessors()[i].getAulaVec().size() < minimo)
+		if (professoresTemp[i].getNrAulas() < minimo)
 		{
-			minimo = getProfessors()[i].getAulaVec().size();
+			minimo = professoresTemp[i].getNrAulas();
 			index = i;
 		}
+			
 	}
 
-	string sigla = getProfessors()[index].getSigla();
-	return sigla;
+	return professoresTemp[index].getSigla();
+	
+
 }
 
 void CampoTenis::addAula(int dia, string horaInicio)
@@ -126,16 +136,19 @@ void CampoTenis::addAula(int dia, string horaInicio)
 
 	unsigned int minimo = 999;
 	int index = 0;
-	for (unsigned int i = 0; i < getProfessors().size(); i++)
+	for (unsigned int i = 0; i < getProfessorsTemp().size(); i++)
 	{
-		if (getProfessors()[i].getAulaVec().size() < minimo)
+		if (getProfessorsTemp()[i].getEstado() == true)
 		{
-			minimo = getProfessors()[i].getAulaVec().size();
-			index = i;
+			if (getProfessorsTemp()[i].getAulaVec().size() < minimo)
+			{
+				minimo = getProfessorsTemp()[i].getAulaVec().size();
+				index = i;
+			}
 		}
 	}
 
-	professores[index].pushAula(a);				//atribui a aula ao professor que tem menor nr de aulas
+	professoresTemp[index].pushAula(a);				//atribui a aula ao professor que tem menor nr de aulas
 
 }
 
@@ -184,10 +197,10 @@ void CampoTenis::addLivreUtente(string nome, int dia, string horai, int nrSlots)
 }
 
 
-void CampoTenis::addProf(string nome, string sigla, int idade, string morada, int nif)
+void CampoTenis::addProf(string nome, string sigla, int idade, string morada, int nif, bool empregado)
 {
-	Professor prof(nome, sigla, idade, morada, nif);			//cria professor
-	professores.push_back(prof);			//adiciona o professor ao vetor de professores
+	Professor prof(nome, sigla, idade, morada, nif, empregado);			//cria professor
+	professoresTemp.push_back(prof);			//adiciona o professor ao vetor de professores
 }
 
 bool CampoTenis::removeUtente(string nome)
@@ -318,8 +331,8 @@ bool CampoTenis::removeProf(string nome)
 	//verifica se o professor existe
 	unsigned int p = 0;
 	bool existenciaProf = false;
-	while (p < professores.size()) {
-		if (professores[p].getName() == nome) {
+	while (p < professoresTemp.size()) {
+		if (professoresTemp[p].getName() == nome) {
 			existenciaProf = true;
 			break;
 		}
@@ -332,11 +345,11 @@ bool CampoTenis::removeProf(string nome)
 	}
 
 	//remove o professor do vetor de professores
-	for (size_t i = 0; i < professores.size(); i++)
+	for (size_t i = 0; i < professoresTemp.size(); i++)
 	{
-		if (professores[i].getName() == nome)
+		if (professoresTemp[i].getName() == nome)
 		{
-			professores.erase(professores.begin() + i);
+			professoresTemp.erase(professoresTemp.begin() + i);
 			break;
 		}
 	}
@@ -544,8 +557,8 @@ vector<vector<int>> CampoTenis::getDispCampos() {
 }
 
 bool CampoTenis::verificaExProf(string nome) {
-	for (unsigned int i = 0; i < professores.size(); i++) {
-		if (professores[i].getName() == nome) {			//verifica se o professor de nome "nome" existe no vetor de professores
+	for (unsigned int i = 0; i < professoresTemp.size(); i++) {
+		if (professoresTemp[i].getName() == nome) {			//verifica se o professor de nome "nome" existe no vetor de professores
 			return true;
 		}
 	}
@@ -563,3 +576,13 @@ bool CampoTenis::verificaExUten(string nome) {
 	}
 	return false;
 }
+
+
+void CampoTenis::atualizaProfs()
+{
+	for (unsigned int i = 0; i < professoresTemp.size(); i++)
+	{
+		professores.insert(professoresTemp[i]);
+	}
+}
+

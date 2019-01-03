@@ -16,9 +16,10 @@ Pessoa::Pessoa(string nome, int idade, string morada, int nif)
 	this->nif = nif;
 }
 
-Professor::Professor(string nome, string sigla, int idade, string morada, int nif) : Pessoa(nome, idade, morada, nif)
+Professor::Professor(string nome, string sigla, int idade, string morada, int nif, bool empregado) : Pessoa(nome, idade, morada, nif)
 {
 	this->sigla = sigla;
+	this->empregado = empregado;
 }
 
 Utente::Utente(string nome, int idade, bool goldCard, string morada, int nif) : Pessoa(nome, idade, morada, nif)
@@ -51,7 +52,7 @@ int Pessoa::getNif()
 
 //Funçoes Professor
 
-int Professor::getNrAulas(string nomeProf) {
+int Professor::getNrAulas() {
 	return aulasDoProfessor.size();
 }
 
