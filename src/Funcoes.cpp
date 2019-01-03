@@ -199,23 +199,15 @@ void lerficheiroProfessores(CampoTenis *c) {
 	while (getline(file, line)) {
 		stringstream prof(line);
 
-		string nomeProf, siglaProf, idadeProf, moradaProf, nifProf, estado;
-		bool empregado=false;
+		string nomeProf, siglaProf, idadeProf;
 
-		getline(prof, nomeProf, ',');			//guarda nome
+		getline(prof, nomeProf, ',');		//guarda nome
 		getline(prof, siglaProf, ',');			//guarda sigla
-		getline(prof, idadeProf, ',');			//guarda idade em string
-		getline(prof, moradaProf, ',');			//guarda morada
-		getline(prof, nifProf,',');					//guarda nif em string
-		getline(prof, estado);					//guarda estado do professor
-		if (estado == "true") {
-			empregado = true;
-		}
+		getline(prof, idadeProf);			//guarda idade em string
 
 		int idade = stoi(idadeProf);		//converte idade para inteiro
-		int nif = stoi(nifProf);			//converte nif para inteiro
 
-		c->addProf(nomeProf, siglaProf, idade, moradaProf, nif, empregado);		//adiciona professor
+		c->addProf(nomeProf, siglaProf, idade);		//adiciona professor
 
 	}
 }
@@ -228,38 +220,35 @@ void lerficheiroUtentes(CampoTenis *c) {
 	while (getline(file, line)) {
 		stringstream uten(line);
 
-		string nomeUten, idadeUten, card, moradaUten, nifUten;
+		string nomeUten, idadeUten, card;
 
 
-		getline(uten, nomeUten, ',');			//guarda nome
-		getline(uten, idadeUten, ',');			//guarda idade em string
-		getline(uten, card);					//guarda se tem ou nao cartao dourado
-		getline(uten, moradaUten, ',');			//guarda morada
-		getline(uten, nifUten);					//guarda nif em string
+		getline(uten, nomeUten, ',');		//guarda nome
+		getline(uten, idadeUten, ',');		//guarda idade em string
+		getline(uten, card);			//guarda se tem ou nao cartao dourado
 
 		int idade = stoi(idadeUten);	//converte idade para inteiro
-		int nif = stoi(nifUten);		//converte nif para inteiro
 
 		//verifica se tem cartao dourado
 		bool goldC = false;
-		if (card == "Sim" || card == "sim" || card == "SIM" || card == "s" || card == "S") {
+		if (card == "Sim" || card == "sim" || card == "SIM") {
 			goldC = true;
 		}
 
-		
-		c->addUtente(nomeUten, idade, goldC, moradaUten, nif);		//adiciona utente
+		//adiciona utente
+		c->addUtente(nomeUten, idade, goldC);
 
 	}
 }
 
-void adicionarUtente(string nome, int idade, int gold, string morada, int nif) {
+void adicionarUtente(string no, int idade, int gold) {
 	//adicionar novo utente
 
 	bool g = false;
 	if (gold == 1)
 		g = true;
 
-	c->addUtente(nome, idade, g, morada, nif);
+	c->addUtente(no, idade, g);
 
 	ofstream ute;
 	ute.open("Utentes.txt", std::fstream::out | std::fstream::app);
@@ -269,25 +258,21 @@ void adicionarUtente(string nome, int idade, int gold, string morada, int nif) {
 	}
 
 	//escreve utente para o ficheiro Utentes.txt ja existente
-	ute << endl << nome << ',' << idade << ',' << card << ',' << morada << ',' << nif;
+	ute <<endl << no<<','<< idade<<','<<card;
 
 	ute.close();
 }
 
-void adicionarProfessor(string nome, string sigla, int idade, string morada, int nif, bool empregado) {
+void adicionarProfessor(string nome, string sigla, int idade) {
 	//adicionar novo professor
 
-
-	c->addProf(nome, sigla, idade, morada, nif, empregado);
+	c->addProf(nome, sigla, idade);
 
 	ofstream prof;
 	prof.open("Professores.txt", std::fstream::out | std::fstream::app);
-	
-	string emp = "false";
-	if (empregado)
-		emp = "true";
+
 	//escreve utente para o ficheiro Professores.txt ja existente
-	prof << endl << nome << ',' << sigla<< ',' << idade << ',' << morada << ',' << nif <<','<<emp;
+	prof << endl << nome << ',' << sigla<< ',' << idade;
 
 	prof.close();
 }
@@ -295,7 +280,7 @@ void adicionarProfessor(string nome, string sigla, int idade, string morada, int
 void professorDasAulas(string nomeProf) {
 	//aulas de um determinado professor
 
-	vector<Professor> auxP = c->getProfessorsTemp();
+	vector<Professor> auxP = c->getProfessors();
 	unsigned int i = 0;
 	int index;
 
@@ -334,21 +319,18 @@ void professorDasAulas(string nomeProf) {
 int freqUtentes(string no) {
 	//retorna a frequencia de um dado utente passado como parametro
 
-	BST<Utente> auxU = c->getUtentes();
+	vector<Utente> auxU = c->getUtentes();
 	vector<Aula> auxA;
 	vector<Livre> auxL;
 	unsigned int i = 0;
 
-	BSTItrIn<Utente> it(auxU);
-
-	while (!it.isAtEnd()) {
-		Utente u = it.retrieve();
-		if (u.getName() == no) {		//ate encontrar o utente no vetor utentes
-			auxL = u.getLivresUtente();
-			auxA = u.getAulasUtente();
+	while (i < auxU.size()) {
+		if (auxU[i].getName() == no) {		//ate encontrar o utente no vetor utentes
+			auxL = auxU[i].getLivresUtente();
+			auxA = auxU[i].getAulasUtente();
 			break;
 		}
-		it.advance();
+		i++;
 	}
 
 	int f = auxA.size() + auxL.size();		//soma das aulas e livres do utente
@@ -358,24 +340,21 @@ int freqUtentes(string no) {
 
 vector<int> contasUtentes(string no) {
 	//retorna o vetor com a conta do utente de nome passado como parametro
-	BST<Utente> auxV = c->getUtentes();
+	vector <Utente> auxV = c->getUtentes();
 	bool goldC;
 	int age;
 	int gC = 0;
 	unsigned int i = 0;
 	vector<int> v;
 
-	BSTItrIn<Utente> it(auxV);
-
 	//procura no vetor utentes o utente de nome "nome"
-	while (!it.isAtEnd()) {	
-		Utente u = it.retrieve();
-		if (u.getName() == no) {		
-			goldC = u.getGoldCard();
-			age = u.getAge();
+	while (i < auxV.size()) {				
+		if (auxV[i].getName() == no) {		
+			goldC = auxV[i].getGoldCard();
+			age = auxV[i].getAge();
 			break;
 		}
-		it.advance();
+		i++;
 	}
 
 	if (goldC)
@@ -416,23 +395,20 @@ void criarDoc(string no) {
 	ofstream docFimMes;
 	docFimMes.open(no + "_docFimMes.txt");
 
-	BST<Utente> auxU = c->getUtentes();
+	vector<Utente> auxU = c->getUtentes();
 	vector<Aula> auxA;
 	vector<Livre> auxL;
 	unsigned int i = 0;
-	unsigned int index;
-	
-	BSTItrIn<Utente> it(auxU);
-	Utente u = it.retrieve();
+	int index;
 
-	while (!it.isAtEnd()) {
-		u = it.retrieve();
-		if (u.getName() == no) {
-			auxL = u.getLivresUtente();
-			auxA = u.getAulasUtente();
+	while (i < auxU.size()) {
+		if (auxU[i].getName() == no) {
+			auxL = auxU[i].getLivresUtente();
+			auxA = auxU[i].getAulasUtente();
+			index = i;
 			break;
 		}
-		it.advance();
+		i++;
 	}
 	
 	docFimMes << "AULAS\n";
@@ -449,13 +425,13 @@ void criarDoc(string no) {
 
 	docFimMes << endl<< endl;
 	docFimMes << "CONTAS DO MES" << endl;
-	if (u.getGoldCard()) {
-		docFimMes << "\nMensalidade do Cartao Dourado: " << u.getPrecoCartao() << " euros" << endl;
+	if (auxU[index].getGoldCard()) {
+		docFimMes << "\nMensalidade do Cartao Dourado: " << auxU[index].getPrecoCartao() << " euros" << endl;
 	}
 	
-	docFimMes << "\nTotal a pagar pelas aulas: " << u.getPrecoAulas() << " euros" << endl;
-	docFimMes << "\nTotal a pagar pelos livres: " << u.getPrecoLivres() << " euros" << endl<<endl;
-	docFimMes << "\nTotal a pagar: " << u.getPrecoTotal() << " euros" << endl;
+	docFimMes << "\nTotal a pagar pelas aulas: " << auxU[index].getPrecoAulas() << " euros" << endl;
+	docFimMes << "\nTotal a pagar pelos livres: " << auxU[index].getPrecoLivres() << " euros" << endl<<endl;
+	docFimMes << "\nTotal a pagar: " << auxU[index].getPrecoTotal() << " euros" << endl;
 
 	docFimMes.close();
 	criarRelatorioProgresso(no, auxA);

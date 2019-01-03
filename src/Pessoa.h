@@ -21,7 +21,7 @@ public:
 	*@param nome da pessoa 
 	*@param idade da pessoa
 	*/
-	Pessoa(string nome, int idade, string morada, int nif);
+	Pessoa(string nome, int idade);
 	~Pessoa() {}
 
 	/**
@@ -34,21 +34,9 @@ public:
 	*/
 	virtual int getAge();
 
-	/**
-	*  @brief retorna morada da pessoa
-	*/
-	virtual string getMorada();
-
-	/**
-	*  @brief retorna numero de identificacao fiscal(NIF) da pessoa
-	*/
-	virtual int getNif();
-
 protected:
 	string nome;						 // Nome da pessoa
 	int idade;							 // Idade da pessoa
-	string morada;						 // Morada da pessoa
-	int nif;							 // NIF da pessoa
 };
 
 /**
@@ -64,7 +52,7 @@ public:
 	*@param sigla do professor
 	*@param idade do professor
 	*/
-	Professor(string nome, string sigla, int idade, string morada, int nif, bool empregado);
+	Professor(string nome,  string sigla,int idade);
 	~Professor() {}
 
 	/**
@@ -72,7 +60,7 @@ public:
 	*
 	*@param nome do professor
 	*/
-	int getNrAulas();
+	int getNrAulas(string nome);
 
 	/**
 	*  @brief retorna o vetor de aulas do professor
@@ -100,16 +88,12 @@ public:
 	*@param aula
 	*/
 	void pushAula(Aula a);
-
-	/**
-	*  @brief retorna o estado do professor
-	*/
-	bool getEstado() { return empregado; }
+	
 	
 protected:
 	string sigla;						  // Iniciais do professor
 	vector<Aula> aulasDoProfessor;        // Vector com as aulas que o professor tem de dar
-	bool empregado;
+
 };
 
 /**
@@ -130,7 +114,7 @@ public:
 	*@param idade do utente
 	*@param se utente tem cartao gold
 	*/
-	Utente(string nome, int idade, bool goldCard, string morada, int nif);
+	Utente(string nome, int idade, bool goldCard);
 	~Utente() {}
 
 	/**
@@ -191,8 +175,6 @@ public:
 	*@param aula
 	*/
 	void pushLivre(Livre l);
-
-	bool operator < (const Utente &u1) const;
 };
 
 #endif

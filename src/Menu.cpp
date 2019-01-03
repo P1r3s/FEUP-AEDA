@@ -120,9 +120,8 @@ void menuAlteracoes() {
 	int opcao = 0;
 	cout << endl;
 	cout << "Introduza uma opcao: ";
-	string no, sigla, morada,emp;
-	int idade, gold, nif;
-	bool empregado;
+	string no, sigla;
+	int idade, gold;
 	while (opcao < 1 || opcao > 6) {
 		if (cin >> opcao) {
 			switch (opcao) {
@@ -131,19 +130,11 @@ void menuAlteracoes() {
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "Insira o nome do novo Utente: "; getline(cin, no, '\n');
-				cin.clear();
-				cin.ignore(10000, '\n');
 				cout << "Insira a idade do Utente: "; cin >> idade;
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "O Utente tem goldCard? (se sim meta 1,se nao meta 0) "; cin >> gold;
-				cin.clear();
-				cin.ignore(10000, '\n');
-				cout << "Insira a morada do Utente: "; getline(cin, morada, '\n');
-				cin.clear();
-				cin.ignore(10000, '\n');
-				cout << "Insira o NIF do Utente: "; cin >> nif;
-				adicionarUtente(no, idade, gold, morada, nif);
+				adicionarUtente(no, idade, gold);
 				cout << endl;
 				cout << "Utente adicionado com sucesso!" << endl << endl;
 				cin.clear();
@@ -155,24 +146,9 @@ void menuAlteracoes() {
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "Insira o nome do novo Professor: "; getline(cin, no, '\n');
-				cin.clear();
-				cin.ignore(10000, '\n');
 				cout << "Insira a sigla do Professor: "; cin >> sigla;
-				cin.clear();
-				cin.ignore(10000, '\n');
 				cout << "Insira a idade do Professor: "; cin >> idade;
-				cin.clear();
-				cin.ignore(10000, '\n');
-				cout << "Insira a morada do Professor: "; getline(cin, morada, '\n');
-				cin.clear();
-				cin.ignore(10000, '\n');
-				cout << "Insira o NIF do Professor: "; cin >> nif;
-				cin.clear();
-				cin.ignore(10000, '\n');
-				cout << "Insira o estado do Professor: "; cin >> emp;
-				if (emp == "true")
-					empregado = true;
-				adicionarProfessor(no, sigla, idade, morada, nif, empregado);
+				adicionarProfessor(no, sigla, idade);
 				cout << endl;
 				cout << "Professor adicionado com sucesso!" << endl;
 				cin.clear();
@@ -483,7 +459,6 @@ void carregarFicheiros() {
 	lerficheiroProfessores(c);
 	lerficheiroUtentes(c);
 	lerficheiroAulas(c);
-	
 	c->atualizaVetorDisp();
 	lerficheiroLivres(c);
 	cout << endl;

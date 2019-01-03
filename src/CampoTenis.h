@@ -5,40 +5,11 @@
 
 #include <fstream>
 #include <iomanip>
-#include <unordered_set>
-
 
 #include "Modos.h"
 #include "Pessoa.h"
-#include "BST.h"
 
 using namespace std;
-
-
-struct proff
-{
-	int operator() (const Professor & ap) const
-	{
-		Professor a = ap;
-		return a.getNrAulas();
-	}
-
-	bool operator() (const Professor & ap1, const Professor & ap2) const
-	{
-		Professor c = ap1;
-		Professor b = ap2;
-		if (c.getNif() == b.getNif())
-		{
-			return true;
-		}
-		else
-			return false;
-	}
-
-};
-
-
-
 
 /**
  *  Representa o Campo de Tenis
@@ -70,12 +41,12 @@ public:
 	/**
 	*  @brief Retorna o vetor de professores
 	*/
-	unordered_set<Professor> getProfessors();
+	vector<Professor> getProfessors();
 
 	/**
-	*  @brief Retorna a BST de utentes
+	*  @brief Retorna o vetor de utentes
 	*/
-	BST<Utente> getUtentes();
+	vector<Utente> getUtentes();
 
 	/**
 	*  @brief Retorna o vetor de aulas
@@ -141,7 +112,7 @@ public:
 	*@param sigla do professor
 	*@param idade do professor
 	*/
-	void addProf(string nome, string sigla, int idade, string morada, int nif, bool empregado);
+	void addProf(string nome, string sigla, int idade);
 
 	/**
 	*  @brief Cria e adiciona o utente ao vetor de utentes
@@ -149,10 +120,8 @@ public:
 	*@param nome do utente
 	*@param idade do utente
 	*@param goldCard true se utente tem cartao gold
-	*@param morada do utente
-	*@param nif do utente
 	*/
-	void addUtente(string nome, int idade, bool goldCard, string morada, int nif);
+	void addUtente(string nome, int idade, bool goldCard);
 
 	/**
 	*  @brief Remove utente do vetor de utentes e do ficheiro Utentes.txt
@@ -217,26 +186,19 @@ public:
 	int minutes(string horas);
 
 	/**
-	*  @brief Verifica se o professor existe no vetor professores
+	*@brief Verifica se o professor existe no vetor professores
 	*
 	*@param nome do professor
 	*/
 	bool verificaExProf(string nome);
 
 	/**
-	*  @brief Verifica se o utente existe no vetor utentes
+	*@brief Verifica se o utente existe no vetor utentes
 	*
 	*@param nome do utente
 	*/
 	bool verificaExUten(string nome);
 
-	/**
-	*  @brief retorna vetor de professores temporario
-	*/
-	vector<Professor> getProfessorsTemp();
-
-
-	void atualizaProfs();
 
 private:
 	int nCampos;							 // numero de campos disponiveis pela empressa
@@ -245,14 +207,12 @@ private:
 	string horaAbertura;					 // horas a que os campos abrem
 	string horaEncerramento;				 // horas a que os campos fecham
 
-	vector<Professor> professoresTemp;            // Vector com todos os professores
-	unordered_set<Professor> professores;
+	vector<Professor> professores;            // Vector com todos os professores
+	vector<Utente> utentes;                   // Vector com todos os utentes
 	vector<Aula> aulas;						  // Vector com todas as aulas marcadas
 	vector<Livre> livres;					  // Vector com todos os livres marcados
 
 	vector<vector<int>>  dispCamposPorSlot;   //disponibilidade de campos por dia em cada slot
-
-	BST<Utente> utentes;                   // BST com todos os utentes
 
 };
 

@@ -20,7 +20,7 @@ int CampoTenis::minutes(string horas)			//converte a string minutos para um int
 }
 
 
-CampoTenis::CampoTenis() : utentes(Utente("",0,0,"",0))
+CampoTenis::CampoTenis()
 {
 	this->nCampos = 5;
 	this->lotCampo = 2;
@@ -56,25 +56,19 @@ string CampoTenis::getHoraEncerramento()
 	return horaEncerramento;
 }
 
-vector<Professor> CampoTenis::getProfessorsTemp()
-{
-	return professoresTemp;
-}
-
-
-unordered_set<Professor> CampoTenis::getProfessors()
+vector<Professor> CampoTenis::getProfessors()
 {
 	return professores;
 }
 
-BST<Utente> CampoTenis::getUtentes()
+vector<Utente> CampoTenis::getUtentes()
 {
 	return utentes;
 }
 
-void CampoTenis::addUtente(string nome, int idade, bool goldCard, string morada, int nif) {
-	Utente u(nome, idade, goldCard, morada, nif);
-	utentes.insert(u);
+void CampoTenis::addUtente(string nome, int idade, bool goldCard) {
+	Utente u(nome, idade, goldCard);
+	utentes.push_back(u);
 }
 
 int CampoTenis::NumMaximoUtentesPorCampo() const
@@ -89,15 +83,7 @@ int CampoTenis::getNumProfessores()
 
 int CampoTenis::getNumUtentes()
 {
-	int num = 0;
-	BSTItrIn<Utente> it(utentes);
-	while (!it.isAtEnd())
-	{
-		num++;
-		it.advance();
-	}
-
-	return num;
+	return utentes.size();
 }
 
 vector<Aula> CampoTenis::getAulas() {
@@ -105,23 +91,19 @@ vector<Aula> CampoTenis::getAulas() {
 }
 
 string CampoTenis::returnSigla() {				//retorna a sigla do professor com menos aulas
-	int minimo = 999;
-	unsigned int index = 0;
-
-
-	for (unsigned int i = 0; i < professoresTemp.size(); i++)
+	unsigned int minimo = 999;
+	int index = 0;
+	for (unsigned int i = 0; i < getProfessors().size(); i++)
 	{
-		if (professoresTemp[i].getNrAulas() < minimo)
+		if (getProfessors()[i].getAulaVec().size() < minimo)
 		{
-			minimo = professoresTemp[i].getNrAulas();
+			minimo = getProfessors()[i].getAulaVec().size();
 			index = i;
 		}
-			
 	}
 
-	return professoresTemp[index].getSigla();
-	
-
+	string sigla = getProfessors()[index].getSigla();
+	return sigla;
 }
 
 void CampoTenis::addAula(int dia, string horaInicio)
@@ -136,19 +118,16 @@ void CampoTenis::addAula(int dia, string horaInicio)
 
 	unsigned int minimo = 999;
 	int index = 0;
-	for (unsigned int i = 0; i < getProfessorsTemp().size(); i++)
+	for (unsigned int i = 0; i < getProfessors().size(); i++)
 	{
-		if (getProfessorsTemp()[i].getEstado() == true)
+		if (getProfessors()[i].getAulaVec().size() < minimo)
 		{
-			if (getProfessorsTemp()[i].getAulaVec().size() < minimo)
-			{
-				minimo = getProfessorsTemp()[i].getAulaVec().size();
-				index = i;
-			}
+			minimo = getProfessors()[i].getAulaVec().size();
+			index = i;
 		}
 	}
 
-	professoresTemp[index].pushAula(a);				//atribui a aula ao professor que tem menor nr de aulas
+	professores[index].pushAula(a);				//atribui a aula ao professor que tem menor nr de aulas
 
 }
 
@@ -157,16 +136,12 @@ void CampoTenis::addAulaUtente(string nome, int dia, string horai) {
 	string sigla = returnSigla();
 	Aula a(dia, sigla, horai);
 
-	BSTItrIn<Utente> it(utentes);
-
-	while(!it.isAtEnd())
+	for (unsigned int i = 0; i < getUtentes().size(); i++)
 	{
-		Utente u = it.retrieve();
-		if (nome == u.getName())
+		if (nome == getUtentes()[i].getName())
 		{
-			u.pushAula(a);			//adiciona a aula ao utente com o nome recebido como parametro
+			utentes[i].pushAula(a);			//adiciona a aula ao utente com o nome recebido como parametro
 		}
-		it.advance();
 	}
 
 }
@@ -182,41 +157,34 @@ void CampoTenis::addLivreUtente(string nome, int dia, string horai, int nrSlots)
 
 	Livre l(dia, horai, nrSlots);
 
-	BSTItrIn<Utente> it(utentes);
-
-	while(!it.isAtEnd())
+	for (unsigned int i = 0; i < getUtentes().size(); i++)
 	{
-		Utente u = it.retrieve();
-		if (nome == u.getName())
+		if (nome == getUtentes()[i].getName())
 		{
-			u.pushLivre(l);				//adiciona livre ao utente de nome "nome"
+			utentes[i].pushLivre(l);				//adiciona livre ao utente de nome "nome"
 		}
-		it.advance();
 	}
 
 }
 
 
-void CampoTenis::addProf(string nome, string sigla, int idade, string morada, int nif, bool empregado)
+void CampoTenis::addProf(string nome, string sigla, int idade)
 {
-	Professor prof(nome, sigla, idade, morada, nif, empregado);			//cria professor
-	professoresTemp.push_back(prof);			//adiciona o professor ao vetor de professores
+	Professor prof(nome, sigla, idade);			//cria professor
+	professores.push_back(prof);			//adiciona o professor ao vetor de professores
 }
 
 bool CampoTenis::removeUtente(string nome)
 {
-	
 	//verifica se o utente existe
-	BSTItrIn<Utente> it(utentes);
-	
+	unsigned int p = 0;
 	bool existenciaUtente = false;
-	while (!it.isAtEnd()) {
-		Utente a = it.retrieve();
-		if (a.getName() == nome) {
+	while (p < utentes.size()) {
+		if (utentes[p].getName() == nome) {
 			existenciaUtente = true;
 			break;
 		}
-		it.advance();
+		p++;
 	}
 
 	if (!existenciaUtente) {
@@ -225,14 +193,12 @@ bool CampoTenis::removeUtente(string nome)
 	}
 
 	//remove utente do vetor de utentes
-	BSTItrIn<Utente> ut(utentes);
 
-	while(!ut.isAtEnd())
+	for (size_t i = 0; i < utentes.size(); i++)
 	{
-		Utente b = ut.retrieve();
-		if (b.getName() == nome)
+		if (utentes[i].getName() == nome)
 		{
-			utentes.remove(b);
+			utentes.erase(utentes.begin() + i);
 			break;
 		}
 	}
@@ -331,8 +297,8 @@ bool CampoTenis::removeProf(string nome)
 	//verifica se o professor existe
 	unsigned int p = 0;
 	bool existenciaProf = false;
-	while (p < professoresTemp.size()) {
-		if (professoresTemp[p].getName() == nome) {
+	while (p < professores.size()) {
+		if (professores[p].getName() == nome) {
 			existenciaProf = true;
 			break;
 		}
@@ -345,11 +311,11 @@ bool CampoTenis::removeProf(string nome)
 	}
 
 	//remove o professor do vetor de professores
-	for (size_t i = 0; i < professoresTemp.size(); i++)
+	for (size_t i = 0; i < professores.size(); i++)
 	{
-		if (professoresTemp[i].getName() == nome)
+		if (professores[i].getName() == nome)
 		{
-			professoresTemp.erase(professoresTemp.begin() + i);
+			professores.erase(professores.begin() + i);
 			break;
 		}
 	}
@@ -557,8 +523,8 @@ vector<vector<int>> CampoTenis::getDispCampos() {
 }
 
 bool CampoTenis::verificaExProf(string nome) {
-	for (unsigned int i = 0; i < professoresTemp.size(); i++) {
-		if (professoresTemp[i].getName() == nome) {			//verifica se o professor de nome "nome" existe no vetor de professores
+	for (unsigned int i = 0; i < professores.size(); i++) {
+		if (professores[i].getName() == nome) {			//verifica se o professor de nome "nome" existe no vetor de professores
 			return true;
 		}
 	}
@@ -566,23 +532,10 @@ bool CampoTenis::verificaExProf(string nome) {
 }
 
 bool CampoTenis::verificaExUten(string nome) {
-	BSTItrIn<Utente> it(utentes);
-	while(!it.isAtEnd()) {
-		Utente a = it.retrieve();
-		if (a.getName() == nome) {			//verifica se o utente de nome "nome" existe no vetor de utentes
+	for (unsigned int i = 0; i < utentes.size(); i++) {
+		if (utentes[i].getName() == nome) {			//verifica se o utente de nome "nome" existe no vetor de utentes
 			return true;
 		}
-		it.advance();
 	}
 	return false;
 }
-
-
-void CampoTenis::atualizaProfs()
-{
-	for (unsigned int i = 0; i < professoresTemp.size(); i++)
-	{
-		professores.insert(professoresTemp[i]);
-	}
-}
-
