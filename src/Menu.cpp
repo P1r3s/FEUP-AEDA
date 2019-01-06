@@ -138,7 +138,7 @@ void menuAlteracoes() {
 				cout << "O Utente tem goldCard? (se sim meta 1,se nao meta 0) "; cin >> gold;
 				cin.clear();
 				cin.ignore(10000, '\n');
-				cout << "Insira a morada do Utente: "; getline(cin, morada, '\n');
+				cout << "Insira a morada do Utente: ";getline(cin, morada, '\n');
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "Insira o NIF do Utente: "; cin >> nif;
@@ -162,10 +162,10 @@ void menuAlteracoes() {
 				cout << "Insira a idade do Professor: "; cin >> idade;
 				cin.clear();
 				cin.ignore(10000, '\n');
-				cout << "Insira a morada do Utente: "; getline(cin, morada, '\n');
+				cout << "Insira a morada do Professor: "; getline(cin, morada, '\n');
 				cin.clear();
 				cin.ignore(10000, '\n');
-				cout << "Insira o NIF do Utente: "; cin >> nif;
+				cout << "Insira o NIF do Professor: "; cin >> nif;
 				adicionarProfessor(no, sigla, idade, morada, nif);
 				cout << endl;
 				cout << "Professor adicionado com sucesso!" << endl;

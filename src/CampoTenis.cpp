@@ -20,7 +20,7 @@ int CampoTenis::minutes(string horas)			//converte a string minutos para um int
 }
 
 
-CampoTenis::CampoTenis() : utentes(Utente("",0,0,"",0))
+CampoTenis::CampoTenis()
 {
 	this->nCampos = 5;
 	this->lotCampo = 2;
@@ -61,14 +61,14 @@ vector<Professor> CampoTenis::getProfessors()
 	return professores;
 }
 
-BST<Utente> CampoTenis::getUtentes()
+vector<Utente> CampoTenis::getUtentes()
 {
 	return utentes;
 }
 
 void CampoTenis::addUtente(string nome, int idade, bool goldCard, string morada, int nif) {
 	Utente u(nome, idade, goldCard, morada, nif);
-	utentes.insert(u);
+	utentes.push_back(u);
 }
 
 int CampoTenis::NumMaximoUtentesPorCampo() const
@@ -83,15 +83,7 @@ int CampoTenis::getNumProfessores()
 
 int CampoTenis::getNumUtentes()
 {
-	int num = 0;
-	BSTItrIn<Utente> it(utentes);
-	while (!it.isAtEnd())
-	{
-		num++;
-		it.advance();
-	}
-
-	return num;
+	return utentes.size();
 }
 
 vector<Aula> CampoTenis::getAulas() {
@@ -144,16 +136,12 @@ void CampoTenis::addAulaUtente(string nome, int dia, string horai) {
 	string sigla = returnSigla();
 	Aula a(dia, sigla, horai);
 
-	BSTItrIn<Utente> it(utentes);
-
-	while(!it.isAtEnd())
+	for (unsigned int i = 0; i < getUtentes().size(); i++)
 	{
-		Utente u = it.retrieve();
-		if (nome == u.getName())
+		if (nome == getUtentes()[i].getName())
 		{
-			u.pushAula(a);			//adiciona a aula ao utente com o nome recebido como parametro
+			utentes[i].pushAula(a);			//adiciona a aula ao utente com o nome recebido como parametro
 		}
-		it.advance();
 	}
 
 }
@@ -169,16 +157,12 @@ void CampoTenis::addLivreUtente(string nome, int dia, string horai, int nrSlots)
 
 	Livre l(dia, horai, nrSlots);
 
-	BSTItrIn<Utente> it(utentes);
-
-	while(!it.isAtEnd())
+	for (unsigned int i = 0; i < getUtentes().size(); i++)
 	{
-		Utente u = it.retrieve();
-		if (nome == u.getName())
+		if (nome == getUtentes()[i].getName())
 		{
-			u.pushLivre(l);				//adiciona livre ao utente de nome "nome"
+			utentes[i].pushLivre(l);				//adiciona livre ao utente de nome "nome"
 		}
-		it.advance();
 	}
 
 }
@@ -192,18 +176,15 @@ void CampoTenis::addProf(string nome, string sigla, int idade, string morada, in
 
 bool CampoTenis::removeUtente(string nome)
 {
-	
 	//verifica se o utente existe
-	BSTItrIn<Utente> it(utentes);
-	
+	unsigned int p = 0;
 	bool existenciaUtente = false;
-	while (!it.isAtEnd()) {
-		Utente a = it.retrieve();
-		if (a.getName() == nome) {
+	while (p < utentes.size()) {
+		if (utentes[p].getName() == nome) {
 			existenciaUtente = true;
 			break;
 		}
-		it.advance();
+		p++;
 	}
 
 	if (!existenciaUtente) {
@@ -212,14 +193,12 @@ bool CampoTenis::removeUtente(string nome)
 	}
 
 	//remove utente do vetor de utentes
-	BSTItrIn<Utente> ut(utentes);
 
-	while(!ut.isAtEnd())
+	for (size_t i = 0; i < utentes.size(); i++)
 	{
-		Utente b = ut.retrieve();
-		if (b.getName() == nome)
+		if (utentes[i].getName() == nome)
 		{
-			utentes.remove(b);
+			utentes.erase(utentes.begin() + i);
 			break;
 		}
 	}
@@ -553,13 +532,10 @@ bool CampoTenis::verificaExProf(string nome) {
 }
 
 bool CampoTenis::verificaExUten(string nome) {
-	BSTItrIn<Utente> it(utentes);
-	while(!it.isAtEnd()) {
-		Utente a = it.retrieve();
-		if (a.getName() == nome) {			//verifica se o utente de nome "nome" existe no vetor de utentes
+	for (unsigned int i = 0; i < utentes.size(); i++) {
+		if (utentes[i].getName() == nome) {			//verifica se o utente de nome "nome" existe no vetor de utentes
 			return true;
 		}
-		it.advance();
 	}
 	return false;
 }

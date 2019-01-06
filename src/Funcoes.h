@@ -58,7 +58,7 @@ vector<int> contasUtentes(string no);
 *@param morada do utente
 *@param nif do utente
 */
-void adicionarUtente(string no, int idade, int gold, string morada, int nif);
+void adicionarUtente(string no,int idade,int gold, string morada, int nif);
 
 /**
 *  @brief Adiciona novo professor

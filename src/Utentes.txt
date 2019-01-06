@@ -5,7 +5,7 @@ Andre Pedrosa,15,sim,Via Veneto,159784236
 Joao Miguel,18,sim,Via Labicana,123456789
 Mariana Costa,23,sim,Via del Babuino,987654321
 Filipe Pinto,19,sim,Via di Ripetta,248651397
-Catarina Lemos,28,nao,Via Flamínia,116644325
+Catarina Lemos,28,nao,Via Flamenia,116644325
 Marina Teixeira,16,sim,Via Cavour,154236987
 Luis Miguel,42,nao,Via Condotti,757264351
 Marco Andre,15,nao,Fontana di Trevi,956841237
@@ -20,6 +20,6 @@ Luis Silva,37,sim,Victoria Street,920181231
 Pedro Costa,34,nao,Derby Street,365241520
 Marina Coelho,24,sim,Henrietta Street,321032103
 Marta Peixoto,28,nao,Catherine Street,145214520
-Antonio Ribeiro,36,sim,Shaftesbury Avenue,654283179
+Antonio Ribeiro,36,sim,Shaftesbury Avenue,65428317
 Alexandre Teles,41,nao,Peter Street,354126780
 Madalena Sousa,18,nao,Old Burlington Street,501268910

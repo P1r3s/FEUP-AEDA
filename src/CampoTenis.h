@@ -8,7 +8,6 @@
 
 #include "Modos.h"
 #include "Pessoa.h"
-#include "BST.h"
 
 using namespace std;
 
@@ -45,9 +44,9 @@ public:
 	vector<Professor> getProfessors();
 
 	/**
-	*  @brief Retorna a BST de utentes
+	*  @brief Retorna o vetor de utentes
 	*/
-	BST<Utente> getUtentes();
+	vector<Utente> getUtentes();
 
 	/**
 	*  @brief Retorna o vetor de aulas
@@ -112,6 +111,8 @@ public:
 	*@param nome do professor
 	*@param sigla do professor
 	*@param idade do professor
+	*@param morada do professor
+	*@param nif do professor
 	*/
 	void addProf(string nome, string sigla, int idade, string morada, int nif);
 
@@ -211,12 +212,11 @@ private:
 	string horaEncerramento;				 // horas a que os campos fecham
 
 	vector<Professor> professores;            // Vector com todos os professores
+	vector<Utente> utentes;                   // Vector com todos os utentes
 	vector<Aula> aulas;						  // Vector com todas as aulas marcadas
 	vector<Livre> livres;					  // Vector com todos os livres marcados
 
 	vector<vector<int>>  dispCamposPorSlot;   //disponibilidade de campos por dia em cada slot
-
-	BST<Utente> utentes;                   // BST com todos os utentes
 
 };
 

@@ -18,7 +18,7 @@ public:
 	/**
 	*  @brief Cria uma pessoa
 	*
-	*@param nome da pessoa 
+	*@param nome da pessoa
 	*@param idade da pessoa
 	*/
 	Pessoa(string nome, int idade, string morada, int nif);
@@ -40,14 +40,14 @@ public:
 	virtual string getMorada();
 
 	/**
-	*  @brief retorna numero de identificacao fiscal(NIF) da pessoa
+	*  @brief retorna NIF da pessoa
 	*/
 	virtual int getNif();
 
 protected:
 	string nome;						 // Nome da pessoa
 	int idade;							 // Idade da pessoa
-	string morada;						 // Morada da pessoa
+	string morada;						 // morada da pessoa
 	int nif;							 // NIF da pessoa
 };
 
@@ -100,8 +100,17 @@ public:
 	*@param aula
 	*/
 	void pushAula(Aula a);
-	
-	
+
+	/**
+	*  @brief retorna NIF do professor
+	*/
+	int getNif() { return nif; }
+
+	/**
+	*  @brief retorna morada do professor
+	*/
+	string getMorada() { return morada; };
+
 protected:
 	string sigla;						  // Iniciais do professor
 	vector<Aula> aulasDoProfessor;        // Vector com as aulas que o professor tem de dar
@@ -117,7 +126,7 @@ protected:
 	bool goldCard;						  // Verifica se o utente tem cartao gold
 	vector<Aula> aulasDoUtente;			  // Vetor com as aulas do utente
 	vector<Livre> livresDoUtente;		  // Vetor com os livres do utente
-	
+
 public:
 	/**
 	*  @brief Cria um utente
@@ -188,7 +197,15 @@ public:
 	*/
 	void pushLivre(Livre l);
 
-	bool operator < (const Utente &u1) const;
+	/**
+	*  @brief retorna morada do utente
+	*/
+	string getMorada() { return morada; }
+
+	/**
+	*  @brief retorna NIF do utente
+	*/
+	int getNif() { return nif; }
 };
 
 #endif

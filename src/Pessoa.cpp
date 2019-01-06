@@ -64,6 +64,7 @@ void Professor::pushAula(Aula a) {
 	aulasDoProfessor.push_back(a);
 }
 
+
 //Funçoes Utentes
 vector<Aula> Utente::getAulasUtente() {
 	return aulasDoUtente;
@@ -119,22 +120,4 @@ void Utente::pushAula(Aula a) {
 
 void Utente::pushLivre(Livre l) {
 	livresDoUtente.push_back(l);
-}
-
-bool Utente::operator < (const Utente &u1) const
-{
-	int freq = aulasDoUtente.size() + livresDoUtente.size();
-	int freq1 = u1.aulasDoUtente.size() + u1.livresDoUtente.size();
-
-	if (freq < freq1)
-		return true;
-	else if (freq > freq1)
-		return false;
-	else
-	{
-		if (nome < u1.nome)
-			return true;
-		else
-			return false;
-	}
 }
