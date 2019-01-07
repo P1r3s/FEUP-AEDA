@@ -23,3 +23,4 @@ Marta Peixoto,28,nao,Catherine Street,145214520
 Antonio Ribeiro,36,sim,Shaftesbury Avenue,65428317
 Alexandre Teles,41,nao,Peter Street,354126780
 Madalena Sousa,18,nao,Old Burlington Street,501268910
+Joao Miguel,19,sim,Rua Diogo de Silves,123123123

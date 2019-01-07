@@ -20,7 +20,7 @@ int CampoTenis::minutes(string horas)			//converte a string minutos para um int
 }
 
 
-CampoTenis::CampoTenis()
+CampoTenis::CampoTenis() : utentes(Utente("", 0, 0, "", 0))
 {
 	this->nCampos = 5;
 	this->lotCampo = 2;
@@ -61,14 +61,14 @@ vector<Professor> CampoTenis::getProfessors()
 	return professores;
 }
 
-vector<Utente> CampoTenis::getUtentes()
+BST<Utente> CampoTenis::getUtentes()
 {
 	return utentes;
 }
 
 void CampoTenis::addUtente(string nome, int idade, bool goldCard, string morada, int nif) {
 	Utente u(nome, idade, goldCard, morada, nif);
-	utentes.push_back(u);
+	utentes.insert(u);
 }
 
 int CampoTenis::NumMaximoUtentesPorCampo() const
@@ -83,7 +83,17 @@ int CampoTenis::getNumProfessores()
 
 int CampoTenis::getNumUtentes()
 {
-	return utentes.size();
+	//return utentes.size();
+	int count = 0;
+
+	BSTItrIn<Utente> it(utentes);
+	while (!it.isAtEnd())
+	{
+		count++;
+		it.advance();
+	}
+
+	return count;
 }
 
 vector<Aula> CampoTenis::getAulas() {
@@ -131,24 +141,29 @@ void CampoTenis::addAula(int dia, string horaInicio)
 
 }
 
-void CampoTenis::addAulaUtente(string nome, int dia, string horai) {		
+void CampoTenis::addAulaUtente(string nome, int dia, string horai) {
 
 	string sigla = returnSigla();
 	Aula a(dia, sigla, horai);
 
-	for (unsigned int i = 0; i < getUtentes().size(); i++)
+	BSTItrIn<Utente> it(utentes);
+
+
+	while (!it.isAtEnd())
 	{
-		if (nome == getUtentes()[i].getName())
+		Utente u = it.retrieve();
+		if (nome == u.getName())
 		{
-			utentes[i].pushAula(a);			//adiciona a aula ao utente com o nome recebido como parametro
+			u.pushAula(a);			//adiciona a aula ao utente com o nome recebido como parametro
 		}
+		it.advance();
 	}
 
 }
 
 void CampoTenis::addLivre(int dia, string horaInicio, int nrSlots)
 {
-	Livre l(dia, horaInicio, nrSlots);		
+	Livre l(dia, horaInicio, nrSlots);
 	livres.push_back(l);				//adiciona o livre ao vetor de livres
 }
 
@@ -157,12 +172,16 @@ void CampoTenis::addLivreUtente(string nome, int dia, string horai, int nrSlots)
 
 	Livre l(dia, horai, nrSlots);
 
-	for (unsigned int i = 0; i < getUtentes().size(); i++)
+	BSTItrIn<Utente> it(utentes);
+
+	while (!it.isAtEnd())
 	{
-		if (nome == getUtentes()[i].getName())
+		Utente u = it.retrieve();
+		if (nome == u.getName())
 		{
-			utentes[i].pushLivre(l);				//adiciona livre ao utente de nome "nome"
+			u.pushLivre(l);			//adiciona o livre ao utente com o nome recebido como parametro
 		}
+		it.advance();
 	}
 
 }
@@ -179,12 +198,17 @@ bool CampoTenis::removeUtente(string nome)
 	//verifica se o utente existe
 	unsigned int p = 0;
 	bool existenciaUtente = false;
-	while (p < utentes.size()) {
-		if (utentes[p].getName() == nome) {
+
+	BSTItrIn<Utente> it(utentes);
+	Utente u = it.retrieve();
+
+	while (!it.isAtEnd()) {
+		u = it.retrieve();
+		if (u.getName() == nome) {
 			existenciaUtente = true;
 			break;
 		}
-		p++;
+		it.advance();
 	}
 
 	if (!existenciaUtente) {
@@ -194,13 +218,17 @@ bool CampoTenis::removeUtente(string nome)
 
 	//remove utente do vetor de utentes
 
-	for (size_t i = 0; i < utentes.size(); i++)
+	BSTItrIn<Utente> ut(utentes);
+
+	while (!ut.isAtEnd())
 	{
-		if (utentes[i].getName() == nome)
+		Utente u = ut.retrieve();
+		if (u.getName() == nome)
 		{
-			utentes.erase(utentes.begin() + i);
+			utentes.remove(u);
 			break;
 		}
+		ut.advance();
 	}
 
 	//remove utente do ficheiro utentes 
@@ -532,10 +560,17 @@ bool CampoTenis::verificaExProf(string nome) {
 }
 
 bool CampoTenis::verificaExUten(string nome) {
-	for (unsigned int i = 0; i < utentes.size(); i++) {
-		if (utentes[i].getName() == nome) {			//verifica se o utente de nome "nome" existe no vetor de utentes
+
+	BSTItrIn<Utente> it(utentes);
+	Utente u = it.retrieve();
+
+	while (!it.isAtEnd())
+	{
+		u = it.retrieve();
+		if (u.getName() == nome) {			//verifica se o utente de nome "nome" existe no vetor de utentes
 			return true;
 		}
+		it.advance();
 	}
 	return false;
 }

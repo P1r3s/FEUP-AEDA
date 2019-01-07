@@ -27,7 +27,7 @@ void lerficheiroAulas(CampoTenis *c) {
 
 		if (modo == "Aula" || modo == "aula" || modo == "AULA") {		//verifica se é modo aula
 			getline(aula, horai, ',');			//guarda hora em string
-			getline(aula, data,'\n');			//guarda data em string
+			getline(aula, data, '\n');			//guarda data em string
 
 			int d = stoi(data);				//converte data para inteiro
 			int hAux = c->hours(horai);			//converte hora para inteiro
@@ -78,7 +78,7 @@ void lerficheiroLivres(CampoTenis *c) {
 		if (modo == "Livre" || modo == "livre" || modo == "LIVRE") {
 			getline(livre, horai, ',');			//guarda hora em string
 			getline(livre, nSlot, ',');			//guarda nr de slots em string
-			getline(livre, data,'\n');			//guarda a data em string
+			getline(livre, data, '\n');			//guarda a data em string
 
 			int nrS = stoi(nSlot);		//converte nr de slots em inteiro
 			int d = stoi(data);			//converte data em inteiro
@@ -93,9 +93,9 @@ void lerficheiroLivres(CampoTenis *c) {
 			}
 
 			vector<vector<int>> dispAux = c->getDispCampos();			//vetor de disponibilidade dos campos
-			int nrSubtr;							//nr a subtrair a hora para obter indice do slot
-			int hAux = c->hours(horai);				
-			int minAux = c->minutes(horai);			
+			int nrSubtr = 0;							//nr a subtrair a hora para obter indice do slot
+			int hAux = c->hours(horai);
+			int minAux = c->minutes(horai);
 			int nrSlot;
 
 
@@ -165,25 +165,25 @@ void lerficheiroLivres(CampoTenis *c) {
 			}
 			else
 				nrSlot = hAux - nrSubtr;
-
-			if ((nrS < 4) && (hAux+nrS < 20)) {		
-				int i = 0;
-				while (i < nrS) {
-					if (dispAux[nrSlot][d - 1] == 0) {		//verifica se a disponibilidade do campo nesse slot é 0
-						cout << endl;
-						cout << "Erro: " << endl;
-						cout << "O livre de " << nomeU << " de dia " << data << " as " << horai << "h nao pode ser marcado uma vez que os campos ja estao preenchidos com aulas!" << endl;
-						cout << "Este livre nao foi adicionado!" << endl;
-						bol = false;
-						break;
-					}
-					nrSlot++;
-					i++;
-				}
+			/*
+			if ((nrS < 4) && (hAux+nrS < 20)) {
+			int i = 0;
+			while (i < nrS) {
+			if (dispAux[nrSlot][d - 1] == 0) {		//verifica se a disponibilidade do campo nesse slot é 0
+			cout << endl;
+			cout << "Erro: " << endl;
+			cout << "O livre de " << nomeU << " de dia " << data << " as " << horai << "h nao pode ser marcado uma vez que os campos ja estao preenchidos com aulas!" << endl;
+			cout << "Este livre nao foi adicionado!" << endl;
+			bol = false;
+			break;
 			}
+			nrSlot++;
+			i++;
+			}
+			}*/
 
 			//se nao ocorrer nenhum erro entao adiciona o livre aos vetores 
-			if (bol) {						
+			if (bol) {
 				c->addLivre(d, horai, nrS);
 				c->addLivreUtente(nomeU, d, horai, nrS);
 			}
@@ -235,7 +235,7 @@ void lerficheiroUtentes(CampoTenis *c) {
 		int idade = stoi(idadeUten);	//converte idade para inteiro
 		int nif = stoi(nifUten);		//converte nif para inteiro
 
-		//verifica se tem cartao dourado
+										//verifica se tem cartao dourado
 		bool goldC = false;
 		if (card == "Sim" || card == "sim" || card == "SIM") {
 			goldC = true;
@@ -258,7 +258,7 @@ void adicionarUtente(string no, int idade, int gold, string morada, int nf) {
 
 	ofstream ute;
 	ute.open("Utentes.txt", std::fstream::out | std::fstream::app);
-	string card="nao";
+	string card = "nao";
 	if (g) {
 		card = "sim";
 	}
@@ -300,7 +300,7 @@ void professorDasAulas(string nomeProf) {
 
 	//ordena o vetor das aulas do professor por ordem crescente de dia da aula
 	vector<Aula> vAulasProf = auxP[index].getAulaVec();
- 
+
 	for (unsigned int i = 0; i < vAulasProf.size(); i++)
 	{
 		for (unsigned int j = 0; j < vAulasProf.size(); j++)
@@ -314,9 +314,9 @@ void professorDasAulas(string nomeProf) {
 			}
 		}
 	}
-	
+
 	for (unsigned int j = 0; j < vAulasProf.size(); j++) {
-		cout << "Tem aula dia " << vAulasProf[j].getDia() << " as " << vAulasProf[j].getHoraI() <<"h."<< endl;
+		cout << "Tem aula dia " << vAulasProf[j].getDia() << " as " << vAulasProf[j].getHoraI() << "h." << endl;
 	}
 	cout << endl;
 	cout << "Numero de aulas no mes: " << vAulasProf.size() << endl << endl;
@@ -325,18 +325,20 @@ void professorDasAulas(string nomeProf) {
 int freqUtentes(string no) {
 	//retorna a frequencia de um dado utente passado como parametro
 
-	vector<Utente> auxU = c->getUtentes();
+	BST<Utente> auxU = c->getUtentes();
 	vector<Aula> auxA;
 	vector<Livre> auxL;
-	unsigned int i = 0;
 
-	while (i < auxU.size()) {
-		if (auxU[i].getName() == no) {		//ate encontrar o utente no vetor utentes
-			auxL = auxU[i].getLivresUtente();
-			auxA = auxU[i].getAulasUtente();
+	BSTItrIn<Utente> it(auxU);
+	Utente u = it.retrieve();
+
+	while (!it.isAtEnd()) {
+		u = it.retrieve();
+		if (u.getName() == no) {		//ate encontrar o utente no vetor utentes
+			auxL = u.getLivresUtente();
+			auxA = u.getAulasUtente();
 			break;
 		}
-		i++;
 	}
 
 	int f = auxA.size() + auxL.size();		//soma das aulas e livres do utente
@@ -346,21 +348,25 @@ int freqUtentes(string no) {
 
 vector<int> contasUtentes(string no) {
 	//retorna o vetor com a conta do utente de nome passado como parametro
-	vector <Utente> auxV = c->getUtentes();
+	BST<Utente> auxV = c->getUtentes();
 	bool goldC;
 	int age;
 	int gC = 0;
 	unsigned int i = 0;
 	vector<int> v;
 
+	BSTItrIn<Utente> it(auxV);
+	Utente u = it.retrieve();
+
 	//procura no vetor utentes o utente de nome "nome"
-	while (i < auxV.size()) {				
-		if (auxV[i].getName() == no) {		
-			goldC = auxV[i].getGoldCard();
-			age = auxV[i].getAge();
+	while (!it.isAtEnd()) {
+		u = it.retrieve();
+		if (u.getName() == no) {
+			goldC = u.getGoldCard();
+			age = u.getAge();
 			break;
 		}
-		i++;
+		it.advance();
 	}
 
 	if (goldC)
@@ -401,43 +407,45 @@ void criarDoc(string no) {
 	ofstream docFimMes;
 	docFimMes.open(no + "_docFimMes.txt");
 
-	vector<Utente> auxU = c->getUtentes();
+	BST<Utente> auxU = c->getUtentes();
 	vector<Aula> auxA;
 	vector<Livre> auxL;
-	unsigned int i = 0;
-	int index;
 
-	while (i < auxU.size()) {
-		if (auxU[i].getName() == no) {
-			auxL = auxU[i].getLivresUtente();
-			auxA = auxU[i].getAulasUtente();
-			index = i;
+
+	BSTItrIn<Utente> it(auxU);
+	Utente u = it.retrieve();
+
+	while (!it.isAtEnd()) {
+		u = it.retrieve();
+		if (u.getName() == no) {
+			auxL = u.getLivresUtente();
+			auxA = u.getAulasUtente();
 			break;
 		}
-		i++;
+		it.advance();
 	}
-	
+
 	docFimMes << "AULAS\n";
 
 	for (unsigned int i = 0; i < auxA.size(); i++) {
-		docFimMes << "Dia: " << auxA.at(i).getDia() << ", Hora: " << auxA.at(i).getHoraI()<<"h" << '\n';
+		docFimMes << "Dia: " << auxA.at(i).getDia() << ", Hora: " << auxA.at(i).getHoraI() << "h" << '\n';
 	}
-	
+
 	docFimMes << "\nLIVRES\n";
 
 	for (unsigned int i = 0; i < auxL.size(); i++) {
-		docFimMes << "Dia: " << auxL.at(i).getDia() << ", Hora: " << auxL.at(i).getHoraI() <<"h"<< endl<<endl;
+		docFimMes << "Dia: " << auxL.at(i).getDia() << ", Hora: " << auxL.at(i).getHoraI() << "h" << endl << endl;
 	}
 
-	docFimMes << endl<< endl;
+	docFimMes << endl << endl;
 	docFimMes << "CONTAS DO MES" << endl;
-	if (auxU[index].getGoldCard()) {
-		docFimMes << "\nMensalidade do Cartao Dourado: " << auxU[index].getPrecoCartao() << " euros" << endl;
+	if (u.getGoldCard()) {
+		docFimMes << "\nMensalidade do Cartao Dourado: " << u.getPrecoCartao() << " euros" << endl;
 	}
-	
-	docFimMes << "\nTotal a pagar pelas aulas: " << auxU[index].getPrecoAulas() << " euros" << endl;
-	docFimMes << "\nTotal a pagar pelos livres: " << auxU[index].getPrecoLivres() << " euros" << endl<<endl;
-	docFimMes << "\nTotal a pagar: " << auxU[index].getPrecoTotal() << " euros" << endl;
+
+	docFimMes << "\nTotal a pagar pelas aulas: " << u.getPrecoAulas() << " euros" << endl;
+	docFimMes << "\nTotal a pagar pelos livres: " << u.getPrecoLivres() << " euros" << endl << endl;
+	docFimMes << "\nTotal a pagar: " << u.getPrecoTotal() << " euros" << endl;
 
 	docFimMes.close();
 	criarRelatorioProgresso(no, auxA);

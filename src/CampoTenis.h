@@ -8,12 +8,13 @@
 
 #include "Modos.h"
 #include "Pessoa.h"
+#include "BST.h"
 
 using namespace std;
 
 /**
- *  Representa o Campo de Tenis
- */
+*  Representa o Campo de Tenis
+*/
 class CampoTenis
 {
 public:
@@ -44,9 +45,9 @@ public:
 	vector<Professor> getProfessors();
 
 	/**
-	*  @brief Retorna o vetor de utentes
+	*  @brief Retorna a BST de utentes
 	*/
-	vector<Utente> getUtentes();
+	BST<Utente> getUtentes();
 
 	/**
 	*  @brief Retorna o vetor de aulas
@@ -155,7 +156,7 @@ public:
 	*
 	*@param nome do utente
 	*@param dia do livre
-	*@param hora de inicio do livre 
+	*@param hora de inicio do livre
 	*@param numero de slots do livre
 	*/
 	void addLivreUtente(string nome, int dia, string horai, int nrSlots);
@@ -178,7 +179,7 @@ public:
 	/**
 	*  @brief Converte as horas de string para inteiro
 	*
-	*@param horas 
+	*@param horas
 	*/
 	int hours(string horas);
 
@@ -212,17 +213,18 @@ private:
 	string horaEncerramento;				 // horas a que os campos fecham
 
 	vector<Professor> professores;            // Vector com todos os professores
-	vector<Utente> utentes;                   // Vector com todos os utentes
 	vector<Aula> aulas;						  // Vector com todas as aulas marcadas
 	vector<Livre> livres;					  // Vector com todos os livres marcados
 
 	vector<vector<int>>  dispCamposPorSlot;   //disponibilidade de campos por dia em cada slot
 
+	BST<Utente> utentes;                   // BST com todos os utentes
+
 };
 
 /**
- *  Excecao 
- */
+*  Excecao
+*/
 class Exception
 {
 public:

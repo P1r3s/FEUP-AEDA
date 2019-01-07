@@ -10,8 +10,8 @@
 using namespace std;
 
 /**
- *  Representa uma pessoa
- */
+*  Representa uma pessoa
+*/
 class Pessoa
 {
 public:
@@ -52,8 +52,8 @@ protected:
 };
 
 /**
- *  Representa um professor
- */
+*  Representa um professor
+*/
 class Professor : public Pessoa
 {
 public:
@@ -118,8 +118,8 @@ protected:
 };
 
 /**
- *  Representa um utente
- */
+*  Representa um utente
+*/
 class Utente : public Pessoa
 {
 protected:
@@ -206,6 +206,8 @@ public:
 	*  @brief retorna NIF do utente
 	*/
 	int getNif() { return nif; }
+
+	bool operator < (const Utente &u1) const;
 };
 
 #endif
