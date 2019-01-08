@@ -348,7 +348,7 @@ bool CampoTenis::removeProf(string nome)
 		}
 	}
 
-	//remove utente do ficheiro utentes 
+	//remove professor do ficheiro professores
 
 	fstream ficheiroP;
 	ficheiroP.open("Professores.txt");
@@ -426,7 +426,7 @@ bool CampoTenis::removeProf(string nome)
 
 	for (unsigned int j = 0; j < infoFichP.size(); j++) {
 		if (j == infoFichP.size() - 1) {
-			novoFicheiro << infoFichP[j];  //nao coloca o endl se for o ultimo utente a escrever para o ficheiro
+			novoFicheiro << infoFichP[j];  //nao coloca o endl se for o ultimo professor a escrever para o ficheiro
 		}
 		else
 			novoFicheiro << infoFichP[j] << endl;
@@ -573,4 +573,206 @@ bool CampoTenis::verificaExUten(string nome) {
 		it.advance();
 	}
 	return false;
+}
+
+void CampoTenis::addTecnico(string nome, int disp, int nrR) {
+	
+	ServicoTecnico tec(nome, disp,nrR);			//cria tecnico
+	
+	tecnicosTemp.push_back(tec);			//adiciona o tecnico ao vetor
+}
+
+void CampoTenis::ordenaTecnicos() {
+
+	//ordenacao do vetor tecnicosTemp por ordem crescente de disponibilidade
+	
+	for (unsigned int j = tecnicosTemp.size() - 1; j > 0; j--)
+	{
+		for (unsigned int i = 0; i < j; i++) {
+			if (tecnicosTemp[i + 1].getDisponibilidade() < tecnicosTemp[i].getDisponibilidade()) {
+				swap(tecnicosTemp[i], tecnicosTemp[i + 1]);
+			}
+		}
+	}	for (unsigned int i = 0; i < tecnicosTemp.size(); i++) {		ServicoTecnico ser = tecnicosTemp[i];		tecnicos.push(ser);	}
+}
+
+void CampoTenis::addTec(string nome, int disp, int nrR) {
+	ServicoTecnico tec(nome, disp, nrR);			//cria tecnico
+
+	tecnicosTemp.push_back(tec);			//adiciona o tecnico ao vetor
+
+	//limpar fila de prioridade de tecnicos
+	while (!tecnicos.empty()) {
+		tecnicos.pop();
+	}
+
+	//ordenar o vetor e atualizar fila de prioridade
+	ordenaTecnicos();
+
+	//atualiza ficheiro .txt
+	ofstream stec;
+	stec.open("ServicoTecnico.txt");
+
+	priority_queue<ServicoTecnico> aux = tecnicos;
+
+	while (!aux.empty())
+	{
+		ServicoTecnico tec = aux.top();
+		aux.pop();
+
+		if (aux.size() == 0) {
+			stec << tec.getNomeTec() << "," << tec.getDisponibilidade() << "," << tec.getNrReparacoes();
+		}
+		else {
+			stec << tec.getNomeTec() << "," << tec.getDisponibilidade() << "," << tec.getNrReparacoes()<<endl;
+		}
+	}
+
+	stec.close();
+}
+
+void CampoTenis::infoTec() {
+
+	priority_queue<ServicoTecnico> temp = tecnicos;
+	cout << "NOME,DISPONIBILIDADE,NUMERO DE REPARACOES" << endl << endl;
+	while (!temp.empty())
+	{
+		ServicoTecnico st = temp.top();
+		temp.pop();
+		string nome = st.getNomeTec();
+		int dis = st.getDisponibilidade();
+		int rep = st.getNrReparacoes();
+		cout <<nome << ","<< dis << "," << rep << endl;
+	}
+}
+
+
+void CampoTenis::tecDisp(int maxReparacoes) {
+	priority_queue<ServicoTecnico> temp = tecnicos;
+	priority_queue<ServicoTecnico> aux;
+
+	while (!temp.empty())
+	{
+		ServicoTecnico s = temp.top();
+		if (s.getNrReparacoes() < maxReparacoes) {
+			cout << "Tecnico " << s.getNomeTec() << " fara a reparacao do campo daqui a " << s.getDisponibilidade() << " dias" << endl;
+			
+			string nome = s.getNomeTec();
+			int disp = s.getDisponibilidade();
+			int rep = s.getNrReparacoes();
+
+			ServicoTecnico t(nome,disp + 1, rep + 1);
+			aux.push(t);
+			temp.pop();
+			while (!temp.empty())
+			{
+				aux.push(temp.top());
+				temp.pop();
+			}
+
+			break;
+		}
+		
+		aux.push(s);
+		temp.pop();
+	}
+
+	//atualizar vetor de tecnicos
+	vector<ServicoTecnico> vecAux;
+	while (!aux.empty()) {
+		ServicoTecnico sAux = aux.top();
+		aux.pop();
+		vecAux.push_back(sAux);
+	}
+
+	tecnicosTemp = vecAux;
+
+	//limpar fila de prioridade de tecnicos
+	while (!tecnicos.empty()) {
+		tecnicos.pop();
+	}
+
+	//ordenar o vetor e atualizar fila de prioridade
+	ordenaTecnicos();
+
+	//atualiza ficheiro .txt
+	ofstream stec;
+	stec.open("ServicoTecnico.txt");
+
+	aux = tecnicos;
+
+	while (!aux.empty())
+	{
+		ServicoTecnico tec = aux.top();
+		aux.pop();
+		if (aux.size() == 0) {
+			stec << tec.getNomeTec() << "," << tec.getDisponibilidade() << "," << tec.getNrReparacoes();
+		}
+		else {
+			stec << tec.getNomeTec() << "," << tec.getDisponibilidade() << "," << tec.getNrReparacoes()<<endl;
+		}
+	}
+
+	stec.close();
+}
+
+
+bool CampoTenis::verificaExTec(string nome) {
+	priority_queue<ServicoTecnico> aux = tecnicos;
+	bool exTec = false;
+
+	while (!aux.empty()) {
+		ServicoTecnico servico = aux.top();
+		string nomeT = servico.getNomeTec();
+		if (nomeT == nome) {
+			exTec = true;
+			break;
+		}
+		aux.pop();
+	}
+
+	return exTec;
+}
+
+bool CampoTenis::removeTec(string nomeTec) {
+	//remove o tecnico do vetor
+	for (size_t i = 0; i < tecnicosTemp.size(); i++)
+	{
+		if (tecnicosTemp[i].getNomeTec() == nomeTec)
+		{
+			tecnicosTemp.erase(tecnicosTemp.begin() + i);
+			break;
+		}
+	}
+
+	//limpar fila de prioridade de tecnicos
+	while (!tecnicos.empty()) {
+		tecnicos.pop();
+	}
+
+	//ordenar o vetor e atualizar fila de prioridade
+	ordenaTecnicos();
+
+	//atualiza ficheiro .txt
+	ofstream stec;
+	stec.open("ServicoTecnico.txt");
+
+	priority_queue<ServicoTecnico> aux = tecnicos;
+
+	while (!aux.empty())
+	{
+		ServicoTecnico tec = aux.top();
+		aux.pop();
+
+		if (aux.size() == 0) {
+			stec << tec.getNomeTec() << "," << tec.getDisponibilidade() << "," << tec.getNrReparacoes();
+		}
+		else {
+			stec << tec.getNomeTec() << "," << tec.getDisponibilidade() << "," << tec.getNrReparacoes()<<endl;
+		}
+	}
+
+	stec.close();
+
+	return true;
 }

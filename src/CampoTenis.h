@@ -9,6 +9,7 @@
 #include "Modos.h"
 #include "Pessoa.h"
 #include "BST.h"
+#include "ServicoTecnico.h"
 
 using namespace std;
 
@@ -204,6 +205,56 @@ public:
 	*/
 	bool verificaExUten(string nome);
 
+	/**
+	*  @brief Cria e adiciona o tecnico a fila de prioridade tecnicos
+	*
+	*@param nome do tecnico
+	*@param disponibilidade do tecnico
+	*@param nr de reparacoes do tecnico
+	*/
+	void addTecnico(string nome, int disp, int nrR);
+
+	/**
+	*  @brief Ordena fila de prioridade tecnicos
+	*
+	*/
+	void ordenaTecnicos();
+
+	/**
+	*  @brief faz o output da informacao dos tecnicos
+	*
+	*/
+	void infoTec();
+
+	/**
+	*@brief Retorna o tecnico disponivel para a reparacao
+	*
+	*@param numero maximo de reparacoes que o tecnico selecionado pode ter
+	*/
+	void tecDisp(int maxReparacoes);
+
+	/**
+	*@brief Adiciona tecnico a base de dados e ficheiro
+	*
+	*@param nome do tecnico
+	*@param disponibilidade do tecnico
+	*@param numero de reparacoes do tecnico
+	*/
+	void addTec(string nome, int disp, int nrR);
+
+	/**
+	*@brief Verifica se o tecnico existe na fila de prioridade
+	*
+	*@param nome do tecnico
+	*/
+	bool verificaExTec(string nome);
+
+	/**
+	*  @brief Remove tecnico da base de dados e do ficheiro ServicoTecnico.txt
+	*
+	*@param nome do tecnico
+	*/
+	bool removeTec(string nomeTec);
 
 private:
 	int nCampos;							 // numero de campos disponiveis pela empressa
@@ -215,10 +266,13 @@ private:
 	vector<Professor> professores;            // Vector com todos os professores
 	vector<Aula> aulas;						  // Vector com todas as aulas marcadas
 	vector<Livre> livres;					  // Vector com todos os livres marcados
+	vector<ServicoTecnico> tecnicosTemp;		//Vetor auxiliar com todos os tecnicos
 
 	vector<vector<int>>  dispCamposPorSlot;   //disponibilidade de campos por dia em cada slot
 
 	BST<Utente> utentes;                   // BST com todos os utentes
+
+	priority_queue<ServicoTecnico> tecnicos;  //fila de prioridade com todos os tecnicos
 
 };
 

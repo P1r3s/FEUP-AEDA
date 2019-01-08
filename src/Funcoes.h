@@ -29,6 +29,13 @@ void lerficheiroProfessores(CampoTenis *c);
 void lerficheiroUtentes(CampoTenis *c);
 
 /**
+*  @brief Le o ficheiro ServicoTecnico.txt e adiciona os tecnicos a fila de prioridade
+*
+*@param campo de tenis
+*/
+void lerficheiroServicoT(CampoTenis *c);
+
+/**
 *  @brief Imprime as aulas do professor
 *
 *@param nome do professor
@@ -85,3 +92,12 @@ void criarDoc(string no);
 *@param vetor das aulas do utente
 */
 void criarRelatorioProgresso(string no, vector<Aula> v);
+
+/**
+*  @brief Adiciona novo tecnico
+*
+*@param nome do novo tecnico
+*@param disponibilidade do novo tecnico
+*@param numero de reparacoes do novo tecnico
+*/
+void adicionarTecnico(string nome, int disp, int nrRep);

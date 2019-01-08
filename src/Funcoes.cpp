@@ -1,4 +1,5 @@
 #include "CampoTenis.h"
+#include "ServicoTecnico.h"
 
 #include <iostream>
 #include <fstream>
@@ -247,6 +248,28 @@ void lerficheiroUtentes(CampoTenis *c) {
 	}
 }
 
+void lerficheiroServicoT(CampoTenis *c) {
+	ifstream file;
+	string line;
+	file.open("ServicoTecnico.txt");
+
+	while (getline(file, line)) {
+		stringstream serv(line);
+
+		string nomeTec, disp, nrRep;
+
+		getline(serv, nomeTec, ',');		//guarda nome
+		getline(serv, disp, ',');			//guarda disponibilidade
+		getline(serv, nrRep);				//guarda nr de reparacoes
+
+		int disponibilidade = stoi(disp);		//converte disponibilidade para inteiro
+		int nrR = stoi(nrRep);			//converte nr de reparacoes para inteiro
+
+		c->addTecnico(nomeTec, disponibilidade, nrR);		//adiciona tecnico
+	}
+	c->ordenaTecnicos();
+}
+
 void adicionarUtente(string no, int idade, int gold, string morada, int nf) {
 	//adicionar novo utente
 
@@ -277,7 +300,7 @@ void adicionarProfessor(string nome, string sigla, int idade, string morada, int
 	ofstream prof;
 	prof.open("Professores.txt", std::fstream::out | std::fstream::app);
 
-	//escreve utente para o ficheiro Professores.txt ja existente
+	//escreve professor para o ficheiro Professores.txt ja existente
 	prof << endl << nome << ',' << sigla << ',' << idade << ',' << morada << ',' << nif;
 
 	prof.close();
@@ -452,3 +475,16 @@ void criarDoc(string no) {
 }
 
 
+void adicionarTecnico(string nome, int disp, int nrRep) {
+	//adicionar novo tecnico
+
+	c->addTec(nome,disp,nrRep);
+
+	ofstream tec;
+	tec.open("ServicoTecnico.txt", std::fstream::out | std::fstream::app);
+
+	//escreve tecnico para o ficheiro ServicoTecnico.txt ja existente
+	tec << endl << nome << ',' << disp << ',' << nrRep;
+
+	tec.close();
+}
