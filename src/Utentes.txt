@@ -1,25 +1,24 @@
-Maria Silva,28,sim
-Pedro Costa,19,nao
-Ines Ribeiro,42,nao
-Andre Pedrosa,15,sim
-Joao Miguel,18,sim
-Mariana Costa,23,sim
-Filipe Pinto,19,sim
-Catarina Lemos,28,nao
-Marina Teixeira,16,sim
-Luis Miguel,42,nao
-Marco Andre,15,nao
-Paulo Pereira,25,nao
-Beatriz Sousa,31,nao
-Tiago Soares,16,nao
-Andreia Santos,21,sim
-Sara Pires,14,sim
-Raquel Oliveira,19,nao
-Joao Rodrigues,23,sim
-Luis Silva,37,sim
-Pedro Costa,34,nao
-Marina Coelho,24,sim
-Marta Peixoto,28,nao
-Antonio Ribeiro,36,sim
-Alexandre Teles,41,nao
-Madalena Sousa,18,nao
+Maria Silva,28,sim,Via Giulia,548102354
+Pedro Costa,19,nao,Via Nazionale,147852369
+Ines Ribeiro,42,nao,Via Merulana,987456321
+Andre Pedrosa,15,sim,Via Veneto,159784236
+Mariana Costa,23,sim,Via del Babuino,987654321
+Filipe Pinto,19,sim,Via di Ripetta,248651397
+Catarina Lemos,28,nao,Via Flamenia,116644325
+Marina Teixeira,16,sim,Via Cavour,154236987
+Luis Miguel,42,nao,Via Condotti,757264351
+Marco Andre,15,nao,Fontana di Trevi,956841237
+Paulo Pereira,25,nao,Piazza Navona,128634957
+Beatriz Sousa,31,nao,Baker Street,156489732
+Tiago Soares,16,nao,Abbey Road,646451230
+Andreia Santos,21,sim,Broadway Market,125436798
+Sara Pires,14,sim,Oxford Street,903126548
+Raquel Oliveira,19,nao,Piccadilly,201655315
+Joao Rodrigues,23,sim,Garrick Street,311220189
+Luis Silva,37,sim,Victoria Street,920181231
+Pedro Costa,34,nao,Derby Street,365241520
+Marina Coelho,24,sim,Henrietta Street,321032103
+Marta Peixoto,28,nao,Catherine Street,145214520
+Antonio Ribeiro,36,sim,Shaftesbury Avenue,65428317
+Alexandre Teles,41,nao,Peter Street,354126780
+Madalena Sousa,18,nao,Old Burlington Street,501268910

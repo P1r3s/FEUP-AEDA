@@ -1,0 +1,6 @@
+Filomena Antunes,1,4
+Ana Mota,2,4
+Rita Almeida,3,3
+Rui Cardoso,3,6
+Antonio Silva,5,10
+Alvaro Goncalves,7,8

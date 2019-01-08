@@ -10,18 +10,18 @@
 using namespace std;
 
 /**
- *  Representa uma pessoa
- */
+*  Representa uma pessoa
+*/
 class Pessoa
 {
 public:
 	/**
 	*  @brief Cria uma pessoa
 	*
-	*@param nome da pessoa 
+	*@param nome da pessoa
 	*@param idade da pessoa
 	*/
-	Pessoa(string nome, int idade);
+	Pessoa(string nome, int idade, string morada, int nif);
 	~Pessoa() {}
 
 	/**
@@ -34,14 +34,26 @@ public:
 	*/
 	virtual int getAge();
 
+	/**
+	*  @brief retorna morada da pessoa
+	*/
+	virtual string getMorada();
+
+	/**
+	*  @brief retorna NIF da pessoa
+	*/
+	virtual int getNif();
+
 protected:
 	string nome;						 // Nome da pessoa
 	int idade;							 // Idade da pessoa
+	string morada;						 // morada da pessoa
+	int nif;							 // NIF da pessoa
 };
 
 /**
- *  Representa um professor
- */
+*  Representa um professor
+*/
 class Professor : public Pessoa
 {
 public:
@@ -52,7 +64,7 @@ public:
 	*@param sigla do professor
 	*@param idade do professor
 	*/
-	Professor(string nome,  string sigla,int idade);
+	Professor(string nome, string sigla, int idade, string morada, int nif);
 	~Professor() {}
 
 	/**
@@ -65,22 +77,22 @@ public:
 	/**
 	*  @brief retorna o vetor de aulas do professor
 	*/
-	vector<Aula> getAulaVec();
+	vector<Aula> getAulaVec() const;
 
 	/**
 	*  @brief retorna o nome do professor
 	*/
-	string getName() { return nome; }
+	string getName() const { return nome; }
 
 	/**
 	*  @brief retorna a idade do professor
 	*/
-	int getAge() { return idade; }
+	int getAge() const { return idade; }
 
 	/**
 	*  @brief retorna a sigla do professor
 	*/
-	string getSigla() { return sigla; }
+	string getSigla() const { return sigla; }
 
 	/**
 	*  @brief Adiciona aula ao vetor de aulas do professor
@@ -88,24 +100,49 @@ public:
 	*@param aula
 	*/
 	void pushAula(Aula a);
-	
-	
+
+	/**
+	*  @brief retorna NIF do professor
+	*/
+	int getNif() const { return nif; }
+
+	/**
+	*  @brief retorna morada do professor
+	*/
+	string getMorada() const { return morada; };
+
+	/**
+	*  @brief retorna estado do professor
+	*/
+	bool getEstado() const { return estado; };
+
+	/**
+	* @brief Muda o estado do professor
+	*
+	*@param novo estado
+	*/
+	void changeEstado(bool estadoNovo) { this->estado = estadoNovo; }
+
+	void emptyAulas();
+
+
 protected:
+	bool estado;
 	string sigla;						  // Iniciais do professor
 	vector<Aula> aulasDoProfessor;        // Vector com as aulas que o professor tem de dar
 
 };
 
 /**
- *  Representa um utente
- */
+*  Representa um utente
+*/
 class Utente : public Pessoa
 {
 protected:
 	bool goldCard;						  // Verifica se o utente tem cartao gold
 	vector<Aula> aulasDoUtente;			  // Vetor com as aulas do utente
 	vector<Livre> livresDoUtente;		  // Vetor com os livres do utente
-	
+
 public:
 	/**
 	*  @brief Cria um utente
@@ -114,23 +151,23 @@ public:
 	*@param idade do utente
 	*@param se utente tem cartao gold
 	*/
-	Utente(string nome, int idade, bool goldCard);
+	Utente(string nome, int idade, bool goldCard, string morada, int nif);
 	~Utente() {}
 
 	/**
 	*  @brief retorna true se tem cartao gold
 	*/
-	bool getGoldCard();
+	bool getGoldCard() const;
 
 	/**
 	*  @brief retorna o nome do utente
 	*/
-	string getName() { return nome; }
+	string getName() const { return nome; }
 
 	/**
 	*  @brief retorna a idade do utente
 	*/
-	int getAge() { return idade; }
+	int getAge() const { return idade; }
 
 	/**
 	*  @brief retorna preco total dos livres
@@ -155,12 +192,12 @@ public:
 	/**
 	*  @brief retorna o vetor com as aulas do utente
 	*/
-	vector<Aula> getAulasUtente();
+	vector<Aula> getAulasUtente() const;
 
 	/**
 	*  @brief retorna o vetor com os livres do utente
 	*/
-	vector<Livre> getLivresUtente();
+	vector<Livre> getLivresUtente() const;
 
 	/**
 	*  @brief Adiciona aula ao vetor de aulas do utente
@@ -175,6 +212,18 @@ public:
 	*@param aula
 	*/
 	void pushLivre(Livre l);
+
+	/**
+	*  @brief retorna morada do utente
+	*/
+	string getMorada() const { return morada; }
+
+	/**
+	*  @brief retorna NIF do utente
+	*/
+	int getNif() const { return nif; }
+
+	bool operator < (const Utente &u1) const;
 };
 
 #endif

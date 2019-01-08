@@ -5,15 +5,37 @@
 
 #include <fstream>
 #include <iomanip>
+#include <unordered_set>
 
 #include "Modos.h"
 #include "Pessoa.h"
+#include "BST.h"
+#include "ServicoTecnico.h"
 
 using namespace std;
 
+struct HashProf {
+
+	int operator() (const Professor & pf) const
+	{
+		return pf.getAulaVec().size();
+	}
+
+	bool operator() (const Professor & pf1, const Professor & pf2) const
+	{
+		if (pf1.getAulaVec().size() != pf2.getAulaVec().size())
+			return false;
+		else
+			return true;
+	}
+};
+
+
+typedef unordered_set<Professor, HashProf, HashProf> HashProfessores;
+
 /**
- *  Representa o Campo de Tenis
- */
+*  Representa o Campo de Tenis
+*/
 class CampoTenis
 {
 public:
@@ -44,9 +66,9 @@ public:
 	vector<Professor> getProfessors();
 
 	/**
-	*  @brief Retorna o vetor de utentes
+	*  @brief Retorna a BST de utentes
 	*/
-	vector<Utente> getUtentes();
+	BST<Utente> getUtentes();
 
 	/**
 	*  @brief Retorna o vetor de aulas
@@ -111,8 +133,10 @@ public:
 	*@param nome do professor
 	*@param sigla do professor
 	*@param idade do professor
+	*@param morada do professor
+	*@param nif do professor
 	*/
-	void addProf(string nome, string sigla, int idade);
+	void addProf(string nome, string sigla, int idade, string morada, int nif);
 
 	/**
 	*  @brief Cria e adiciona o utente ao vetor de utentes
@@ -120,8 +144,10 @@ public:
 	*@param nome do utente
 	*@param idade do utente
 	*@param goldCard true se utente tem cartao gold
+	*@param morada do utente
+	*@param nif do utente
 	*/
-	void addUtente(string nome, int idade, bool goldCard);
+	void addUtente(string nome, int idade, bool goldCard, string morada, int nif);
 
 	/**
 	*  @brief Remove utente do vetor de utentes e do ficheiro Utentes.txt
@@ -151,7 +177,7 @@ public:
 	*
 	*@param nome do utente
 	*@param dia do livre
-	*@param hora de inicio do livre 
+	*@param hora de inicio do livre
 	*@param numero de slots do livre
 	*/
 	void addLivreUtente(string nome, int dia, string horai, int nrSlots);
@@ -174,7 +200,7 @@ public:
 	/**
 	*  @brief Converte as horas de string para inteiro
 	*
-	*@param horas 
+	*@param horas
 	*/
 	int hours(string horas);
 
@@ -199,6 +225,83 @@ public:
 	*/
 	bool verificaExUten(string nome);
 
+	/**
+	*  @brief Cria e adiciona o tecnico a fila de prioridade tecnicos
+	*
+	*@param nome do tecnico
+	*@param disponibilidade do tecnico
+	*@param nr de reparacoes do tecnico
+	*/
+	void addTecnico(string nome, int disp, int nrR);
+
+	/**
+	*  @brief Ordena fila de prioridade tecnicos
+	*
+	*/
+	//void ordenaTecnicos();
+
+	/**
+	*  @brief faz o output da informacao dos tecnicos
+	*
+	*/
+	void infoTec();
+
+	/**
+	*@brief Retorna o tecnico disponivel para a reparacao
+	*
+	*@param numero maximo de reparacoes que o tecnico selecionado pode ter
+	*/
+	void tecDisp(int maxReparacoes);
+
+	/**
+	*@brief Adiciona tecnico a base de dados e ficheiro
+	*
+	*@param nome do tecnico
+	*@param disponibilidade do tecnico
+	*@param numero de reparacoes do tecnico
+	*/
+	void addTec(string nome, int disp, int nrR);
+
+	/**
+	*@brief Verifica se o tecnico existe na fila de prioridade
+	*
+	*@param nome do tecnico
+	*/
+	bool verificaExTec(string nome);
+
+	/**
+	*  @brief Remove tecnico da base de dados e do ficheiro ServicoTecnico.txt
+	*
+	*@param nome do tecnico
+	*/
+	bool removeTec(string nomeTec);
+
+	/**
+	* @brief Retorna o vetor de utentes
+	*/
+	vector<Utente> getUtenTemp() { return utenTemp; }
+
+	/**
+	* @brief Insere um elemento na BST
+	*
+	*@param utente a ser inserido
+	*/
+	void insertBST(Utente uten);
+
+	//Tabela
+
+	/**
+	* @brief Insere um elemento na tabela de dispersao
+	*
+	*@param professor a ser inserido
+	*/
+	void insertHash(string nome, string sigla, int idade, string morada, int nif);
+
+	/**
+	* @brief retorna a tabela de dispersao
+	*/
+	HashProfessores getHash() { return allProf; }
+
 
 private:
 	int nCampos;							 // numero de campos disponiveis pela empressa
@@ -208,17 +311,23 @@ private:
 	string horaEncerramento;				 // horas a que os campos fecham
 
 	vector<Professor> professores;            // Vector com todos os professores
-	vector<Utente> utentes;                   // Vector com todos os utentes
 	vector<Aula> aulas;						  // Vector com todas as aulas marcadas
 	vector<Livre> livres;					  // Vector com todos os livres marcados
+	
 
 	vector<vector<int>>  dispCamposPorSlot;   //disponibilidade de campos por dia em cada slot
+
+	vector<Utente> utenTemp;
+
+	BST<Utente> utentes;                   // BST com todos os utentes
+	priority_queue<ServicoTecnico> tecnicos;  //fila de prioridade com todos os tecnicos
+	HashProfessores allProf;					// Tabela de dispersao com professores antigos e atuais
 
 };
 
 /**
- *  Excecao 
- */
+*  Excecao
+*/
 class Exception
 {
 public:

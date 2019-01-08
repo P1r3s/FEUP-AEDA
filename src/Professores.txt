@@ -1,10 +1,10 @@
-Miguel Teles,MT,30
-Sandra Pereira,SP,25
-Tiago Lemos,TL,37
-Adelaide Pereira,AP,24
-Rita Oliveira,RO,32
-Andre Costa,AC,33
-Goncalo Cruz,GC,28
-Alexandra Delgado,AD,25
-Rui Fonseca,RF,31
-Tomas Lopes,TL,22
+Miguel Teles,MT,30,Rua dos Caldeiros,123485944
+Sandra Pereira,SP,25,Rua da Bainharia,852130067
+Tiago Lemos,TL,37,Rua de Mora Pinto,459515369
+Adelaide Pereira,AP,24,Rua de Sao Miguel,752564258
+Rita Oliveira,RO,32,Rua do Rosario,156324855
+Andre Costa,AC,33,Rua de Santa Catarina,135462084
+Goncalo Cruz,GC,28,Rua de Nove de Julho,333504982
+Alexandra Delgado,AD,25,Rua de D Hugo,154327056
+Rui Fonseca,RF,31,Rua de Cedofeita,100350401
+Tomas Lopes,TL,22,Rua do Comercio do Porto,651355948

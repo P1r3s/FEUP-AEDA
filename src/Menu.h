@@ -26,6 +26,21 @@ void menuInformacoes();
 void menuAlteracoes();
 
 /**
+*  @brief Menu que permite requisitar/consultar tecnicos para reparacao do campo
+*/
+void menuTecnicos();
+
+/**
+*  @brief Menu que permite consultar informacao de todos os tecnicos
+*/
+void infoTecnicos();
+
+/**
+*  @brief Menu que permite requisitar o tecnico para a reparacao do campo
+*/
+void reparacao();
+
+/**
 *  @brief Permite sair do programa
 */
 void sair();

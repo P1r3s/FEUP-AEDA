@@ -8,18 +8,21 @@ using namespace std;
 
 //Construtores
 
-Pessoa::Pessoa(string nome, int idade)
+Pessoa::Pessoa(string nome, int idade, string morada, int nif)
 {
 	this->nome = nome;
 	this->idade = idade;
+	this->morada = morada;
+	this->nif = nif;
 }
 
-Professor::Professor(string nome, string sigla, int idade) : Pessoa(nome, idade)
+Professor::Professor(string nome, string sigla, int idade, string morada, int nif) : Pessoa(nome, idade, morada, nif)
 {
 	this->sigla = sigla;
+	this->estado = true;
 }
 
-Utente::Utente(string nome, int idade, bool goldCard) : Pessoa(nome, idade)
+Utente::Utente(string nome, int idade, bool goldCard, string morada, int nif) : Pessoa(nome, idade, morada, nif)
 {
 	this->goldCard = goldCard;
 }
@@ -37,13 +40,23 @@ int Pessoa::getAge()
 	return idade;
 }
 
+string Pessoa::getMorada()
+{
+	return morada;
+}
+
+int Pessoa::getNif()
+{
+	return nif;
+}
+
 //Funçoes Professor
 
 int Professor::getNrAulas(string nomeProf) {
 	return aulasDoProfessor.size();
 }
 
-vector<Aula> Professor::getAulaVec()
+vector<Aula> Professor::getAulaVec() const
 {
 	return aulasDoProfessor;
 }
@@ -52,16 +65,24 @@ void Professor::pushAula(Aula a) {
 	aulasDoProfessor.push_back(a);
 }
 
+void Professor::emptyAulas()
+{
+	vector<Aula> aulasTemp;
+
+	aulasDoProfessor.swap(aulasTemp);
+}
+
+
 //Funçoes Utentes
-vector<Aula> Utente::getAulasUtente() {
+vector<Aula> Utente::getAulasUtente() const{
 	return aulasDoUtente;
 }
 
-vector<Livre> Utente::getLivresUtente() {
+vector<Livre> Utente::getLivresUtente() const{
 	return livresDoUtente;
 }
 
-bool Utente::getGoldCard()
+bool Utente::getGoldCard() const
 {
 	return goldCard;
 }
@@ -107,4 +128,22 @@ void Utente::pushAula(Aula a) {
 
 void Utente::pushLivre(Livre l) {
 	livresDoUtente.push_back(l);
+}
+
+bool Utente::operator < (const Utente &u1) const
+{
+	int freq = aulasDoUtente.size() + livresDoUtente.size();
+	int freq1 = u1.aulasDoUtente.size() + u1.livresDoUtente.size();
+
+	if (freq < freq1)
+		return true;
+	else if (freq > freq1)
+		return false;
+	else
+	{
+		if (nome < u1.nome)
+			return true;
+		else
+			return false;
+	}
 }

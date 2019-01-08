@@ -1,6 +1,7 @@
 #include "Menu.h"
 #include "Funcoes.h"
 #include "CampoTenis.h"
+#include "ServicoTecnico.h"
 #include <Windows.h>
 #include <stdlib.h>
 
@@ -19,7 +20,8 @@ void menuPrincipal() {
 	cout << "--------------------------------------------- " << endl;
 	cout << "1 - Consultar Informacao" << endl;
 	cout << "2 - Alterar dados" << endl;
-	cout << "3 - Sair" << endl;
+	cout << "3 - Servicos Tecnicos" << endl;
+	cout << "4 - Sair" << endl;
 	cout << "--------------------------------------------- " << endl;
 	
 	int opcao = 0;
@@ -37,6 +39,9 @@ void menuPrincipal() {
 				menuAlteracoes();
 				break;
 			case 3:
+				menuTecnicos();
+				break;
+			case 4:
 				sair();
 				break;
 			default:
@@ -120,8 +125,8 @@ void menuAlteracoes() {
 	int opcao = 0;
 	cout << endl;
 	cout << "Introduza uma opcao: ";
-	string no, sigla;
-	int idade, gold;
+	string no, sigla, morada;
+	int idade, gold, nif;
 	while (opcao < 1 || opcao > 6) {
 		if (cin >> opcao) {
 			switch (opcao) {
@@ -130,11 +135,19 @@ void menuAlteracoes() {
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "Insira o nome do novo Utente: "; getline(cin, no, '\n');
+				cin.clear();
+				cin.ignore(10000, '\n');
 				cout << "Insira a idade do Utente: "; cin >> idade;
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "O Utente tem goldCard? (se sim meta 1,se nao meta 0) "; cin >> gold;
-				adicionarUtente(no, idade, gold);
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira a morada do Utente: ";getline(cin, morada, '\n');
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira o NIF do Utente: "; cin >> nif;
+				adicionarUtente(no, idade, gold, morada, nif);
 				cout << endl;
 				cout << "Utente adicionado com sucesso!" << endl << endl;
 				cin.clear();
@@ -146,9 +159,19 @@ void menuAlteracoes() {
 				cin.clear();
 				cin.ignore(10000, '\n');
 				cout << "Insira o nome do novo Professor: "; getline(cin, no, '\n');
+				cin.clear();
+				cin.ignore(10000, '\n');
 				cout << "Insira a sigla do Professor: "; cin >> sigla;
+				cin.clear();
+				cin.ignore(10000, '\n');
 				cout << "Insira a idade do Professor: "; cin >> idade;
-				adicionarProfessor(no, sigla, idade);
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira a morada do Professor: "; getline(cin, morada, '\n');
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira o NIF do Professor: "; cin >> nif;
+				adicionarProfessor(no, sigla, idade, morada, nif);
 				cout << endl;
 				cout << "Professor adicionado com sucesso!" << endl;
 				cin.clear();
@@ -220,6 +243,128 @@ void menuAlteracoes() {
 			cout << "Opcao invalida! Introduza opcao: ";
 		}
 	}
+}
+
+
+void menuTecnicos() {
+	system("pause");
+	system("cls");
+	
+	cout << endl << endl;
+	cout << "--------------------------------------------- " << endl;
+	cout << "          ALUGUER DE CAMPOS DE TENIS          " << endl;
+	cout << "--------------------------------------------- " << endl;
+	cout << "1 - Consultar informacao de todos tecnicos" << endl;
+	cout << "2 - Reparacao do Campo de Tenis" << endl;
+	cout << "3 - Adicionar Tecnico" << endl;
+	cout << "4 - Remover Tecnico" << endl;
+	cout << "5 - Sair" << endl;
+	cout << "--------------------------------------------- " << endl;
+
+	int opcao = 0;
+	cout << endl;
+	cout << "Introduza uma opcao: ";
+	string noT;
+	int nrRt, dispT;
+	while (opcao < 1 || opcao > 3) {
+		if (cin >> opcao) {
+
+			switch (opcao) {
+			case 1:
+				//consulta informacao dos tecnicos
+				infoTecnicos();
+				cin.clear();
+				cin.ignore(10000, '\n');
+				menuTecnicos();
+				break;
+			case 2:
+				//seleciona tecnico que fara a reparacao do campo
+				reparacao();
+				cin.clear();
+				cin.ignore(10000, '\n');
+				menuTecnicos();
+				break;
+			case 3:
+				//adicionar tecnico 
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira o nome do novo Tecnico: "; getline(cin, noT, '\n');
+				cin.clear();
+				cout << "Insira a disponibilidade do novo Tecnico: "; cin >> dispT;
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira o numero de reparacoes do novo Tecnico: "; cin >> nrRt;
+				cin.clear();
+				cin.ignore(10000, '\n');
+				adicionarTecnico(noT, dispT, nrRt);
+				cout << endl;
+				cout << "Tecnico adicionado com sucesso!" << endl;
+				cin.clear();
+				cin.ignore(10000, '\n');
+				menuTecnicos();
+				break;
+			case 4:
+				//remover tecnico 
+				cin.clear();
+				cin.ignore(10000, '\n');
+				cout << "Insira o nome do Tecnico a remover: "; getline(cin, noT, '\n');
+				if (c->verificaExTec(noT)) {
+					if (c->removeTec(noT)) {
+						cout << endl;
+						cout << "Tecnico removido com sucesso!" << endl;
+					}
+					else {
+						cout << endl;
+						cout << "Nao foi possivel remover o Tecnico!" << endl;
+					}
+					cin.clear();
+					cin.ignore(10000, '\n');
+					menuTecnicos();
+				}
+				else {
+					cout << endl;
+					cout << "Nome de tecnico invalido!" << endl;
+					menuTecnicos();
+				}
+				break;
+			case 5:
+				sair();
+				break;
+			default:
+				cout << "Opcao invalida! Introduza uma opcao: ";
+			}
+		}
+
+		else {
+			cin.clear();
+			cin.ignore(10000, '\n');
+			cout << "Opcao invalida! Introduza nova opcao: ";
+		}
+	}
+}
+
+void infoTecnicos() {
+	system("pause");
+	system("cls");
+
+	cin.clear();
+	cin.ignore(10000, '\n');
+	
+	c->infoTec();
+}
+
+void reparacao() {
+	system("pause");
+	system("cls");
+
+	cin.clear();
+	cin.ignore(10000, '\n');
+	int maxRep;
+
+	cout << "Insira o numero maximo de reparacoes de um tecnico: ";
+	cin >> maxRep;
+
+	c->tecDisp(maxRep);
 }
 
 
@@ -339,7 +484,6 @@ void menuInfoUtentes() {
 
 				if (c->verificaExUten(no)) {
 					cout << no << " frequentou os campos de tenis " << freqUtentes(no) << " vezes durante este mes.\n" << endl;
-					freqUtentes(no);
 					menuInfoUtentes();
 				}
 				else {
@@ -355,6 +499,8 @@ void menuInfoUtentes() {
 				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
 				cout << endl;
 
+				system("pause");
+				system("cls");
 				if (c->verificaExUten(no)) {
 					cout << "Conta do Utente" << endl << endl;
 					cout << "Nome: "; cout << no << endl;
@@ -456,11 +602,13 @@ void carregarFicheiros() {
 	system("pause");
 	system("cls");
 
+	lerficheiroServicoT(c);
 	lerficheiroProfessores(c);
 	lerficheiroUtentes(c);
 	lerficheiroAulas(c);
-	c->atualizaVetorDisp();
 	lerficheiroLivres(c);
+	updateBST(c);
+	c->atualizaVetorDisp();
 	cout << endl;
 
 	cout << "Ficheiros carregados!" << endl << endl;
