@@ -1,7 +1,8 @@
 # FEUP-AEDA
-Tema 2 – Aluguer de Campos de Ténis (Parte 1)
 
-### Enunciado
+## Tema 2 – Aluguer de Campos de Ténis
+
+### Parte 1
 
 Uma empresa municipal possui campos de ténis que disponibiliza aos seus utentes para uso em dois modos:
 modo de aula (duração de 1h com professor) e modo livre (duração até 2h sem professor: para simplificar,
@@ -20,3 +21,11 @@ número de aulas por professor.
 O sistema deve permitir a consulta da ocupação dos campos de ténis, frequência de utentes, contas dos utentes,
 aulas leccionadas por professores, horário de aulas, horário de professores. (nota: esta enumeração de listagens a
 implementar não é exaustiva).
+
+### Parte 2
+
+Complementar o sistema já implementado com as seguintes funcionalidades:
+
+- [x] A empresa municipal pretende manter um registo de todos os utentes dos campos de ténis que já usaram os serviços da empresa. Guarde numa árvore binária de pesquisa  os utentes dos campos de ténis, ordenados pelo número de vezes que usaram os campos (aula ou livre) e, em caso de empate, por ordem alfabética. A identificação do utente deve ainda incluir a morada do mesmo e o NIF. 
+- [x] Os campos de ténis precisam frequentemente de intervenções e melhorias de forma a manter os níveis de qualidade definidos pela empresa municipal. Para tal, a empresa recorre aos serviços de técnicos especializados que são guardados numa fila de prioridade ordenada pela disponibilidade dos técnicos (a disponibilidade é um valor inteiro que indica o número de dias em falta até que o técnico esteja disponível). O técnico que está no topo é o que estará disponível mais cedo. De forma a cumprir com procedimentos de contratação pública, que limitam o número de vezes que a empresa pode recorrer aos serviços de um dado técnico, para além da disponibilidade, o técnico é também caracterizado pelo número de reparações já efetuadas. Para a reparação de um campo de ténis, deve ser escolhido o técnico disponível mais cedo e que tenha concluído menos do que um número de reparações a especificar. Considere, por simplificação, que a reparação de um campo demora sempre 1 dia, devendo a disponibilidade do técnico ser atualizada. 
+- [x] A empresa mantém um registo de todos os seus professores (atuais ou antigos) numa tabela de dispersão. A manutenção do registo de professores antigos da empresa justifica-se porque, no caso de necessidade de contratação de novos professores, a empresa tem como política interna a contratação de professores já conhecidos. O professor deve estar associado às aulas que realiza (se é um trabalhador atual da empresa).
