@@ -145,7 +145,7 @@ void CampoTenis::addAula(int dia, string horaInicio)
 	
 	for(it = allProf.begin(); it != allProf.end(); it++)
 	{
-		list<Professor>::iterator lt;
+		list<Professor>::iterator lt = it.;
 		if (it->getEstado())
 		{
 			Professor p(it->getName(), it->getSigla(), it->getAge(), it->getMorada(), it->getNif());
