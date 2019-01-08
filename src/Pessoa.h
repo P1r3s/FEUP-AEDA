@@ -141,17 +141,17 @@ public:
 	/**
 	*  @brief retorna true se tem cartao gold
 	*/
-	bool getGoldCard();
+	bool getGoldCard() const;
 
 	/**
 	*  @brief retorna o nome do utente
 	*/
-	string getName() { return nome; }
+	string getName() const { return nome; }
 
 	/**
 	*  @brief retorna a idade do utente
 	*/
-	int getAge() { return idade; }
+	int getAge() const { return idade; }
 
 	/**
 	*  @brief retorna preco total dos livres
@@ -176,12 +176,12 @@ public:
 	/**
 	*  @brief retorna o vetor com as aulas do utente
 	*/
-	vector<Aula> getAulasUtente();
+	vector<Aula> getAulasUtente() const;
 
 	/**
 	*  @brief retorna o vetor com os livres do utente
 	*/
-	vector<Livre> getLivresUtente();
+	vector<Livre> getLivresUtente() const;
 
 	/**
 	*  @brief Adiciona aula ao vetor de aulas do utente
@@ -200,12 +200,12 @@ public:
 	/**
 	*  @brief retorna morada do utente
 	*/
-	string getMorada() { return morada; }
+	string getMorada() const { return morada; }
 
 	/**
 	*  @brief retorna NIF do utente
 	*/
-	int getNif() { return nif; }
+	int getNif() const { return nif; }
 
 	bool operator < (const Utente &u1) const;
 };

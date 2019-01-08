@@ -484,7 +484,6 @@ void menuInfoUtentes() {
 
 				if (c->verificaExUten(no)) {
 					cout << no << " frequentou os campos de tenis " << freqUtentes(no) << " vezes durante este mes.\n" << endl;
-					freqUtentes(no);
 					menuInfoUtentes();
 				}
 				else {
@@ -500,6 +499,8 @@ void menuInfoUtentes() {
 				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
 				cout << endl;
 
+				system("pause");
+				system("cls");
 				if (c->verificaExUten(no)) {
 					cout << "Conta do Utente" << endl << endl;
 					cout << "Nome: "; cout << no << endl;
@@ -605,8 +606,9 @@ void carregarFicheiros() {
 	lerficheiroProfessores(c);
 	lerficheiroUtentes(c);
 	lerficheiroAulas(c);
-	c->atualizaVetorDisp();
 	lerficheiroLivres(c);
+	updateBST(c);
+	c->atualizaVetorDisp();
 	cout << endl;
 
 	cout << "Ficheiros carregados!" << endl << endl;

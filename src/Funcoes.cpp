@@ -267,7 +267,7 @@ void lerficheiroServicoT(CampoTenis *c) {
 
 		c->addTecnico(nomeTec, disponibilidade, nrR);		//adiciona tecnico
 	}
-	c->ordenaTecnicos();
+	//c->ordenaTecnicos();
 }
 
 void adicionarUtente(string no, int idade, int gold, string morada, int nf) {
@@ -362,6 +362,7 @@ int freqUtentes(string no) {
 			auxA = u.getAulasUtente();
 			break;
 		}
+		it.advance();
 	}
 
 	int f = auxA.size() + auxL.size();		//soma das aulas e livres do utente
@@ -487,4 +488,15 @@ void adicionarTecnico(string nome, int disp, int nrRep) {
 	tec << endl << nome << ',' << disp << ',' << nrRep;
 
 	tec.close();
+}
+
+void updateBST(CampoTenis *c)
+{
+	vector<Utente> uT = c->getUtenTemp();
+
+	for (unsigned int i = 0; i < uT.size(); i++)
+	{
+		Utente u = uT[i];
+		c->insertBST(u);
+	}
 }

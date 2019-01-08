@@ -68,7 +68,7 @@ BST<Utente> CampoTenis::getUtentes()
 
 void CampoTenis::addUtente(string nome, int idade, bool goldCard, string morada, int nif) {
 	Utente u(nome, idade, goldCard, morada, nif);
-	utentes.insert(u);
+	utenTemp.push_back(u);
 }
 
 int CampoTenis::NumMaximoUtentesPorCampo() const
@@ -146,7 +146,7 @@ void CampoTenis::addAulaUtente(string nome, int dia, string horai) {
 	string sigla = returnSigla();
 	Aula a(dia, sigla, horai);
 
-	BSTItrIn<Utente> it(utentes);
+	/*BSTItrIn<Utente> it(utentes);
 
 
 	while (!it.isAtEnd())
@@ -157,6 +157,14 @@ void CampoTenis::addAulaUtente(string nome, int dia, string horai) {
 			u.pushAula(a);			//adiciona a aula ao utente com o nome recebido como parametro
 		}
 		it.advance();
+	}*/
+
+	for (unsigned int i = 0; i < utenTemp.size(); i++)
+	{
+		if (nome == utenTemp[i].getName())
+		{
+			utenTemp[i].pushAula(a);
+		}
 	}
 
 }
@@ -172,7 +180,7 @@ void CampoTenis::addLivreUtente(string nome, int dia, string horai, int nrSlots)
 
 	Livre l(dia, horai, nrSlots);
 
-	BSTItrIn<Utente> it(utentes);
+	/*BSTItrIn<Utente> it(utentes);
 
 	while (!it.isAtEnd())
 	{
@@ -182,6 +190,11 @@ void CampoTenis::addLivreUtente(string nome, int dia, string horai, int nrSlots)
 			u.pushLivre(l);			//adiciona o livre ao utente com o nome recebido como parametro
 		}
 		it.advance();
+	}*/
+
+	for (unsigned int i = 0; i < utenTemp.size(); i++)
+	{
+		utenTemp[i].pushLivre(l);
 	}
 
 }
@@ -200,11 +213,9 @@ bool CampoTenis::removeUtente(string nome)
 	bool existenciaUtente = false;
 
 	BSTItrIn<Utente> it(utentes);
-	Utente u = it.retrieve();
 
 	while (!it.isAtEnd()) {
-		u = it.retrieve();
-		if (u.getName() == nome) {
+		if (it.retrieve().getName() == nome) {
 			existenciaUtente = true;
 			break;
 		}
@@ -222,10 +233,9 @@ bool CampoTenis::removeUtente(string nome)
 
 	while (!ut.isAtEnd())
 	{
-		Utente u = ut.retrieve();
-		if (u.getName() == nome)
+		if (it.retrieve().getName() == nome)
 		{
-			utentes.remove(u);
+			utentes.remove(it.retrieve());
 			break;
 		}
 		ut.advance();
@@ -235,7 +245,7 @@ bool CampoTenis::removeUtente(string nome)
 
 	fstream ficheiroU;
 	ficheiroU.open("Utentes.txt");
-	string nomeUfich, linhaUfich, idadeU, cartaoU;
+	string nomeUfich, linhaUfich, idadeU, cartaoU, moradaU, nifU;
 	int contLinhas = 0, i = 0;
 	vector<string> infoFichU;
 
@@ -252,7 +262,9 @@ bool CampoTenis::removeUtente(string nome)
 	{
 		getline(ficheiroU, nomeUfich, ',');
 		getline(ficheiroU, idadeU, ',');
-		getline(ficheiroU, cartaoU, '\n');
+		getline(ficheiroU, cartaoU, ',');
+		getline (ficheiroU, moradaU, ',');
+		getline(ficheiroU, nifU, '\n');
 
 		if (nomeUfich == nome) {
 			break;
@@ -352,7 +364,7 @@ bool CampoTenis::removeProf(string nome)
 
 	fstream ficheiroP;
 	ficheiroP.open("Professores.txt");
-	string nomePfich, linhaPfich, idadeP, siglaP;
+	string nomePfich, linhaPfich, idadeP, siglaP, moradaP, nifP;
 	int contLinhas = 0, i = 0;
 	vector<string> infoFichP;
 
@@ -369,8 +381,9 @@ bool CampoTenis::removeProf(string nome)
 	{
 		getline(ficheiroP, nomePfich, ',');
 		getline(ficheiroP, siglaP, ',');
-		getline(ficheiroP, idadeP, '\n');
-
+		getline(ficheiroP, idadeP, ',');
+		getline(ficheiroP, moradaP, ',');
+		getline(ficheiroP, nifP, '\n');
 
 		if (nomePfich == nome) {
 			break;
@@ -562,12 +575,10 @@ bool CampoTenis::verificaExProf(string nome) {
 bool CampoTenis::verificaExUten(string nome) {
 
 	BSTItrIn<Utente> it(utentes);
-	Utente u = it.retrieve();
 
 	while (!it.isAtEnd())
 	{
-		u = it.retrieve();
-		if (u.getName() == nome) {			//verifica se o utente de nome "nome" existe no vetor de utentes
+		if (it.retrieve().getName() == nome) {			//verifica se o utente de nome "nome" existe no vetor de utentes
 			return true;
 		}
 		it.advance();
@@ -579,35 +590,15 @@ void CampoTenis::addTecnico(string nome, int disp, int nrR) {
 	
 	ServicoTecnico tec(nome, disp,nrR);			//cria tecnico
 	
-	tecnicosTemp.push_back(tec);			//adiciona o tecnico ao vetor
+	tecnicos.push(tec);			//adiciona o tecnico a fila de prioridade
 }
 
-void CampoTenis::ordenaTecnicos() {
-
-	//ordenacao do vetor tecnicosTemp por ordem crescente de disponibilidade
-	
-	for (unsigned int j = tecnicosTemp.size() - 1; j > 0; j--)
-	{
-		for (unsigned int i = 0; i < j; i++) {
-			if (tecnicosTemp[i + 1].getDisponibilidade() < tecnicosTemp[i].getDisponibilidade()) {
-				swap(tecnicosTemp[i], tecnicosTemp[i + 1]);
-			}
-		}
-	}	for (unsigned int i = 0; i < tecnicosTemp.size(); i++) {		ServicoTecnico ser = tecnicosTemp[i];		tecnicos.push(ser);	}
-}
 
 void CampoTenis::addTec(string nome, int disp, int nrR) {
 	ServicoTecnico tec(nome, disp, nrR);			//cria tecnico
 
-	tecnicosTemp.push_back(tec);			//adiciona o tecnico ao vetor
+	tecnicos.push(tec);			//adiciona o tecnico a fila de prioridade
 
-	//limpar fila de prioridade de tecnicos
-	while (!tecnicos.empty()) {
-		tecnicos.pop();
-	}
-
-	//ordenar o vetor e atualizar fila de prioridade
-	ordenaTecnicos();
 
 	//atualiza ficheiro .txt
 	ofstream stec;
@@ -677,24 +668,8 @@ void CampoTenis::tecDisp(int maxReparacoes) {
 		temp.pop();
 	}
 
-	//atualizar vetor de tecnicos
-	vector<ServicoTecnico> vecAux;
-	while (!aux.empty()) {
-		ServicoTecnico sAux = aux.top();
-		aux.pop();
-		vecAux.push_back(sAux);
-	}
-
-	tecnicosTemp = vecAux;
-
-	//limpar fila de prioridade de tecnicos
-	while (!tecnicos.empty()) {
-		tecnicos.pop();
-	}
-
-	//ordenar o vetor e atualizar fila de prioridade
-	ordenaTecnicos();
-
+	tecnicos = aux;
+	
 	//atualiza ficheiro .txt
 	ofstream stec;
 	stec.open("ServicoTecnico.txt");
@@ -735,24 +710,7 @@ bool CampoTenis::verificaExTec(string nome) {
 }
 
 bool CampoTenis::removeTec(string nomeTec) {
-	//remove o tecnico do vetor
-	for (size_t i = 0; i < tecnicosTemp.size(); i++)
-	{
-		if (tecnicosTemp[i].getNomeTec() == nomeTec)
-		{
-			tecnicosTemp.erase(tecnicosTemp.begin() + i);
-			break;
-		}
-	}
-
-	//limpar fila de prioridade de tecnicos
-	while (!tecnicos.empty()) {
-		tecnicos.pop();
-	}
-
-	//ordenar o vetor e atualizar fila de prioridade
-	ordenaTecnicos();
-
+	
 	//atualiza ficheiro .txt
 	ofstream stec;
 	stec.open("ServicoTecnico.txt");
@@ -775,4 +733,9 @@ bool CampoTenis::removeTec(string nomeTec) {
 	stec.close();
 
 	return true;
+}
+
+void CampoTenis::insertBST(Utente uten)
+{
+	utentes.insert(uten);
 }

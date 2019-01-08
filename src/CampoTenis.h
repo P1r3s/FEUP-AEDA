@@ -218,7 +218,7 @@ public:
 	*  @brief Ordena fila de prioridade tecnicos
 	*
 	*/
-	void ordenaTecnicos();
+	//void ordenaTecnicos();
 
 	/**
 	*  @brief faz o output da informacao dos tecnicos
@@ -256,6 +256,18 @@ public:
 	*/
 	bool removeTec(string nomeTec);
 
+	/**
+	* @brief Retorna o vetor de utentes
+	*/
+	vector<Utente> getUtenTemp() { return utenTemp; }
+
+	/**
+	* @brief Insere um elemento na BST
+	*
+	*@param utente a ser inserido
+	*/
+	void insertBST(Utente uten);
+
 private:
 	int nCampos;							 // numero de campos disponiveis pela empressa
 	int lotCampo;							 // numero maximo de pessoas por campo numa mesma hora
@@ -266,11 +278,12 @@ private:
 	vector<Professor> professores;            // Vector com todos os professores
 	vector<Aula> aulas;						  // Vector com todas as aulas marcadas
 	vector<Livre> livres;					  // Vector com todos os livres marcados
-	vector<ServicoTecnico> tecnicosTemp;		//Vetor auxiliar com todos os tecnicos
+	//vector<ServicoTecnico> tecnicosTemp;		//Vetor auxiliar com todos os tecnicos
 
 	vector<vector<int>>  dispCamposPorSlot;   //disponibilidade de campos por dia em cada slot
 
 	BST<Utente> utentes;                   // BST com todos os utentes
+	vector<Utente> utenTemp;
 
 	priority_queue<ServicoTecnico> tecnicos;  //fila de prioridade com todos os tecnicos
 

@@ -2,7 +2,6 @@ Maria Silva,28,sim,Via Giulia,548102354
 Pedro Costa,19,nao,Via Nazionale,147852369
 Ines Ribeiro,42,nao,Via Merulana,987456321
 Andre Pedrosa,15,sim,Via Veneto,159784236
-Joao Miguel,18,sim,Via Labicana,123456789
 Mariana Costa,23,sim,Via del Babuino,987654321
 Filipe Pinto,19,sim,Via di Ripetta,248651397
 Catarina Lemos,28,nao,Via Flamenia,116644325
@@ -23,4 +22,3 @@ Marta Peixoto,28,nao,Catherine Street,145214520
 Antonio Ribeiro,36,sim,Shaftesbury Avenue,65428317
 Alexandre Teles,41,nao,Peter Street,354126780
 Madalena Sousa,18,nao,Old Burlington Street,501268910
-Joao Miguel,19,sim,Rua Diogo de Silves,123123123

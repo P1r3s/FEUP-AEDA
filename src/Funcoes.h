@@ -101,3 +101,10 @@ void criarRelatorioProgresso(string no, vector<Aula> v);
 *@param numero de reparacoes do novo tecnico
 */
 void adicionarTecnico(string nome, int disp, int nrRep);
+
+/**
+* @brief Faz update a BST de utentes
+*
+*@param campo de tenis
+*/
+void updateBST(CampoTenis *c);

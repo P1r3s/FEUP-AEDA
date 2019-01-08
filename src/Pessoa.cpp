@@ -66,15 +66,15 @@ void Professor::pushAula(Aula a) {
 
 
 //Funçoes Utentes
-vector<Aula> Utente::getAulasUtente() {
+vector<Aula> Utente::getAulasUtente() const{
 	return aulasDoUtente;
 }
 
-vector<Livre> Utente::getLivresUtente() {
+vector<Livre> Utente::getLivresUtente() const{
 	return livresDoUtente;
 }
 
-bool Utente::getGoldCard()
+bool Utente::getGoldCard() const
 {
 	return goldCard;
 }
