@@ -11,27 +11,9 @@
 #include "Pessoa.h"
 #include "BST.h"
 #include "ServicoTecnico.h"
+#include "Hash.h"
 
 using namespace std;
-
-struct HashProf {
-
-	int operator() (const Professor & pf) const
-	{
-		return pf.getAulaVec().size();
-	}
-
-	bool operator() (const Professor & pf1, const Professor & pf2) const
-	{
-		if (pf1.getAulaVec().size() != pf2.getAulaVec().size())
-			return false;
-		else
-			return true;
-	}
-};
-
-
-typedef unordered_set<Professor, HashProf, HashProf> HashProfessores;
 
 /**
 *  Representa o Campo de Tenis
@@ -139,6 +121,17 @@ public:
 	void addProf(string nome, string sigla, int idade, string morada, int nif);
 
 	/**
+	*  @brief Cria e adiciona o professor ao vetor de antigos professores
+	*
+	*@param nome do professor
+	*@param sigla do professor
+	*@param idade do professor
+	*@param morada do professor
+	*@param nif do professor
+	*/
+	void addExProf(string nome, string sigla, int idade, string morada, int nif);
+
+	/**
 	*  @brief Cria e adiciona o utente ao vetor de utentes
 	*
 	*@param nome do utente
@@ -157,7 +150,7 @@ public:
 	bool removeUtente(string ute);
 
 	/**
-	*  @brief Remove professor do vetor de professores e do ficheiro Professores.txt
+	*  @brief Remove professor da base de dados e do ficheiro Professores.txt e adiciona-o ao ficheiro ExProfessores.txt e a tabela de dispersao como sendo um antigo professor
 	*
 	*@param nome do professor
 	*/
@@ -212,14 +205,14 @@ public:
 	int minutes(string horas);
 
 	/**
-	*@brief Verifica se o professor existe no vetor professores
+	*@brief Verifica se o professor existe no tabela de dispersao
 	*
 	*@param nome do professor
 	*/
 	bool verificaExProf(string nome);
 
 	/**
-	*@brief Verifica se o utente existe no vetor utentes
+	*@brief Verifica se o utente existe 
 	*
 	*@param nome do utente
 	*/
@@ -233,12 +226,6 @@ public:
 	*@param nr de reparacoes do tecnico
 	*/
 	void addTecnico(string nome, int disp, int nrR);
-
-	/**
-	*  @brief Ordena fila de prioridade tecnicos
-	*
-	*/
-	//void ordenaTecnicos();
 
 	/**
 	*  @brief faz o output da informacao dos tecnicos
@@ -288,20 +275,19 @@ public:
 	*/
 	void insertBST(Utente uten);
 
-	//Tabela
-
 	/**
-	* @brief Insere um elemento na tabela de dispersao
+	* @brief Insere um professor atual na tabela de dispersao
 	*
 	*@param professor a ser inserido
 	*/
 	void insertHash(string nome, string sigla, int idade, string morada, int nif);
 
 	/**
-	* @brief retorna a tabela de dispersao
+	* @brief Insere um professor antigo na tabela de dispersao
+	*
+	*@param professor a ser inserido
 	*/
-	HashProfessores getHash() { return allProf; }
-
+	void insertExHash(string nome, string sigla, int idade, string morada, int nif);
 
 private:
 	int nCampos;							 // numero de campos disponiveis pela empressa
@@ -311,6 +297,7 @@ private:
 	string horaEncerramento;				 // horas a que os campos fecham
 
 	vector<Professor> professores;            // Vector com todos os professores
+	vector<Professor> exProfessores;
 	vector<Aula> aulas;						  // Vector com todas as aulas marcadas
 	vector<Livre> livres;					  // Vector com todos os livres marcados
 	
@@ -321,21 +308,6 @@ private:
 
 	BST<Utente> utentes;                   // BST com todos os utentes
 	priority_queue<ServicoTecnico> tecnicos;  //fila de prioridade com todos os tecnicos
-	HashProfessores allProf;					// Tabela de dispersao com professores antigos e atuais
-
-};
-
-/**
-*  Excecao
-*/
-class Exception
-{
-public:
-	Exception(string nome) { this->nome = nome; }
-	string getNome() { return nome; }
-
-private:
-	string nome;
 };
 
 

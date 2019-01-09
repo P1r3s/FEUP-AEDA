@@ -111,23 +111,7 @@ public:
 	*/
 	string getMorada() const { return morada; };
 
-	/**
-	*  @brief retorna estado do professor
-	*/
-	bool getEstado() const { return estado; };
-
-	/**
-	* @brief Muda o estado do professor
-	*
-	*@param novo estado
-	*/
-	void changeEstado(bool estadoNovo) { this->estado = estadoNovo; }
-
-	void emptyAulas();
-
-
 protected:
-	bool estado;
 	string sigla;						  // Iniciais do professor
 	vector<Aula> aulasDoProfessor;        // Vector com as aulas que o professor tem de dar
 
@@ -223,6 +207,11 @@ public:
 	*/
 	int getNif() const { return nif; }
 
+	/**
+	*  @brief operador < que ordena utentes na bst por ordem de frequencia destes nos campos ou por ordem alfabetica em caso de empate
+	*
+	*@param utente
+	*/
 	bool operator < (const Utente &u1) const;
 };
 

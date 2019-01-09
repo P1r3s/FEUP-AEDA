@@ -1,28 +1,35 @@
 #pragma once
 
 /**
-*  @brief Le o ficheiro Aulas.txt e adiciona as aulas aos respetivos vetores
+*  @brief Le o ficheiro Aulas.txt e adiciona as aulas na base de dados
 *
 *@param campo de tenis
 */
 void lerficheiroAulas(CampoTenis *c);
 
 /**
-*  @brief Le o ficheiro Livres.txt e adiciona os livres aos respetivos vetores
+*  @brief Le o ficheiro Livres.txt e adiciona os livres na base de dados
 *
 *@param campo de tenis
 */
 void lerficheiroLivres(CampoTenis *c);
 
 /**
-*  @brief Le o ficheiro Professores.txt e adiciona os professores aos respetivos vetores
+*  @brief Le o ficheiro Professores.txt e adiciona os professores a base de dados 
 *
 *@param campo de tenis
 */
 void lerficheiroProfessores(CampoTenis *c);
 
 /**
-*  @brief Le o ficheiro Utentes.txt e adiciona os utentes aos respetivos vetores
+*  @brief Le o ficheiro ExProfessores.txt e adiciona os antigos professores a base de dados
+*
+*@param campo de tenis
+*/
+void lerficheiroExProfessores(CampoTenis *c);
+
+/**
+*  @brief Le o ficheiro Utentes.txt e adiciona os utentes na base de dados
 *
 *@param campo de tenis
 */
@@ -54,7 +61,7 @@ int freqUtentes(string no);
 *
 *@param nome do utente
 */
-vector<int> contasUtentes(string no);
+Utente contasUtentes(string no);
 
 /**
 *  @brief Adiciona novo utente

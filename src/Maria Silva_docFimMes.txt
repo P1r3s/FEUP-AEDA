@@ -1,15 +1,22 @@
 AULAS
+Dia: 3, Hora: 9h
+Dia: 13, Hora: 13h
+Dia: 14, Hora: 14h
+Dia: 22, Hora: 15h
+Dia: 8, Hora: 17h
 
 LIVRES
+Dia: 6, Hora: 9h
+
 
 
 CONTAS DO MES
 
 Mensalidade do Cartao Dourado: 10 euros
 
-Total a pagar pelas aulas: 0 euros
+Total a pagar pelas aulas: 127.5 euros
 
-Total a pagar pelos livres: 0 euros
+Total a pagar pelos livres: 80 euros
 
 
-Total a pagar: 10 euros
+Total a pagar: 217.5 euros

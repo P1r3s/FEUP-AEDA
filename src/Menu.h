@@ -66,7 +66,7 @@ void menuInfoUtentes();
 void titulo();
 
 /**
-	*  @brief Guarda as informacoes dos ficheiros Aulas.txt,Livres.txt,Utentes.txt e Professores.txt
+	*  @brief Guarda as informacoes dos ficheiros de texto na base de dados
 */
 void carregarFicheiros();
 

@@ -19,7 +19,6 @@ Pessoa::Pessoa(string nome, int idade, string morada, int nif)
 Professor::Professor(string nome, string sigla, int idade, string morada, int nif) : Pessoa(nome, idade, morada, nif)
 {
 	this->sigla = sigla;
-	this->estado = true;
 }
 
 Utente::Utente(string nome, int idade, bool goldCard, string morada, int nif) : Pessoa(nome, idade, morada, nif)
@@ -64,14 +63,6 @@ vector<Aula> Professor::getAulaVec() const
 void Professor::pushAula(Aula a) {
 	aulasDoProfessor.push_back(a);
 }
-
-void Professor::emptyAulas()
-{
-	vector<Aula> aulasTemp;
-
-	aulasDoProfessor.swap(aulasTemp);
-}
-
 
 //Funçoes Utentes
 vector<Aula> Utente::getAulasUtente() const{
