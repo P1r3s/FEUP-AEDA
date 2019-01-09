@@ -2,6 +2,7 @@
 
 using namespace std;
 
+extern Hash *h;
 
 int CampoTenis::hours(string horas)				//converte a string horas para um int
 {
@@ -101,69 +102,32 @@ vector<Aula> CampoTenis::getAulas() {
 }
 
 string CampoTenis::returnSigla() {				//retorna a sigla do professor com menos aulas
-	unsigned int minimo = 999;
-	int index = 0;
-	for (unsigned int i = 0; i < getProfessors().size(); i++)
-	{
-		if (getProfessors()[i].getAulaVec().size() < minimo)
-		{
-			minimo = getProfessors()[i].getAulaVec().size();
-			index = i;
-		}
-	}
+	Professor profMeAulas = h->profMenosA();
 
-	string sigla = getProfessors()[index].getSigla();
-	return sigla;
+	return profMeAulas.getSigla();
 }
 
 void CampoTenis::addAula(int dia, string horaInicio)
 {
-
-	string sigla = returnSigla();
+	Professor profMeAulas = h->profMenosA();		//professor da tabela de dispersao com menos aulas
+	string sigla = profMeAulas.getSigla();			//sigla do professor com menos aulas
 
 	Aula a(dia, sigla, horaInicio);
-	aulas.push_back(a);
+	aulas.push_back(a);			//adiciona aula ao vetor de aulas
 
-	//encontra o indice do professor com menos aulas
-
-	unsigned int minimo = 999;
-	int index = 0;
-	for (unsigned int i = 0; i < getProfessors().size(); i++)
-	{
-		if (getProfessors()[i].getAulaVec().size() < minimo)
-		{
-			minimo = getProfessors()[i].getAulaVec().size();
-			index = i;
-		}
-	}
-
-	professores[index].pushAula(a);				//atribui a aula ao professor que tem menor nr de aulas
-
+	h->adicionaAh(a, profMeAulas);			//adiciona aula ao professor da tabela de dispersao com menos aulas
 }
 
 void CampoTenis::addAulaUtente(string nome, int dia, string horai) {
 
 	string sigla = returnSigla();
-	Aula a(dia, sigla, horai);
-
-	/*BSTItrIn<Utente> it(utentes);
-
-
-	while (!it.isAtEnd())
-	{
-		Utente u = it.retrieve();
-		if (nome == u.getName())
-		{
-			u.pushAula(a);			//adiciona a aula ao utente com o nome recebido como parametro
-		}
-		it.advance();
-	}*/
+	Aula a(dia, sigla, horai);		
 
 	for (unsigned int i = 0; i < utenTemp.size(); i++)
 	{
 		if (nome == utenTemp[i].getName())
 		{
-			utenTemp[i].pushAula(a);
+			utenTemp[i].pushAula(a);		//adiciona aula as aulas do utente
 		}
 	}
 
@@ -180,21 +144,12 @@ void CampoTenis::addLivreUtente(string nome, int dia, string horai, int nrSlots)
 
 	Livre l(dia, horai, nrSlots);
 
-	/*BSTItrIn<Utente> it(utentes);
-
-	while (!it.isAtEnd())
-	{
-		Utente u = it.retrieve();
-		if (nome == u.getName())
-		{
-			u.pushLivre(l);			//adiciona o livre ao utente com o nome recebido como parametro
-		}
-		it.advance();
-	}*/
-
 	for (unsigned int i = 0; i < utenTemp.size(); i++)
 	{
-		utenTemp[i].pushLivre(l);
+		if (nome == utenTemp[i].getName())
+		{
+			utenTemp[i].pushLivre(l);				//adiciona livre ao utente de nome "nome"
+		}
 	}
 
 }
@@ -204,6 +159,13 @@ void CampoTenis::addProf(string nome, string sigla, int idade, string morada, in
 {
 	Professor prof(nome, sigla, idade, morada, nif);			//cria professor
 	professores.push_back(prof);			//adiciona o professor ao vetor de professores
+	
+}
+
+void CampoTenis::addExProf(string nome, string sigla, int idade, string morada, int nif)
+{
+	Professor prof(nome, sigla, idade, morada, nif);			//cria professor
+	exProfessores.push_back(prof);			//adiciona o professor ao vetor de antigos professores
 }
 
 bool CampoTenis::removeUtente(string nome)
@@ -336,9 +298,12 @@ bool CampoTenis::removeProf(string nome)
 {
 	//verifica se o professor existe
 	unsigned int p = 0;
+	Professor proE = professores[0];
+
 	bool existenciaProf = false;
 	while (p < professores.size()) {
 		if (professores[p].getName() == nome) {
+			proE = professores[p];
 			existenciaProf = true;
 			break;
 		}
@@ -351,7 +316,7 @@ bool CampoTenis::removeProf(string nome)
 	}
 
 	//remove o professor do vetor de professores
-	for (size_t i = 0; i < professores.size(); i++)
+	for (unsigned int i = 0; i < professores.size(); i++)
 	{
 		if (professores[i].getName() == nome)
 		{
@@ -446,6 +411,21 @@ bool CampoTenis::removeProf(string nome)
 	}
 
 	novoFicheiro.close();
+
+	//alterar os dados do professor
+	
+	Professor pro(proE.getName(), proE.getSigla(), proE.getAge(), proE.getMorada(), proE.getNif());
+
+	h->deleteProf(proE);		//remove professor da tabela 		
+	h->insertExProf(pro);		//adiciona professor como sendo antigo professor
+
+	//adiciona professor ao ficheiro de antigos professores
+	ofstream prof;
+	prof.open("ExProfessores.txt", std::fstream::out | std::fstream::app);
+
+	prof << endl << proE.getName() << ',' << proE.getSigla() << ',' << proE.getAge() << ',' << proE.getMorada() << ',' << proE.getNif();
+
+	prof.close();
 
 	return true;
 
@@ -564,12 +544,8 @@ vector<vector<int>> CampoTenis::getDispCampos() {
 }
 
 bool CampoTenis::verificaExProf(string nome) {
-	for (unsigned int i = 0; i < professores.size(); i++) {
-		if (professores[i].getName() == nome) {			//verifica se o professor de nome "nome" existe no vetor de professores
-			return true;
-		}
-	}
-	return false;
+	//retorna true se o professor existe na tabela de dispersao
+	return h->existProf(nome);
 }
 
 bool CampoTenis::verificaExUten(string nome) {
@@ -578,11 +554,12 @@ bool CampoTenis::verificaExUten(string nome) {
 
 	while (!it.isAtEnd())
 	{
-		if (it.retrieve().getName() == nome) {			//verifica se o utente de nome "nome" existe no vetor de utentes
+		if (it.retrieve().getName() == nome) {			//verifica se o utente de nome "nome" existe
 			return true;
 		}
 		it.advance();
 	}
+
 	return false;
 }
 
@@ -628,6 +605,7 @@ void CampoTenis::infoTec() {
 	cout << "NOME,DISPONIBILIDADE,NUMERO DE REPARACOES" << endl << endl;
 	while (!temp.empty())
 	{
+		//output da informacao de todos os tecnicos da fila de prioridade
 		ServicoTecnico st = temp.top();
 		temp.pop();
 		string nome = st.getNomeTec();
@@ -645,6 +623,7 @@ void CampoTenis::tecDisp(int maxReparacoes) {
 	while (!temp.empty())
 	{
 		ServicoTecnico s = temp.top();
+		//encontra o primeiro tecnico da fila de prioridade que tem o nr de reparacoes menor ao numero passado como parametro
 		if (s.getNrReparacoes() < maxReparacoes) {
 			cout << "Tecnico " << s.getNomeTec() << " fara a reparacao do campo daqui a " << s.getDisponibilidade() << " dias" << endl;
 			
@@ -652,6 +631,7 @@ void CampoTenis::tecDisp(int maxReparacoes) {
 			int disp = s.getDisponibilidade();
 			int rep = s.getNrReparacoes();
 
+			//atualiza disponibilidade e nr de reparacoes do tecnico disponivel primeiro
 			ServicoTecnico t(nome,disp + 1, rep + 1);
 			aux.push(t);
 			temp.pop();
@@ -696,6 +676,7 @@ bool CampoTenis::verificaExTec(string nome) {
 	priority_queue<ServicoTecnico> aux = tecnicos;
 	bool exTec = false;
 
+	//verifica se tecnico existe na fila de prioridade
 	while (!aux.empty()) {
 		ServicoTecnico servico = aux.top();
 		string nomeT = servico.getNomeTec();
@@ -711,10 +692,27 @@ bool CampoTenis::verificaExTec(string nome) {
 
 bool CampoTenis::removeTec(string nomeTec) {
 	
+	priority_queue<ServicoTecnico> tecTemp = tecnicos;
+	priority_queue<ServicoTecnico> newTecs;
+
+	//remove tecnico da fila de prioridade
+	while (!tecTemp.empty()) {
+		ServicoTecnico tecT = tecTemp.top();
+		if (tecT.getNomeTec() == nomeTec) {
+			tecTemp.pop();
+		}
+		else {
+			newTecs.push(tecT);
+			tecTemp.pop();
+		}
+	}
+
+	tecnicos = newTecs;
+
 	//atualiza ficheiro .txt
 	ofstream stec;
 	stec.open("ServicoTecnico.txt");
-
+	
 	priority_queue<ServicoTecnico> aux = tecnicos;
 
 	while (!aux.empty())
@@ -738,4 +736,19 @@ bool CampoTenis::removeTec(string nomeTec) {
 void CampoTenis::insertBST(Utente uten)
 {
 	utentes.insert(uten);
+}
+
+void CampoTenis::insertExHash(string nome, string sigla, int idade, string morada, int nif) {
+
+	Professor prof(nome, sigla, idade, morada, nif);
+
+	//insere antigo professor na tabela de dispersao
+	h->insertExProf(prof);
+}
+
+void CampoTenis::insertHash(string nome, string sigla, int idade, string morada, int nif)
+{
+	Professor prof(nome, sigla, idade, morada, nif);
+	
+	h->insertProf(prof);  //insere professor na tabela
 }

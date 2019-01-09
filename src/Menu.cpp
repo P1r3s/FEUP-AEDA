@@ -2,12 +2,15 @@
 #include "Funcoes.h"
 #include "CampoTenis.h"
 #include "ServicoTecnico.h"
+#include "Hash.h"
+#include "Excecoes.h"
 #include <Windows.h>
 #include <stdlib.h>
 
 using namespace std;
 
 CampoTenis *c = new CampoTenis();
+Hash *h = new Hash(50);
 
 void menuPrincipal() {
 
@@ -134,6 +137,8 @@ void menuAlteracoes() {
 				//adicionar utente
 				cin.clear();
 				cin.ignore(10000, '\n');
+				system("pause");
+				system("cls");
 				cout << "Insira o nome do novo Utente: "; getline(cin, no, '\n');
 				cin.clear();
 				cin.ignore(10000, '\n');
@@ -158,6 +163,8 @@ void menuAlteracoes() {
 				//adiciona professor
 				cin.clear();
 				cin.ignore(10000, '\n');
+				system("pause");
+				system("cls");
 				cout << "Insira o nome do novo Professor: "; getline(cin, no, '\n');
 				cin.clear();
 				cin.ignore(10000, '\n');
@@ -182,50 +189,61 @@ void menuAlteracoes() {
 				//remover utente
 				cin.clear();
 				cin.ignore(10000, '\n');
-				cout << "Insira o nome do Utente a remover: "; getline(cin, no, '\n');
-				if (c->verificaExUten(no)) {
-					if (c->removeUtente(no)) {
-						cout << "Utente removido com sucesso!" << endl;
+				system("pause");
+				system("cls");
+				try {
+					cout << "Insira o nome do Utente a remover: "; getline(cin, no, '\n');
+					if (c->verificaExUten(no)) {
+						if (c->removeUtente(no)) {
+							cout << "Utente removido com sucesso!" << endl;
+						}
+						else
+							cout << "Nao foi possivel remover o Utente!" << endl;
+
+						cin.clear();
+						cin.ignore(10000, '\n');
+						menuAlteracoes();
 					}
-					else
-						cout << "Nao foi possivel remover o Utente!" << endl;
+					else {
+						throw (UtenteNaoExiste(no));
 
-					cin.clear();
-					cin.ignore(10000, '\n');
-					menuAlteracoes();
+					}
 				}
-				else {
-					cout << endl;
-					cout << "Nome de utente invalido!" << endl;
-					menuInfoAulas();
+				catch (UtenteNaoExiste &e) {
+					e.what();
 				}
-
+				menuAlteracoes();
 				break;
 			case 4:
 				//remover professor
 				cin.clear();
 				cin.ignore(10000, '\n');
+				system("pause");
+				system("cls");
 				cout << "Insira o nome do Professor a remover: "; getline(cin, no, '\n');
-				if (c->verificaExProf(no)) {
-					if (c->removeProf(no)) {
-						cout << endl;
-						cout << "Professor removido com sucesso!" << endl;
+				try {
+					if (c->verificaExProf(no)) {
+						if (c->removeProf(no)) {
+							cout << endl;
+							cout << "Professor removido com sucesso!" << endl;
+						}
+						else {
+							cout << endl;
+							cout << "Nao foi possivel remover o Professor!" << endl;
+						}
+						cin.clear();
+						cin.ignore(10000, '\n');
+						menuAlteracoes();
+
 					}
 					else {
-						cout << endl;
-						cout << "Nao foi possivel remover o Professor!" << endl;
+						throw (ProfNaoExiste(no));
 					}
-
-					cin.clear();
-					cin.ignore(10000, '\n');
-					menuAlteracoes();
-
 				}
-				else {
-					cout << endl;
-					cout << "Nome de professor invalido!" << endl;
-					menuAlteracoes();
+				catch (ProfNaoExiste &e) {
+					e.what();
 				}
+				menuAlteracoes();
 				break;
 			case 5:
 				menuPrincipal();
@@ -258,7 +276,8 @@ void menuTecnicos() {
 	cout << "2 - Reparacao do Campo de Tenis" << endl;
 	cout << "3 - Adicionar Tecnico" << endl;
 	cout << "4 - Remover Tecnico" << endl;
-	cout << "5 - Sair" << endl;
+	cout << "5 - Voltar ao menu anterior" << endl;
+	cout << "6 - Sair" << endl;
 	cout << "--------------------------------------------- " << endl;
 
 	int opcao = 0;
@@ -288,6 +307,8 @@ void menuTecnicos() {
 				//adicionar tecnico 
 				cin.clear();
 				cin.ignore(10000, '\n');
+				system("pause");
+				system("cls");
 				cout << "Insira o nome do novo Tecnico: "; getline(cin, noT, '\n');
 				cin.clear();
 				cout << "Insira a disponibilidade do novo Tecnico: "; cin >> dispT;
@@ -307,27 +328,37 @@ void menuTecnicos() {
 				//remover tecnico 
 				cin.clear();
 				cin.ignore(10000, '\n');
+				system("pause");
+				system("cls");
 				cout << "Insira o nome do Tecnico a remover: "; getline(cin, noT, '\n');
-				if (c->verificaExTec(noT)) {
-					if (c->removeTec(noT)) {
-						cout << endl;
-						cout << "Tecnico removido com sucesso!" << endl;
+				try {
+					if (c->verificaExTec(noT)) {
+						if (c->removeTec(noT)) {
+							cout << endl;
+							cout << "Tecnico removido com sucesso!" << endl;
+						}
+						else {
+							cout << endl;
+							cout << "Nao foi possivel remover o Tecnico!" << endl;
+						}
+						cin.clear();
+						cin.ignore(10000, '\n');
+						menuTecnicos();
 					}
 					else {
-						cout << endl;
-						cout << "Nao foi possivel remover o Tecnico!" << endl;
+						throw (TecnicoNaoExiste(noT));
+						
 					}
-					cin.clear();
-					cin.ignore(10000, '\n');
-					menuTecnicos();
 				}
-				else {
-					cout << endl;
-					cout << "Nome de tecnico invalido!" << endl;
-					menuTecnicos();
+				catch (TecnicoNaoExiste &e) {
+					e.what();
 				}
+				menuTecnicos();
 				break;
 			case 5:
+				menuPrincipal();
+				break;
+			case 6:
 				sair();
 				break;
 			default:
@@ -411,6 +442,8 @@ void menuInfoAulas() {
 
 			switch (opcao) {
 			case 1:
+				system("pause");
+				system("cls");
 				cout << endl;
 				cout << "HORARIO DAS AULAS: " << endl << endl;
 				for (int i = 9; i < 19; i++) {
@@ -423,18 +456,23 @@ void menuInfoAulas() {
 			case 2:
 				cin.clear();
 				cin.ignore(10000, '\n');
+				system("pause");
+				system("cls");
 				cout << "Insira o nome do professor: "; getline(cin, no, '\n');
 				cout << endl;
-				if (c->verificaExProf(no)) {
-					cout << "Aulas do professor: " << endl << endl;
-					professorDasAulas(no);
-					menuInfoAulas();
+				try {
+					if (c->verificaExProf(no)) {
+						professorDasAulas(no);
+						menuInfoAulas();
+					}
+					else {
+						throw (ProfNaoExiste(no));
+					}
 				}
-				else {
-					cout << endl;
-					cout << "Nome de professor invalido!" << endl;
-					menuInfoAulas();
+				catch (ProfNaoExiste &e) {
+					e.what();
 				}
+				menuInfoAulas();
 				break;
 			case 3:
 				menuInformacoes();
@@ -479,62 +517,80 @@ void menuInfoUtentes() {
 			case 1:
 				cin.clear();
 				cin.ignore(10000, '\n');
+				system("pause");
+				system("cls");
 				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
 				cout << endl;
-
-				if (c->verificaExUten(no)) {
-					cout << no << " frequentou os campos de tenis " << freqUtentes(no) << " vezes durante este mes.\n" << endl;
-					menuInfoUtentes();
+				try {
+					if (c->verificaExUten(no)) {
+						cout << no << " frequentou os campos de tenis " << freqUtentes(no) << " vezes durante este mes.\n" << endl;
+						menuInfoUtentes();
+					}
+					else {
+						throw (UtenteNaoExiste(no));
+						
+					}
 				}
-				else {
-					cout << endl;
-					cout << "Nome de utente invalido!" << endl;
-					menuInfoUtentes();
+				catch (UtenteNaoExiste &e) {
+					e.what();
 				}
-				
+				menuInfoUtentes();
 				break;
 			case 2:
 				cin.clear();
 				cin.ignore(10000, '\n');
-				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
-				cout << endl;
-
 				system("pause");
 				system("cls");
-				if (c->verificaExUten(no)) {
-					cout << "Conta do Utente" << endl << endl;
-					cout << "Nome: "; cout << no << endl;
-					cout << "Age: "; cout << contasUtentes(no).at(0) << endl;
-					cout << "Gold Card: ";
-					if (contasUtentes(no).at(1) == 1)
-						cout << "Tem cartao gold" << endl << endl;
-					else
-						cout << "Nao tem cartao gold" << endl << endl;
 
-					menuInfoUtentes();
+				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
+				cout << endl;
+				try {
+					if (c->verificaExUten(no)) {
+						cout << "Conta do Utente" << endl << endl;
+						cout << "Nome: "; cout << no << endl;
+						cout << "Age: "; cout << contasUtentes(no).getAge() << endl;
+						cout << "Gold Card: ";
+						if (contasUtentes(no).getGoldCard() == 1)
+							cout << "Tem cartao gold" << endl;
+						else
+							cout << "Nao tem cartao gold" << endl;
+						
+						cout << "Morada: "; cout << contasUtentes(no).getMorada() << endl;
+						cout << "NIF: "; cout << contasUtentes(no).getNif() << endl << endl;
+
+						menuInfoUtentes();
+					}
+					else {
+						throw (UtenteNaoExiste(no));
+					}
 				}
-				else {
-					cout << endl;
-					cout << "Nome de utente invalido!" << endl<<endl;
-					menuInfoUtentes();
+				catch (UtenteNaoExiste &e) {
+					e.what();
 				}
+				menuInfoUtentes();
 				break;
 			case 3:
 				cin.clear();
 				cin.ignore(10000, '\n');
+				system("pause");
+				system("cls");
 				cout << "Insira o nome do Utente: "; getline(cin, no, '\n');
 
-				if (c->verificaExUten(no)) {
-					criarDoc(no);
-					cout << endl;
-					cout << "Relatorio de fim do mes criado com sucesso!" << endl << endl;
-					menuInfoUtentes();
+				try {
+					if (c->verificaExUten(no)) {
+						criarDoc(no);
+						cout << endl;
+						cout << "Relatorio de fim do mes criado com sucesso!" << endl << endl;
+						menuInfoUtentes();
+					}
+					else {
+						throw (UtenteNaoExiste(no));
+					}
 				}
-				else {
-					cout << endl;
-					cout << "Nome de utente invalido!" << endl << endl;
-					menuInfoUtentes();
+				catch (UtenteNaoExiste &e) {
+					e.what();
 				}
+				menuInfoUtentes();
 				break;
 			case 4:
 				menuInformacoes();
@@ -609,8 +665,10 @@ void carregarFicheiros() {
 	lerficheiroLivres(c);
 	updateBST(c);
 	c->atualizaVetorDisp();
+	lerficheiroExProfessores(c);
 	cout << endl;
 
 	cout << "Ficheiros carregados!" << endl << endl;
+	
 	menuPrincipal();
 }

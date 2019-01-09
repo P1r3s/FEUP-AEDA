@@ -55,7 +55,7 @@ int Professor::getNrAulas(string nomeProf) {
 	return aulasDoProfessor.size();
 }
 
-vector<Aula> Professor::getAulaVec()
+vector<Aula> Professor::getAulaVec() const
 {
 	return aulasDoProfessor;
 }
@@ -63,7 +63,6 @@ vector<Aula> Professor::getAulaVec()
 void Professor::pushAula(Aula a) {
 	aulasDoProfessor.push_back(a);
 }
-
 
 //Funçoes Utentes
 vector<Aula> Utente::getAulasUtente() const{

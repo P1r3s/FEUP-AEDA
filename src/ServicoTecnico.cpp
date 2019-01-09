@@ -18,4 +18,3 @@ int ServicoTecnico::getNrReparacoes() {
 bool ServicoTecnico::operator <(const ServicoTecnico& o1) const {
 	return disponibilidade > o1.disponibilidade;
 }
-

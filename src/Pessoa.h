@@ -77,22 +77,22 @@ public:
 	/**
 	*  @brief retorna o vetor de aulas do professor
 	*/
-	vector<Aula> getAulaVec();
+	vector<Aula> getAulaVec() const;
 
 	/**
 	*  @brief retorna o nome do professor
 	*/
-	string getName() { return nome; }
+	string getName() const { return nome; }
 
 	/**
 	*  @brief retorna a idade do professor
 	*/
-	int getAge() { return idade; }
+	int getAge() const { return idade; }
 
 	/**
 	*  @brief retorna a sigla do professor
 	*/
-	string getSigla() { return sigla; }
+	string getSigla() const { return sigla; }
 
 	/**
 	*  @brief Adiciona aula ao vetor de aulas do professor
@@ -104,12 +104,12 @@ public:
 	/**
 	*  @brief retorna NIF do professor
 	*/
-	int getNif() { return nif; }
+	int getNif() const { return nif; }
 
 	/**
 	*  @brief retorna morada do professor
 	*/
-	string getMorada() { return morada; };
+	string getMorada() const { return morada; };
 
 protected:
 	string sigla;						  // Iniciais do professor
@@ -207,6 +207,11 @@ public:
 	*/
 	int getNif() const { return nif; }
 
+	/**
+	*  @brief operador < que ordena utentes na bst por ordem de frequencia destes nos campos ou por ordem alfabetica em caso de empate
+	*
+	*@param utente
+	*/
 	bool operator < (const Utente &u1) const;
 };
 

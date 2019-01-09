@@ -113,18 +113,4 @@ private:
 	double preco;						// Preco por cada meia hora de modo livre
 };
 
-/**
- *  Excecao para invalid slots
- */
-class InvalidSlot	//Exceção
-{
-public:
-	InvalidSlot(int nSlots) { this->nSlots = nSlots; }
-	int getNslots() { return nSlots; }
-
-private:
-	int nSlots;
-};
-
-
 #endif /* SRC_MODOS_H_ */
